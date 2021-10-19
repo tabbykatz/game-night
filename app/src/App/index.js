@@ -2,8 +2,8 @@ import * as React from "react";
 
 import { Routes, Route } from "react-router-dom";
 
+import Games from "../Games";
 import Nav from "../Nav";
-import Tasks from "../Tasks";
 import useApi from "../auth/useApi";
 import useAuth0 from "../auth/useAuth0";
 import { Protected } from "../auth/widgets";
@@ -47,7 +47,7 @@ const Home = () => {
         <h1>{process.env.REACT_APP_TITLE}</h1>
         <p>{process.env.REACT_APP_SUBTITLE}</p>
       </header>
-      {isAuthenticated ? <Tasks /> : null}
+      {isAuthenticated ? <Games /> : null}
     </>
   );
 };
