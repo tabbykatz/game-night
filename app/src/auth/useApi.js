@@ -5,12 +5,18 @@ import useAuth0 from "./useAuth0";
 const makeApi = (accessToken) => {
   const actions = {
     getGames: () => _get("/api/users/games"),
-    findGame: (title) => _get("/api/games", title),
+    findGame: (name) => _get("/api/games", { name }),
     addGame: (game) => _post("/api/users/games", { game }),
     addOrUpdateUser: (user) => _post("/api/users", { user }),
   };
 
-  const _get = async (url) => (await _fetch(url)).json();
+  const _get = async (_url, params) => {
+    const url = new URL(_url, window.location.origin);
+    if (params !== undefined) {
+      url.search = new URLSearchParams(params).toString();
+    }
+    return (await _fetch(url)).json();
+  };
 
   const _post = async (url, body) => {
     const response = await _fetch(url, {
