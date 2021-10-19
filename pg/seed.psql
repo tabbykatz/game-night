@@ -21,6 +21,33 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: games; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.games (
+    id integer NOT NULL,
+    game_id text NOT NULL,
+    title text NOT NULL,
+    thumbnail_url text,
+    owner_id integer NOT NULL
+);
+
+
+--
+-- Name: games_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.games ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.games_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
 -- Name: tasks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -87,6 +114,17 @@ ALTER TABLE ONLY public.tasks ALTER COLUMN id SET DEFAULT nextval('public.tasks_
 
 
 --
+-- Data for Name: games; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.games (id, game_id, title, thumbnail_url, owner_id) FROM stdin;
+1	OIXt3DmJU0	Settlers of Catan	https://cdn.shopify.com/s/files/1/0513/4077/1515/products/catan-board-game.jpg?v=1609629082	2
+2	T8zWWdh0DR	Above and Below	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1605133478422	2
+3	7xA6uN9iXn	Game of Thrones: The Iron Throne	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254206689-51Hyj0YRdzL.jpg	1
+\.
+
+
+--
 -- Data for Name: tasks; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -96,6 +134,9 @@ COPY public.tasks (id, name, user_id) FROM stdin;
 3	End white supremacy	1
 4	Advocate for living wage	1
 5	Provide universal health care	1
+7	yay	2
+8	hi xiao	2
+9	hello george	2
 \.
 
 
@@ -105,21 +146,39 @@ COPY public.tasks (id, name, user_id) FROM stdin;
 
 COPY public.users (id, given_name, family_name, picture, email, sub) FROM stdin;
 1	George	Song	https://lh3.googleusercontent.com/a-/AOh14GisMQBkZ6bxLA6L0p7EBnaPny8aK52UKRI2_tQIaw=s96-c	george@damacy.net	google-oauth2|111226858800048009044
+4	Tabitha	O'Melay	https://s.gravatar.com/avatar/1d966a39f6ba6020a5b17f3e00d3328c?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Ftm.png	tomelay@gmail.com	auth0|61677955fe39bb006924412c
+7	Tabitha	O'Melay	https://avatars.githubusercontent.com/u/55110763?v=4	tomelay@gmail.com	github|55110763
+2	Tabitha	O'Melay	https://lh3.googleusercontent.com/a-/AOh14Gj5BnRLcyNMAfQ-zSa8E8GnLSVfkRVs29k-cp0waCc=s96-c	tomelay@gmail.com	google-oauth2|105287325829057414677
 \.
+
+
+--
+-- Name: games_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.games_id_seq', 3, true);
 
 
 --
 -- Name: tasks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.tasks_id_seq', 6, true);
+SELECT pg_catalog.setval('public.tasks_id_seq', 9, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 1, true);
+SELECT pg_catalog.setval('public.users_id_seq', 77, true);
+
+
+--
+-- Name: games games_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.games
+    ADD CONSTRAINT games_pkey PRIMARY KEY (id);
 
 
 --
@@ -152,6 +211,14 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.tasks
     ADD CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: games games_owner_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.games
+    ADD CONSTRAINT games_owner_id_fkey FOREIGN KEY (owner_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
 
 --
