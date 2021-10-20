@@ -8,7 +8,6 @@ const Search = () => {
   const [games, setGames] = React.useState([]);
   const { loading, apiClient } = useApi();
 
-  // const addGame = (game) => apiClient.addGame(game).then(loadGames);
   const findGames = (name) => apiClient.findGames(name).then(setGames);
   console.log(games);
 
@@ -19,7 +18,11 @@ const Search = () => {
     </>
   );
 };
-const GameCard = ({ game }) => {
+
+const GameCard = ({ game, addGame }) => {
+  const onClick = (game) => {
+    addGame(game);
+  };
   return (
     <>
       <section key={game.id} className={styles.card}>
@@ -32,21 +35,25 @@ const GameCard = ({ game }) => {
           className={styles.cardthumb}
         />
         {/* 'Add" || "in Collection", etc' */}
-        <button>Add</button>
+        <button {...{ onClick }}>Add</button>
       </section>
     </>
   );
 };
 
-const SearchResults = ({ games }) => (
-  <ul className={styles.grid}>
-    {games.map((game) => (
-      <li className={styles.card}>
-        <GameCard {...{ game }} />
-      </li>
-    ))}
-  </ul>
-);
+const SearchResults = ({ games }) => {
+  const { loading, apiClient } = useApi();
+  const addGame = (game) => apiClient.addGame(game).then(console.log("added"));
+  return (
+    <ul className={styles.grid}>
+      {games.map((game) => (
+        <li key={game.id} className={styles.card}>
+          <GameCard {...{ game, addGame }} />
+        </li>
+      ))}
+    </ul>
+  );
+};
 
 const FindGames = () => {
   const { apiClient } = useApi();
