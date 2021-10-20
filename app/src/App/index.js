@@ -49,8 +49,6 @@ const App = () => {
 // TODO: move this
 const Events = () => <h1>Events</h1>;
 const CreateEvent = () => <h1>Create an Event</h1>;
-// end TODO
-
 const Home = () => {
   return (
     <>
