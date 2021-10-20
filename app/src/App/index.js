@@ -32,7 +32,6 @@ const App = () => {
             path="/dashboard"
             element={<Protected component={Dashboard} />}
           />
-          <Route path="/search" element={<Protected component={Search} />} />
         </Routes>
       </main>
     </>
@@ -54,5 +53,5 @@ const Home = () => {
 };
 
 const Dashboard = () => <h1>Dashboard</h1>;
-const Search = () => <h1>Search for Games</h1>;
+
 export default App;

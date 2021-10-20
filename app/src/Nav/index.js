@@ -10,9 +10,7 @@ const Nav = () => (
     <NavLink to="/" end>
       Home
     </NavLink>{" "}
-    | <NavLink to="dashboard">Dashboard</NavLink> |
-    <NavLink to="search">Search</NavLink> |
-    <Auth />
+    | <NavLink to="dashboard">Dashboard</NavLink> | <Auth />
   </nav>
 );
 
