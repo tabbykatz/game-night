@@ -47,6 +47,7 @@ const Games = () => {
   return loading ? null : (
     <section>
       <GameList {...{ games }} />
+      <Search />
     </section>
   );
 };

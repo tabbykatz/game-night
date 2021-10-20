@@ -4,7 +4,6 @@ import { Routes, Route } from "react-router-dom";
 
 import Games from "../Games";
 import Nav from "../Nav";
-import Search from "../Search";
 import useApi from "../auth/useApi";
 import useAuth0 from "../auth/useAuth0";
 import { Protected } from "../auth/widgets";
@@ -55,4 +54,5 @@ const Home = () => {
 };
 
 const Dashboard = () => <h1>Dashboard</h1>;
+const Search = () => <h1>Search for Games</h1>;
 export default App;
