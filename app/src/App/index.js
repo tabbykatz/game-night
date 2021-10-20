@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { Routes, Route } from "react-router-dom";
 
-import Games from "../Games";
+import Dashboard from "../Dashboard";
 import Nav from "../Nav";
 import Search from "../Search";
 import useApi from "../auth/useApi";
@@ -48,11 +48,6 @@ const Home = () => {
       </header>
     </>
   );
-};
-
-const Dashboard = () => {
-  const { isAuthenticated } = useAuth0();
-  return isAuthenticated ? <Games /> : null;
 };
 
 export default App;
