@@ -10,7 +10,7 @@ router.get("/games", async (request, response) => {
 });
 router.use(express.json());
 router.post("/games", async (request, response) => {
-  const game = await db.addGame(request.user.sub, request.body.game);
+  const game = await db.addGame(request.body.game, request.user.sub);
   response.status(201).json(game);
 });
 router.use(express.json());
