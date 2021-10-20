@@ -10,12 +10,12 @@ export const getGames = (sub) =>
     { sub },
   );
 
-export const addGame = (sub, game) =>
+export const addGame = (game, sub) =>
   db.one(
     `INSERT INTO games(game_id, name, thumbnail_url, owner_id)
-      VALUES(($<game_id>, $<name>, $<thumbnail_url>, SELECT id FROM users WHERE sub=$<sub>))
+      VALUES($<game_id>, $<name>, $<thumbnail_url>, (SELECT id FROM users WHERE sub=$<sub>))
       RETURNING *`,
-    { sub, game_id, name, thumbnail_url },
+    { ...game, sub },
   );
 
 export const addOrUpdateUser = (user) =>

@@ -20,8 +20,14 @@ const Search = () => {
 };
 
 const GameCard = ({ game, addGame }) => {
-  const onClick = (game) => {
-    addGame(game);
+  const onClick = () => {
+    const newGame = {
+      game_id: game.id,
+      name: game.name,
+      thumbnail_url: game.thumb_url,
+    };
+    console.log(newGame);
+    addGame(newGame);
   };
   return (
     <>
