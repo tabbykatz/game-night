@@ -19,16 +19,20 @@ const Search = () => {
     </>
   );
 };
-const GameCard = ({ id, name, thumb_url }) => {
+const GameCard = ({ game }) => {
   return (
     <>
-      <section key={id} className={styles.card}>
+      <section key={game.id} className={styles.card}>
         <header className={styles.header}>
-          <h1 className={styles.name}>{name}</h1>
+          <h1 className={styles.name}>{game.name}</h1>
         </header>
-        <img src={thumb_url} alt={name} />
+        <img
+          src={game.thumb_url}
+          alt={game.name}
+          className={styles.cardthumb}
+        />
         {/* none of this works! but in the future when it does, i'll add 'Add" || "in Collection", etc' */}
-        <div className={styles.text}>{name}</div>
+        <div className={styles.text}>{game.name}</div>
       </section>
     </>
   );
@@ -36,7 +40,7 @@ const GameCard = ({ id, name, thumb_url }) => {
 
 const SearchResults = ({ games }) => (
   <ul className={styles.grid}>
-    {games.map(({ game }) => (
+    {games.map((game) => (
       <li className={styles.card}>
         <GameCard {...{ game }} />
       </li>
