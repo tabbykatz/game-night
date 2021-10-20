@@ -67,16 +67,13 @@ const GameList = ({ games }) => (
   </ul>
 );
 
-const FindGame = () => {
-  const { apiClient } = useApi();
+const FindGame = ({ findGame }) => {
   const [title, setTitle] = React.useState("");
-  const [games, setGames] = React.useState([]);
   const canAdd = title !== "";
-
   const onSubmit = (e) => {
     e.preventDefault();
     if (canAdd) {
-      apiClient.findGame(title).then((games) => setGames(games));
+      findGame(title);
       setTitle("");
     }
   };
@@ -95,7 +92,6 @@ const FindGame = () => {
           Add
         </button>
       </form>
-      <pre>{JSON.stringify(games, null, 2)}</pre>
     </>
   );
 };
