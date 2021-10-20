@@ -44,6 +44,7 @@
     "eslint-config-prettier": "^8.2.0",
     "eslint-plugin-prettier": "^4.0.0",
     "node-sass": "^6.0.1",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "react-hot-toast": "^2.1.1"
   }
 }

@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import toast, { Toaster } from "react-hot-toast";
+
 import useApi from "../auth/useApi";
 
 import styles from "./styles.module.scss";
@@ -26,7 +28,6 @@ const GameCard = ({ game, addGame }) => {
       name: game.name,
       thumbnail_url: game.thumb_url,
     };
-    console.log(newGame);
     addGame(newGame);
   };
   return (
@@ -49,7 +50,8 @@ const GameCard = ({ game, addGame }) => {
 
 const SearchResults = ({ games }) => {
   const { loading, apiClient } = useApi();
-  const addGame = (game) => apiClient.addGame(game).then(console.log("added"));
+
+  const addGame = (game) => apiClient.addGame(game).then(toast("Game added!"));
   return (
     <ul className={styles.grid}>
       {games.map((game) => (

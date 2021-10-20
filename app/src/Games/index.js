@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import toast, { Toaster } from "react-hot-toast";
+
 import useApi from "../auth/useApi";
 
 import styles from "./styles.module.scss";
@@ -26,6 +28,10 @@ const Games = () => {
   );
 };
 const GameCard = ({ game }) => {
+  const onClick = () => {
+    // TODO: make this real
+    toast("Game Removed!");
+  };
   return (
     <>
       <section key={game.id} className={styles.card}>
@@ -38,7 +44,7 @@ const GameCard = ({ game }) => {
           className={styles.cardthumb}
         />
 
-        <button>Remove</button>
+        <button {...{ onClick }}>Remove</button>
       </section>
     </>
   );
