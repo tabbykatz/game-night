@@ -10,35 +10,11 @@ const Dashboard = () => {
   const { isAuthenticated } = useAuth0();
 
   const Recents = () => {
-    return (
-      <>
-        <h1>list of recently added games +all games button</h1>
-        <ul>
-          <li>
-            <a href="/games">All Games</a>
-          </li>
-          <li>
-            <a href="/search">Add more games</a>
-          </li>
-        </ul>
-      </>
-    );
+    return <h1>list of recently added games +all games button</h1>;
   };
 
   const UpcomingEvents = () => {
-    return (
-      <>
-        <h1>list of some upcoming events +more button</h1>
-        <ul>
-          <li>
-            <a href="/events">All Events</a>
-          </li>
-          <li>
-            <a href="/create-event">Create an Event</a>
-          </li>
-        </ul>
-      </>
-    );
+    return <h1>list of some upcoming events +more button</h1>;
   };
   return isAuthenticated ? (
     <>
