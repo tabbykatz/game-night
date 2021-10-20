@@ -3,6 +3,7 @@ import * as React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Dashboard from "../Dashboard";
+import Games from "../Games";
 import Nav from "../Nav";
 import Search from "../Search";
 import useApi from "../auth/useApi";
@@ -34,12 +35,20 @@ const App = () => {
             element={<Protected component={Dashboard} />}
           />
           <Route path="/search" element={<Protected component={Search} />} />
+          <Route path="/games" element={<Protected component={Games} />} />
+          <Route path="/events" element={<Protected component={Events} />} />
+          <Route
+            path="/create-event"
+            element={<Protected component={CreateEvent} />}
+          />
         </Routes>
       </main>
     </>
   );
 };
-
+// TODO: move this
+const Events = () => <h1>Events</h1>;
+const CreateEvent = () => <h1>Create an Event</h1>;
 const Home = () => {
   return (
     <>
