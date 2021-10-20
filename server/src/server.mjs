@@ -10,7 +10,7 @@ const app = express();
 
 app.use("/api/tasks", jwtCheck, taskRouter);
 app.use("/api/users", jwtCheck, userRouter);
-app.use("/api/games", jwtCheck, gamesRouter);
+app.use("/api/games", gamesRouter);
 
 // Do not comment out or delete this end point. The React development server
 // won't start until it pings this end point successfully.
