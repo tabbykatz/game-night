@@ -17,18 +17,37 @@ const Games = () => {
   }, [loading, loadGames]);
 
   return loading ? null : (
-    <section>
-      <GameList {...{ games }} />
-    </section>
+    <>
+      <h1>list of all games with remove buttons plus +add a game</h1>
+      <section>
+        <GameList {...{ games }} />
+      </section>
+    </>
   );
 };
+const GameCard = ({ game }) => {
+  return (
+    <>
+      <section key={game.id} className={styles.card}>
+        <header className={styles.header}>
+          <h1 className={styles.name}>{game.name}</h1>
+        </header>
+        <img
+          src={game.thumbnail_url}
+          alt={game.name}
+          className={styles.cardthumb}
+        />
 
+        <button>Remove</button>
+      </section>
+    </>
+  );
+};
 const GameList = ({ games }) => (
-  <ul className={styles.list}>
-    {games.map(({ id, name, thumbnail_url }) => (
-      <li key={id}>
-        <img src={thumbnail_url} alt={name} width="300" />
-        {name}
+  <ul className={styles.grid}>
+    {games.map((game) => (
+      <li className={styles.card}>
+        <GameCard {...{ game }} />
       </li>
     ))}
   </ul>
