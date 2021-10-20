@@ -5,7 +5,7 @@ import useAuth0 from "./useAuth0";
 const makeApi = (accessToken) => {
   const actions = {
     getGames: () => _get("/api/users/games"),
-    findGames: (name) => _get("/api/games", { name }),
+    findGame: (name) => _get("/api/games", { name }),
     addGame: (game) => _post("/api/users/games", { game }),
     addOrUpdateUser: (user) => _post("/api/users", { user }),
   };

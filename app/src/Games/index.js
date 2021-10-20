@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import Search from "../Search";
 import useApi from "../auth/useApi";
 
 import styles from "./styles.module.scss";
@@ -34,12 +33,16 @@ const initGames = [
 
 const Games = () => {
   const [games, setGames] = React.useState([]);
+  const [newGame, setNewGame] = React.useState([]);
   const { loading, apiClient } = useApi();
 
   const loadGames = React.useCallback(
     async () => setGames(await apiClient.getGames()),
     [apiClient],
   );
+  // const addGame = (game) => apiClient.addGame(game).then(loadGames);
+  const findGame = (name) => apiClient.findGame(name).then(setNewGame);
+  console.log(newGame);
   React.useEffect(() => {
     !loading && loadGames();
   }, [loading, loadGames]);
@@ -47,7 +50,8 @@ const Games = () => {
   return loading ? null : (
     <section>
       <GameList {...{ games }} />
-      <Search />
+      <FindGame {...{ findGame }} />
+      <pre>{JSON.stringify(newGame)}</pre>
     </section>
   );
 };
@@ -63,37 +67,37 @@ const GameList = ({ games }) => (
   </ul>
 );
 
-// const FindGames = () => {
-//   const { apiClient } = useApi();
-//   const [name, setName] = React.useState("");
-//   const [games, setGames] = React.useState([]);
-//   const canAdd = name !== "";
+const FindGame = () => {
+  const { apiClient } = useApi();
+  const [name, setName] = React.useState("");
+  const [games, setGames] = React.useState([]);
+  const canAdd = name !== "";
 
-//   const onSubmit = (e) => {
-//     e.preventDefault();
-//     if (canAdd) {
-//       apiClient.findGames(name).then((games) => setGames(games));
-//       setName("");
-//     }
-//   };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (canAdd) {
+      apiClient.findGame(name).then((games) => setGames(games));
+      setName("");
+    }
+  };
 
-//   return (
-//     <>
-//       <form {...{ onSubmit }}>
-//         <label>
-//           New game:{" "}
-//           <input
-//             onChange={(e) => setName(e.currentTarget.value)}
-//             value={name}
-//           />
-//         </label>
-//         <button disabled={!canAdd} className={styles.button}>
-//           Add
-//         </button>
-//       </form>
-//       <pre>{JSON.stringify(games, null, 2)}</pre>
-//     </>
-//   );
-// };
+  return (
+    <>
+      <form {...{ onSubmit }}>
+        <label>
+          New game:{" "}
+          <input
+            onChange={(e) => setName(e.currentTarget.value)}
+            value={name}
+          />
+        </label>
+        <button disabled={!canAdd} className={styles.button}>
+          Add
+        </button>
+      </form>
+      <pre>{JSON.stringify(games, null, 2)}</pre>
+    </>
+  );
+};
 
 export default Games;
