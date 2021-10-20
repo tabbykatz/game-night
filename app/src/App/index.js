@@ -41,18 +41,18 @@ const App = () => {
 };
 
 const Home = () => {
-  const { isAuthenticated } = useAuth0();
-
   return (
     <>
       <header className={styles.header}>
-        <h1>{process.env.REACT_APP_TITLE}</h1>
-        <p>{process.env.REACT_APP_SUBTITLE}</p>
+        <h1>Home</h1>
       </header>
-      {isAuthenticated ? <Games /> : null}
     </>
   );
 };
 
-const Dashboard = () => <h1>Dashboard</h1>;
+const Dashboard = () => {
+  const { isAuthenticated } = useAuth0();
+  return isAuthenticated ? <Games /> : null;
+};
+
 export default App;
