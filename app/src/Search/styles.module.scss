@@ -16,3 +16,8 @@ li {
     grid-template-columns: repeat(auto-fit, minmax(min(30%, 100%), 1fr));
   }
 }
+
+.cardthumb {
+  width: 30%;
+  height: auto;
+}
