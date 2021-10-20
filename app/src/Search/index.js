@@ -31,8 +31,8 @@ const GameCard = ({ game }) => {
           alt={game.name}
           className={styles.cardthumb}
         />
-        {/* 'Add" || "in Collection", etc' */}
-        <button>Add</button>
+        {/* none of this works! but in the future when it does, i'll add 'Add" || "in Collection", etc' */}
+        <div className={styles.text}>{game.name}</div>
       </section>
     </>
   );
@@ -73,10 +73,11 @@ const FindGames = () => {
           />
         </label>
         <button disabled={!canAdd} className={styles.button}>
-          Search
+          Add
         </button>
       </form>
       {games ? <SearchResults {...{ games }} /> : null}
+      <pre>{JSON.stringify(games[0], null, 2)}</pre>
     </>
   );
 };
