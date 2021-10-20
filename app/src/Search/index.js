@@ -15,17 +15,30 @@ const Search = () => {
   return (
     <>
       <FindGames {...{ findGames }} />
-      {loading ? null : <SearchResults {...{ games }} />}
+      <SearchResults {...{ games }} />
+    </>
+  );
+};
+const GameCard = ({ id, name, thumb_url }) => {
+  return (
+    <>
+      <section key={id} className={styles.card}>
+        <header className={styles.header}>
+          <h1 className={styles.name}>{name}</h1>
+        </header>
+        <img src={thumb_url} alt={name} />
+        {/* none of this works! but in the future when it does, i'll add 'Add" || "in Collection", etc' */}
+        <div className={styles.text}>{name}</div>
+      </section>
     </>
   );
 };
 
 const SearchResults = ({ games }) => (
-  <ul className={styles.list}>
-    {games.map(({ id, name, thumbnail_url }) => (
-      <li key={id}>
-        <img src={thumbnail_url} alt={name} width="300" />
-        {name}
+  <ul className={styles.grid}>
+    {games.map(({ game }) => (
+      <li className={styles.card}>
+        <GameCard {...{ game }} />
       </li>
     ))}
   </ul>
@@ -59,7 +72,8 @@ const FindGames = () => {
           Add
         </button>
       </form>
-      <pre>{JSON.stringify(games, null, 2)}</pre>
+      {games ? <SearchResults {...{ games }} /> : null}
+      <pre>{JSON.stringify(games[0], null, 2)}</pre>
     </>
   );
 };
