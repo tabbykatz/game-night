@@ -8,7 +8,20 @@ import styles from "./styles.module.scss";
 
 const Dashboard = () => {
   const { isAuthenticated } = useAuth0();
-  return isAuthenticated ? <Games /> : null;
+
+  const Recents = () => {
+    return <h1>list of recently added games +all games button</h1>;
+  };
+
+  const UpcomingEvents = () => {
+    return <h1>list of some upcoming events +more button</h1>;
+  };
+  return isAuthenticated ? (
+    <>
+      <Recents />
+      <UpcomingEvents />
+    </>
+  ) : null;
 };
 
 export default Dashboard;
