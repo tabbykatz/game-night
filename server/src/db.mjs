@@ -4,18 +4,32 @@ import { load_dotenv_if_exists } from "./utils.mjs";
 
 const db = initDb();
 
+// export const getTasks = (sub) =>
+//   db.any(
+//     "SELECT tasks.* FROM tasks LEFT JOIN users on user_id=users.id WHERE sub=$<sub>",
+//     { sub },
+//   );
+
 export const getGames = (sub) =>
   db.any(
     "SELECT games.* FROM games LEFT JOIN users on owner_id=users.id WHERE sub=$<sub>",
     { sub },
   );
 
+// export const addTask = (sub, name) =>
+//   db.one(
+//     `INSERT INTO tasks(user_id, name)
+//       VALUES((SELECT id FROM users WHERE sub=$<sub>), $<name>)
+//       RETURNING *`,
+//     { sub, name },
+//   );
+
 export const addGame = (sub, game) =>
   db.one(
-    `INSERT INTO games(game_id, name, thumbnail_url, owner_id)
-      VALUES(($<game_id>, $<name>, $<thumbnail_url>, SELECT id FROM users WHERE sub=$<sub>))
+    `INSERT INTO games(game_id, title, thumbnail_url, owner_id)
+      VALUES(($<game_id>, $<title>, $<thumbnail_url>, SELECT id FROM users WHERE sub=$<sub>))
       RETURNING *`,
-    { sub, game_id, name, thumbnail_url },
+    { sub, game_id, title, thumbnail_url },
   );
 
 export const addOrUpdateUser = (user) =>
