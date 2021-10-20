@@ -41,7 +41,7 @@ const Games = () => {
     [apiClient],
   );
   // const addGame = (game) => apiClient.addGame(game).then(loadGames);
-  const findGame = (title) => apiClient.findGame(title).then(setNewGame);
+  const findGame = (name) => apiClient.findGame(name).then(setNewGame);
   console.log(newGame);
   React.useEffect(() => {
     !loading && loadGames();
@@ -58,10 +58,10 @@ const Games = () => {
 
 const GameList = ({ games }) => (
   <ul className={styles.list}>
-    {games.map(({ id, title, thumbnail_url }) => (
+    {games.map(({ id, name, thumbnail_url }) => (
       <li key={id}>
-        <img src={thumbnail_url} alt={title} width="300" />
-        {title}
+        <img src={thumbnail_url} alt={name} width="300" />
+        {name}
       </li>
     ))}
   </ul>
@@ -69,15 +69,15 @@ const GameList = ({ games }) => (
 
 const FindGame = () => {
   const { apiClient } = useApi();
-  const [title, setTitle] = React.useState("");
+  const [name, setName] = React.useState("");
   const [games, setGames] = React.useState([]);
-  const canAdd = title !== "";
+  const canAdd = name !== "";
 
   const onSubmit = (e) => {
     e.preventDefault();
     if (canAdd) {
-      apiClient.findGame(title).then((games) => setGames(games));
-      setTitle("");
+      apiClient.findGame(name).then((games) => setGames(games));
+      setName("");
     }
   };
 
@@ -87,8 +87,8 @@ const FindGame = () => {
         <label>
           New game:{" "}
           <input
-            onChange={(e) => setTitle(e.currentTarget.value)}
-            value={title}
+            onChange={(e) => setName(e.currentTarget.value)}
+            value={name}
           />
         </label>
         <button disabled={!canAdd} className={styles.button}>
