@@ -8,20 +8,75 @@ import styles from "./styles.module.scss";
 
 const Search = () => {
   const [games, setGames] = React.useState([]);
+  const [myGames, setMyGames] = React.useState([]);
   const { loading, apiClient } = useApi();
 
-  const findGames = (name) => apiClient.findGames(name).then(setGames);
-  console.log(games);
+  const loadGames = React.useCallback(async () => {
+    setMyGames(await apiClient.getGames());
+  }, [apiClient]);
+  React.useEffect(() => {
+    !loading && loadGames();
+  }, [loading, loadGames]);
 
+  const findGames = (name) => apiClient.findGames(name).then(setGames);
   return (
     <>
       <FindGames {...{ findGames }} />
-      <SearchResults {...{ games }} />
+      {games ? <SearchResults {...{ games, myGames, loadGames }} /> : null}
     </>
   );
 };
 
-const GameCard = ({ game, addGame }) => {
+const FindGames = ({ findGames }) => {
+  const [name, setName] = React.useState("");
+  const canAdd = name !== "";
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (canAdd) {
+      findGames(name);
+      setName("");
+    }
+  };
+
+  return (
+    <form {...{ onSubmit }}>
+      <label>
+        New game:{" "}
+        <input onChange={(e) => setName(e.currentTarget.value)} value={name} />
+      </label>
+      <button disabled={!canAdd} className={styles.button}>
+        Search
+      </button>
+    </form>
+  );
+};
+
+const SearchResults = ({ games, myGames, loadGames }) => {
+  const { loading, apiClient } = useApi();
+  const myGameIds = myGames.map((game) => game.game_id);
+  const gameIds = games
+    .map((game) => game.id)
+    .filter((id) => myGameIds.includes(id));
+  const addGame = (game) =>
+    apiClient.addGame(game).then(() => {
+      loadGames();
+      toast("Game added!");
+    });
+  return (
+    <ul className={styles.grid}>
+      {games.map((game) => (
+        <li key={game.id} className={styles.card}>
+          <GameCard
+            {...{ game, addGame }}
+            isInMyCollection={gameIds.includes(game.id)}
+          />
+        </li>
+      ))}
+    </ul>
+  );
+};
+const GameCard = ({ game, addGame, isInMyCollection }) => {
   const onClick = () => {
     const newGame = {
       game_id: game.id,
@@ -41,57 +96,12 @@ const GameCard = ({ game, addGame }) => {
           alt={game.name}
           className={styles.cardthumb}
         />
-        {/* 'Add" || "in Collection", etc' */}
-        <button {...{ onClick }}>Add</button>
+        {isInMyCollection ? (
+          "is in already"
+        ) : (
+          <button {...{ onClick }}>Add</button>
+        )}
       </section>
-    </>
-  );
-};
-
-const SearchResults = ({ games }) => {
-  const { loading, apiClient } = useApi();
-
-  const addGame = (game) => apiClient.addGame(game).then(toast("Game added!"));
-  return (
-    <ul className={styles.grid}>
-      {games.map((game) => (
-        <li key={game.id} className={styles.card}>
-          <GameCard {...{ game, addGame }} />
-        </li>
-      ))}
-    </ul>
-  );
-};
-
-const FindGames = () => {
-  const { apiClient } = useApi();
-  const [name, setName] = React.useState("");
-  const [games, setGames] = React.useState([]);
-  const canAdd = name !== "";
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    if (canAdd) {
-      apiClient.findGames(name).then((games) => setGames(games));
-      setName("");
-    }
-  };
-
-  return (
-    <>
-      <form {...{ onSubmit }}>
-        <label>
-          New game:{" "}
-          <input
-            onChange={(e) => setName(e.currentTarget.value)}
-            value={name}
-          />
-        </label>
-        <button disabled={!canAdd} className={styles.button}>
-          Search
-        </button>
-      </form>
-      {games ? <SearchResults {...{ games }} /> : null}
     </>
   );
 };
