@@ -16,7 +16,7 @@ router.post("/games", async (request, response) => {
 });
 
 router.delete("/games/:id", async (request, response) => {
-  await db.deleteGame(request.body.id, request.user.sub);
+  await db.deleteGame(request.params.id, request.user.sub);
   response.status(204).end();
 });
 

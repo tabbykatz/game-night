@@ -10,7 +10,7 @@ import styles from "./styles.module.scss";
 const Search = () => {
   const [results, setResults] = React.useState([]);
   const { myGames, loadGames } = useMyGames();
-  const { loading, apiClient } = useApi();
+  const { apiClient } = useApi();
 
   const findGames = (name) => apiClient.findGames(name).then(setResults);
 

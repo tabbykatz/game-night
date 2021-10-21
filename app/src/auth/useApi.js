@@ -11,7 +11,9 @@ const makeApi = (accessToken) => {
     addOrUpdateUser: (user) => _post("/api/users", { user }),
   };
 
-  const _delete = (url) => _fetch(url, { method: "DELETE" });
+  const _delete = (url, id) => {
+    _fetch(url, { method: "DELETE" });
+  };
 
   const _get = async (_url, params) => {
     const url = new URL(_url, window.location.origin);
