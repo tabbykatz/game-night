@@ -11,11 +11,12 @@ const Games = () => {
   const { myGames, loadGames } = useMyGames();
   const { apiClient } = useApi();
 
-  const deleteGame = (id) =>
-    apiClient.deleteGame(id).then(() => {
-      loadGames();
-      toast("Game removed!");
-    });
+  const deleteGame = (id) => {
+    apiClient.deleteGame(id);
+    loadGames();
+    toast("Game removed!");
+  };
+
   return myGames ? (
     <>
       <h1>list of all games with remove buttons plus +add a game</h1>
