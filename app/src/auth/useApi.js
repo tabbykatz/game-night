@@ -7,8 +7,11 @@ const makeApi = (accessToken) => {
     getGames: () => _get("/api/users/games"),
     findGames: (name) => _get("/api/games", { name }),
     addGame: (game) => _post("/api/users/games", { game }),
+    deleteGame: (id) => _delete(`/api/users/games/${id}`, { id }),
     addOrUpdateUser: (user) => _post("/api/users", { user }),
   };
+
+  const _delete = (url) => _fetch(url, { method: "DELETE" });
 
   const _get = async (_url, params) => {
     const url = new URL(_url, window.location.origin);
