@@ -21,10 +21,7 @@ export const addGame = (game, sub) =>
 export const deleteGame = (id, sub) => {
   db.none(
     "DELETE FROM games WHERE id = $<id> AND owner_id = (SELECT id FROM users WHERE sub = $<sub>)",
-    {
-      id,
-      sub,
-    },
+    { id, sub },
   );
 };
 

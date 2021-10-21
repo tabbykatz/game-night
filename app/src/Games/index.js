@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import toast, { Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 import useApi from "../auth/useApi";
 import { useMyGames } from "../hooks";
@@ -12,8 +12,7 @@ const Games = () => {
   const { apiClient } = useApi();
 
   const deleteGame = (id) => {
-    apiClient.deleteGame(id);
-    loadGames();
+    apiClient.deleteGame(id).then(loadGames());
     toast("Game removed!");
   };
 
@@ -41,6 +40,7 @@ const GameCard = ({ game, deleteGame }) => {
   const onClick = () => {
     deleteGame(game.id);
   };
+
   return (
     <>
       <section key={game.id} className={styles.card}>

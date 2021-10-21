@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import toast, { Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { Routes, Route } from "react-router-dom";
 
 import Dashboard from "../Dashboard";
