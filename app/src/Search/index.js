@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 import useApi from "../auth/useApi";
 import { useMyGames } from "../hooks";
