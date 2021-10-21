@@ -3,26 +3,27 @@ import * as React from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 import useApi from "../auth/useApi";
+import { useMyGames } from "../hooks";
 
 import styles from "./styles.module.scss";
 
 const Search = () => {
-  const [games, setGames] = React.useState([]);
-  const [myGames, setMyGames] = React.useState([]);
+  const [results, setResults] = React.useState([]);
+  const { myGames, loadGames } = useMyGames();
   const { loading, apiClient } = useApi();
 
-  const loadGames = React.useCallback(async () => {
-    setMyGames(await apiClient.getGames());
-  }, [apiClient]);
-  React.useEffect(() => {
-    !loading && loadGames();
-  }, [loading, loadGames]);
+  const findGames = (name) => apiClient.findGames(name).then(setResults);
 
-  const findGames = (name) => apiClient.findGames(name).then(setGames);
+  const addGame = (game) =>
+    apiClient.addGame(game).then(() => {
+      loadGames();
+      toast("Game added!");
+    });
+
   return (
     <>
       <FindGames {...{ findGames }} />
-      {games ? <SearchResults {...{ games, myGames, loadGames }} /> : null}
+      {results ? <SearchResults {...{ results, myGames, addGame }} /> : null}
     </>
   );
 };
@@ -35,7 +36,6 @@ const FindGames = ({ findGames }) => {
     e.preventDefault();
     if (canAdd) {
       findGames(name);
-      setName("");
     }
   };
 
@@ -52,20 +52,16 @@ const FindGames = ({ findGames }) => {
   );
 };
 
-const SearchResults = ({ games, myGames, loadGames }) => {
+const SearchResults = ({ results, myGames, addGame }) => {
   const { loading, apiClient } = useApi();
   const myGameIds = myGames.map((game) => game.game_id);
-  const gameIds = games
+  const gameIds = results
     .map((game) => game.id)
     .filter((id) => myGameIds.includes(id));
-  const addGame = (game) =>
-    apiClient.addGame(game).then(() => {
-      loadGames();
-      toast("Game added!");
-    });
+
   return (
     <ul className={styles.grid}>
-      {games.map((game) => (
+      {results.map((game) => (
         <li key={game.id} className={styles.card}>
           <GameCard
             {...{ game, addGame }}
@@ -85,6 +81,7 @@ const GameCard = ({ game, addGame, isInMyCollection }) => {
     };
     addGame(newGame);
   };
+
   return (
     <>
       <section key={game.id} className={styles.card}>
