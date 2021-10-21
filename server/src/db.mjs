@@ -18,6 +18,15 @@ export const addGame = (game, sub) =>
     { ...game, sub },
   );
 
+export const deleteGame = (id, sub) =>
+  db.none(
+    "DELETE FROM games WHERE game_id = $<id> AND owner_id = (SELECT id FROM users WHERE sub=$<sub>)",
+    {
+      id,
+      sub,
+    },
+  );
+
 export const addOrUpdateUser = (user) =>
   db.one(
     `INSERT INTO users(given_name, family_name, picture, email, sub)

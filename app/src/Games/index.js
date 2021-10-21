@@ -8,32 +8,37 @@ import { useMyGames } from "../hooks";
 import styles from "./styles.module.scss";
 
 const Games = () => {
-  const { myGames } = useMyGames();
-  console.log({ myGames });
+  const { myGames, loadGames } = useMyGames();
+  const { apiClient } = useApi();
+
+  const deleteGame = (id) =>
+    apiClient.deleteGame(id).then(() => {
+      loadGames();
+      toast("Game removed!");
+    });
   return myGames ? (
     <>
       <h1>list of all games with remove buttons plus +add a game</h1>
       <section>
-        <GameList games={myGames} />
+        <GameList games={myGames} {...{ deleteGame }} />
       </section>
     </>
   ) : null;
 };
 
-const GameList = ({ games }) => (
+const GameList = ({ games, deleteGame }) => (
   <ul className={styles.grid}>
     {games.map((game) => (
       <li className={styles.card}>
-        <GameCard {...{ game }} />
+        <GameCard {...{ game, deleteGame }} />
       </li>
     ))}
   </ul>
 );
 
-const GameCard = ({ game }) => {
+const GameCard = ({ game, deleteGame }) => {
   const onClick = () => {
-    // TODO: make this real
-    toast("Game Removed!");
+    deleteGame(game.id);
   };
   return (
     <>
