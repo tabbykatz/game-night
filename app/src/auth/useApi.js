@@ -6,6 +6,7 @@ const makeApi = (accessToken) => {
   const actions = {
     getGames: () => _get("/api/users/games"),
     findGames: (name) => _get("/api/games", { name }),
+    getGame: (id) => _get(`/api/games/${id}`),
     addGame: (game) => _post("/api/users/games", { game }),
     deleteGame: (id) => _delete(`/api/users/games/${id}`),
     addOrUpdateUser: (user) => _post("/api/users", { user }),

@@ -12,6 +12,12 @@ router.get("/", async ({ query: { name } }, response) => {
   response.json(games);
 });
 
+router.get("/:id", async ({ query: { ids } }, response) => {
+  const { game } = await bga("search", { searchParams: { ids } });
+  console.log(game);
+  response.json(game);
+});
+
 const bga = got.extend({
   prefixUrl: "https://api.boardgameatlas.com/api/",
   responseType: "json",

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import toast from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 import useApi from "../auth/useApi";
 import { useMyGames } from "../hooks";
@@ -53,7 +53,6 @@ const FindGames = ({ findGames }) => {
 };
 
 const SearchResults = ({ results, myGames, addGame }) => {
-  const { loading, apiClient } = useApi();
   const myGameIds = myGames.map((game) => game.game_id);
   const gameIds = results
     .map((game) => game.id)
