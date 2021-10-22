@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { toast } from "react-hot-toast";
+import { FaMinusSquare } from "react-icons/fa";
 
 import useApi from "../auth/useApi";
 import { useMyGames } from "../hooks";
@@ -8,7 +9,8 @@ import { useMyGames } from "../hooks";
 import styles from "./styles.module.scss";
 
 const Games = () => {
-  const [detailView, setDetailView] = React.useState(false);
+  const [detailsView, setDetailsView] = React.useState(false);
+  const [selectedGame, setSelectedGame] = React.useState([]);
   const { myGames, loadGames } = useMyGames();
   const { apiClient } = useApi();
 
@@ -18,20 +20,21 @@ const Games = () => {
   };
 
   const showDetails = (id) => {
-    // make a new call to get game obj
-    // toast("I'll work someday!");
-    apiClient.getGame(id).then(setDetailView(true));
+    apiClient.getGame(id).then((game) => {
+      setSelectedGame(game.games[0]);
+      setDetailsView(true);
+    });
   };
 
-  return myGames && !detailView ? (
+  return myGames && !detailsView ? (
     <>
       <h1>list of all games with remove buttons plus +add a game</h1>
       <section>
         <GameList games={myGames} {...{ deleteGame, showDetails }} />
       </section>
     </>
-  ) : detailView ? (
-    <h1>details!</h1>
+  ) : detailsView ? (
+    <GameDetails {...{ selectedGame }} />
   ) : null;
 };
 
@@ -68,10 +71,35 @@ const GameCard = ({ game, deleteGame, showDetails }) => {
             alt={game.name}
             className={styles.cardthumb}
           />
-
-          <button {...{ onClick }}>Remove</button>
         </div>
       </div>
+      <FaMinusSquare {...{ onClick }} />
+    </>
+  );
+};
+
+const GameDetails = ({ selectedGame }) => {
+  return (
+    <>
+      <div className={styles.container}>
+        <img
+          alt={selectedGame.name}
+          className={`${styles.detailsimage} ${styles.left}`}
+          src={selectedGame.image_url}
+        />
+        <div className={styles.right}>
+          <h1>{selectedGame.name}</h1>
+          <em>{selectedGame.primary_designer.name}</em> <br />
+          {selectedGame.min_players}-{selectedGame.max_players} Players
+          <br />
+          Playtime: {selectedGame.min_playtime}-{selectedGame.max_playtime}{" "}
+          minutes
+        </div>
+      </div>
+      <details className={styles.description}>
+        <summary>Get description</summary>
+        {selectedGame.description_preview}
+      </details>
     </>
   );
 };
