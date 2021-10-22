@@ -43,18 +43,18 @@ const GameCard = ({ game, deleteGame }) => {
 
   return (
     <>
-      <section key={game.id} className={styles.card}>
-        <header className={styles.header}>
-          <h1 className={styles.name}>{game.name}</h1>
-        </header>
-        <img
-          src={game.thumbnail_url}
-          alt={game.name}
-          className={styles.cardthumb}
-        />
+      <div className={styles.wrapper}>
+        <div key={game.id} className={`${styles.box} ${styles.dropshadow}`}>
+          <header>{game.name}</header>
+          <img
+            src={game.thumbnail_url}
+            alt={game.name}
+            className={styles.cardthumb}
+          />
 
-        <button {...{ onClick }}>Remove</button>
-      </section>
+          <button {...{ onClick }}>Remove</button>
+        </div>
+      </div>
     </>
   );
 };
