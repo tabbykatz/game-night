@@ -16,27 +16,32 @@ const Games = () => {
     toast("Game removed!");
   };
 
+  const showDetails = (id) => {
+    // make a new call to get game obj
+    toast("I'll work someday!");
+  };
+
   return myGames ? (
     <>
       <h1>list of all games with remove buttons plus +add a game</h1>
       <section>
-        <GameList games={myGames} {...{ deleteGame }} />
+        <GameList games={myGames} {...{ deleteGame, showDetails }} />
       </section>
     </>
   ) : null;
 };
 
-const GameList = ({ games, deleteGame }) => (
+const GameList = ({ games, deleteGame, showDetails }) => (
   <ul className={styles.grid}>
     {games.map((game) => (
       <li className={styles.card}>
-        <GameCard {...{ game, deleteGame }} />
+        <GameCard {...{ game, deleteGame, showDetails }} />
       </li>
     ))}
   </ul>
 );
 
-const GameCard = ({ game, deleteGame }) => {
+const GameCard = ({ game, deleteGame, showDetails }) => {
   const onClick = () => {
     deleteGame(game.id);
   };
@@ -44,7 +49,14 @@ const GameCard = ({ game, deleteGame }) => {
   return (
     <>
       <div className={styles.wrapper}>
-        <div key={game.id} className={`${styles.box} ${styles.dropshadow}`}>
+        <div
+          key={game.id}
+          className={`${styles.box} ${styles.dropshadow}`}
+          onClick={() => showDetails(game.id)}
+          onKeyDown={() => showDetails(game.id)}
+          role="button"
+          tabIndex={0}
+        >
           <header>{game.name}</header>
           <img
             src={game.thumbnail_url}
