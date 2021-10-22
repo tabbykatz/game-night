@@ -12,8 +12,9 @@ router.get("/", async ({ query: { name } }, response) => {
   response.json(games);
 });
 
-router.get("/:id", async ({ query: { ids } }, response) => {
-  const { game } = await bga("search", { searchParams: { ids } });
+router.get("/:id", async ({ query: { //?
+} }, response) => {
+  const { game } = await bga("search", { searchParams: { //? } });
   console.log(game);
   response.json(game);
 });
