@@ -3,12 +3,10 @@ import mime from "mime-types";
 
 import gamesRouter from "./gamesRouter.mjs";
 import jwtCheck from "./jwtCheck.mjs";
-import taskRouter from "./taskRouter.mjs";
 import userRouter from "./userRouter.mjs";
 
 const app = express();
 
-app.use("/api/tasks", jwtCheck, taskRouter);
 app.use("/api/users", jwtCheck, userRouter);
 app.use("/api/games", jwtCheck, gamesRouter);
 
