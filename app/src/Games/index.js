@@ -4,36 +4,29 @@ import { toast } from "react-hot-toast";
 import { FaMinusSquare } from "react-icons/fa";
 
 import useApi from "../auth/useApi";
-import { useMyGames } from "../hooks";
+import { useGameDetail, useMyGames } from "../hooks";
 
 import styles from "./styles.module.scss";
 
 const Games = () => {
-  const [detailsView, setDetailsView] = React.useState(false);
-  const [selectedGame, setSelectedGame] = React.useState([]);
   const { myGames, loadGames } = useMyGames();
+  const { selectedGame, showDetails } = useGameDetail();
+
   const { apiClient } = useApi();
 
   const deleteGame = (id) => {
     apiClient.deleteGame(id).then(loadGames());
     toast("Game removed!");
   };
-
-  const showDetails = (id) => {
-    apiClient.getGame(id).then((game) => {
-      setSelectedGame(game.games[0]);
-      setDetailsView(true);
-    });
-  };
-
-  return myGames && !detailsView ? (
+  console.log(selectedGame);
+  return myGames && !selectedGame ? (
     <>
       <h1>list of all games with remove buttons plus +add a game</h1>
       <section>
         <GameList games={myGames} {...{ deleteGame, showDetails }} />
       </section>
     </>
-  ) : detailsView ? (
+  ) : selectedGame?.name ? (
     <GameDetails {...{ selectedGame }} />
   ) : null;
 };
