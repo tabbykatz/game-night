@@ -55,7 +55,7 @@ const FindGames = ({ findGames }) => {
 };
 
 const SearchResults = ({ results, myGames, addGame }) => {
-  const myGameIds = myGames.map((game) => game.game_id);
+  const myGameIds = myGames.map((game) => game.id);
   const gameIds = results
     .map((game) => game.id)
     .filter((id) => myGameIds.includes(id));
@@ -77,9 +77,9 @@ const SearchResults = ({ results, myGames, addGame }) => {
 const GameCard = ({ game, addGame, isInMyCollection }) => {
   const onClick = () => {
     const newGame = {
-      game_id: game.id,
+      id: game.id,
       name: game.name,
-      thumbnail_url: game.thumb_url,
+      image_url: game.image_url,
     };
     addGame(newGame);
   };

@@ -5,6 +5,7 @@ import { FaMinusSquare } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 import useApi from "../auth/useApi";
+import Card from "../components/Card";
 import { useMyGames } from "../hooks";
 
 import styles from "./styles.module.scss";
@@ -14,13 +15,12 @@ const Games = () => {
   const { apiClient } = useApi();
 
   const deleteGame = (id) => {
-    apiClient.deleteGame(id).then(loadGames());
-    toast("Game removed!");
+    apiClient.deleteGame(id).then(loadGames()).then(toast("Game removed!"));
   };
 
   return myGames ? (
     <>
-      <h1>list of all games with remove buttons plus +add a game</h1>
+      {/* TODO: Add a button to go to addgame */}
       <section>
         <GameList games={myGames} {...{ deleteGame }} />
       </section>
@@ -32,34 +32,39 @@ const GameList = ({ games, deleteGame }) => (
   <ul className={styles.grid}>
     {games.map((game) => (
       <li className={styles.card} key={game.id}>
-        <GameCard {...{ game, deleteGame }} />
+        <Card
+          {...{ game }}
+          handleClick={deleteGame}
+          isIn={true}
+          action={"remove"}
+        />
       </li>
     ))}
   </ul>
 );
 
-const GameCard = ({ game, deleteGame }) => {
-  const onClick = () => {
-    deleteGame(game.id);
-  };
+// const GameCard = ({ game, deleteGame }) => {
+//   const onClick = () => {
+//     deleteGame(game.id);
+//   };
 
-  return (
-    <>
-      <div className={styles.wrapper}>
-        <div key={game.id} className={`${styles.box} ${styles.dropshadow}`}>
-          <header>
-            <Link to={`/games/${game.game_id}`}>{game.name}</Link>
-          </header>
-          <img
-            src={game.thumbnail_url}
-            alt={game.name}
-            className={styles.cardthumb}
-          />
-        </div>
-      </div>
-      <FaMinusSquare {...{ onClick }} />
-    </>
-  );
-};
+//   return (
+//     <>
+//       <div className={styles.wrapper}>
+//         <div key={game.id} className={`${styles.box} ${styles.dropshadow}`}>
+//           <header>
+//             <Link to={`/games/${game.id}`}>{game.name}</Link>
+//           </header>
+//           <img
+//             src={game.thumbnail_url}
+//             alt={game.name}
+//             className={styles.cardthumb}
+//           />
+//         </div>
+//       </div>
+//       <FaMinusSquare {...{ onClick }} />
+//     </>
+//   );
+// };
 
 export default Games;
