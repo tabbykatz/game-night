@@ -25,25 +25,11 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.games (
-    id integer NOT NULL,
-    game_id text NOT NULL,
+    id text NOT NULL,
     name text NOT NULL,
-    thumbnail_url text,
-    owner_id integer NOT NULL
-);
-
-
---
--- Name: games_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-ALTER TABLE public.games ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
-    SEQUENCE NAME public.games_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1
+    image_url text NOT NULL,
+    owner_id integer NOT NULL,
+    date_added timestamp without time zone DEFAULT now()
 );
 
 
@@ -117,25 +103,7 @@ ALTER TABLE ONLY public.tasks ALTER COLUMN id SET DEFAULT nextval('public.tasks_
 -- Data for Name: games; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.games (id, game_id, name, thumbnail_url, owner_id) FROM stdin;
-2	T8zWWdh0DR	Above and Below	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1605133478422	2
-3	7xA6uN9iXn	Game of Thrones: The Iron Throne	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254206689-51Hyj0YRdzL.jpg	1
-7	OIXt3DmJU0	Catan	https://cdn.shopify.com/s/files/1/0513/4077/1515/products/catan-board-game.jpg?v=1609629082	2
-8	btFnlGIdZD	Near and Far	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559255083453-51JQ9Z7Ag9L.jpg	2
-9	DL9kvv4ChL	Near and Far: Amber Mines	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1540095338997	2
-10	fDn9rQjH9O	Terraforming Mars	https://cdn.shopify.com/s/files/1/0513/4077/1515/products/terraforming-mars-board-game.jpg?v=1611091381	2
-11	1T4vPMhOoB	Terraforming Mars: Prelude	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254890820-51pZqHor2BkL.jpg	2
-12	BsW53eMDNO	Terraforming Mars: Hellas & Elysium	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254971844-51AOyXPEvOL.jpg	2
-13	ygzsA7wRGq	Terraforming Mars: Venus Next	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254957621-51j9TsNhPVL.jpg	2
-14	x1IU2t8NBx	Terraforming Mars: Colonies	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1618417771429	2
-15	O0G8z5Wgz1	Splendor	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254164722-51AHDwGznvL.jpg	2
-16	kPDxpJZ8PD	Spirit Island	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254941010-61PJxjjnbfL.jpg	2
-17	otIQ3ZB83G	Spirit Island: Branch & Claw	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257847539-41t6RZe13CL.jpg	2
-18	fxLx94woFL	Islebound	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559255094769-51bGOqvCQJL.jpg	2
-19	Y8krJnsfFQ	Megaland	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257651311-51exqDKFf6L.jpg	2
-20	5mPjB6Ap5h	The Werewolves of Miller's Hollow	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1630613307189	2
-21	gVKfdWySRW	The Werewolves of Miller's Hollow: New Moon	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257765061-51bR3NspGRL.jpg	2
-22	4j91q8rjVA	The Werewolves of Miller's Hollow: Characters	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1587431815344	2
+COPY public.games (id, name, image_url, owner_id, date_added) FROM stdin;
 \.
 
 
@@ -168,13 +136,6 @@ COPY public.users (id, given_name, family_name, picture, email, sub) FROM stdin;
 
 
 --
--- Name: games_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public.games_id_seq', 22, true);
-
-
---
 -- Name: tasks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -185,7 +146,15 @@ SELECT pg_catalog.setval('public.tasks_id_seq', 9, true);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 349, true);
+SELECT pg_catalog.setval('public.users_id_seq', 1422, true);
+
+
+--
+-- Name: games games_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.games
+    ADD CONSTRAINT games_id_key UNIQUE (id);
 
 
 --
