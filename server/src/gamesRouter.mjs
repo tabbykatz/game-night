@@ -12,11 +12,12 @@ router.get("/", async ({ query: { name } }, response) => {
   response.json(games);
 });
 
-router.get("/:id", async ({ query: { //?
-} }, response) => {
-  const { game } = await bga("search", { searchParams: { //? } });
-  console.log(game);
-  response.json(game);
+router.get("/:id", async (request, response) => {
+  console.log(request.params.id);
+  const { games } = await bga("search", {
+    searchParams: { ids: request.params.id },
+  });
+  response.json(games[0]);
 });
 
 const bga = got.extend({
