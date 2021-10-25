@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import useApi from "../auth/useApi";
 import NotFound from "../components/NotFound";
 
+import styles from "./styles.module.scss";
+
 const GameDetails = () => {
   const [game, setGame] = React.useState(null);
   const { loading, apiClient } = useApi();
@@ -20,9 +22,13 @@ const GameDetails = () => {
     <NotFound />
   ) : (
     <>
-      <div>
-        <img alt={game.name} src={game.image_url} />
-        <div>
+      <div className={styles.container}>
+        <img
+          className={`${styles.detailsimage} ${styles.left}`}
+          alt={game.name}
+          src={game.image_url}
+        />
+        <div className={styles.right}>
           <h1>{game.name}</h1>
           <em>{game.primary_designer.name}</em> <br />
           {game.min_players}-{game.max_players} Players
@@ -30,11 +36,10 @@ const GameDetails = () => {
           Playtime: {game.min_playtime}-{game.max_playtime} minutes
         </div>
       </div>
-      <details>
+      <details className={styles.description}>
         <summary>Get description</summary>
         {game.description_preview}
       </details>
-      <p>{id}</p>
     </>
   );
 };
