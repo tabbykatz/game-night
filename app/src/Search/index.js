@@ -5,6 +5,7 @@ import { FaPlusSquare } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 import useApi from "../auth/useApi";
+import Card from "../components/Card";
 import { useMyGames } from "../hooks";
 
 import styles from "./styles.module.scss";
@@ -16,11 +17,17 @@ const Search = () => {
 
   const findGames = (name) => apiClient.findGames(name).then(setResults);
 
-  const addGame = (game) =>
-    apiClient.addGame(game).then(() => {
+  const addGame = (game) => {
+    const newGame = {
+      id: game.id,
+      name: game.name,
+      image_url: game.image_url,
+    };
+    apiClient.addGame(newGame).then(() => {
       loadGames();
-      toast("Game added!");
     });
+    toast("Game added!");
+  };
 
   return (
     <>
@@ -64,42 +71,15 @@ const SearchResults = ({ results, myGames, addGame }) => {
     <ul className={styles.grid}>
       {results.map((game) => (
         <li key={game.id} className={styles.card}>
-          <GameCard
-            {...{ game, addGame }}
-            isInMyCollection={gameIds.includes(game.id)}
+          <Card
+            {...{ game }}
+            handleClick={addGame}
+            isIn={gameIds.includes(game.id)}
+            action={"add"}
           />
         </li>
       ))}
     </ul>
-  );
-};
-
-const GameCard = ({ game, addGame, isInMyCollection }) => {
-  const onClick = () => {
-    const newGame = {
-      id: game.id,
-      name: game.name,
-      image_url: game.image_url,
-    };
-    addGame(newGame);
-  };
-
-  return (
-    <>
-      <div className={styles.wrapper}>
-        <div key={game.id} className={`${styles.box} ${styles.dropshadow}`}>
-          <header>
-            <Link to={`/games/${game.id}`}>{game.name}</Link>
-          </header>
-          <img
-            src={game.image_url}
-            alt={game.name}
-            className={styles.cardthumb}
-          />
-        </div>
-      </div>
-      {isInMyCollection ? null : <FaPlusSquare {...{ onClick }} />}
-    </>
   );
 };
 

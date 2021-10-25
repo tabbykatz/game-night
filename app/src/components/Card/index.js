@@ -10,9 +10,8 @@ const Card = ({ game, handleClick, isIn, action }) => {
   //onClick = function to call when card is clicked
   //isIn = boolean to determine if card is in the deck
   //action = what will onClick do
-
   const onClick = () => {
-    handleClick(game.id);
+    handleClick(game);
   };
 
   return (
@@ -29,7 +28,7 @@ const Card = ({ game, handleClick, isIn, action }) => {
           />
           {action === "add" && !isIn ? (
             <FaPlusSquare {...{ onClick }} />
-          ) : action === "remove" && isIn ? (
+          ) : action === "add" && isIn ? null : action === "remove" && isIn ? (
             <FaMinusSquare {...{ onClick }} />
           ) : null}
         </div>

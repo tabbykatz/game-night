@@ -14,8 +14,11 @@ const Games = () => {
   const { myGames, loadGames } = useMyGames();
   const { apiClient } = useApi();
 
-  const deleteGame = (id) => {
-    apiClient.deleteGame(id).then(loadGames()).then(toast("Game removed!"));
+  const deleteGame = (game) => {
+    apiClient
+      .deleteGame(game.id)
+      .then(loadGames())
+      .then(toast("Game removed!"));
   };
 
   return myGames ? (
@@ -42,29 +45,5 @@ const GameList = ({ games, deleteGame }) => (
     ))}
   </ul>
 );
-
-// const GameCard = ({ game, deleteGame }) => {
-//   const onClick = () => {
-//     deleteGame(game.id);
-//   };
-
-//   return (
-//     <>
-//       <div className={styles.wrapper}>
-//         <div key={game.id} className={`${styles.box} ${styles.dropshadow}`}>
-//           <header>
-//             <Link to={`/games/${game.id}`}>{game.name}</Link>
-//           </header>
-//           <img
-//             src={game.thumbnail_url}
-//             alt={game.name}
-//             className={styles.cardthumb}
-//           />
-//         </div>
-//       </div>
-//       <FaMinusSquare {...{ onClick }} />
-//     </>
-//   );
-// };
 
 export default Games;
