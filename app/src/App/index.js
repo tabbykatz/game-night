@@ -37,7 +37,10 @@ const App = () => {
             element={<Protected component={Dashboard} />}
           />
           <Route path="/search" element={<Protected component={Search} />} />
-          <Route path="/games" element={<Protected component={Games} />} />
+          <Route
+            path="/games"
+            element={<Protected component={Games} limit={0} />}
+          />
           <Route path="/events" element={<Protected component={Events} />} />
           <Route
             path="/games/:id"

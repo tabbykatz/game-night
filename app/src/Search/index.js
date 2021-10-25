@@ -1,8 +1,6 @@
 import * as React from "react";
 
 import { toast } from "react-hot-toast";
-import { FaPlusSquare } from "react-icons/fa";
-import { Link } from "react-router-dom";
 
 import useApi from "../auth/useApi";
 import Card from "../components/Card";
