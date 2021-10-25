@@ -6,14 +6,14 @@ const db = initDb();
 
 export const getGames = (sub) =>
   db.any(
-    "SELECT games.* FROM games LEFT JOIN users on owner_id=users.id WHERE sub=$<sub>",
+    "SELECT games.* FROM games LEFT JOIN users on owner_id=users.id WHERE sub=$<sub> ORDER BY date_added DESC",
     { sub },
   );
 
 export const addGame = (game, sub) =>
   db.one(
-    `INSERT INTO games(game_id, name, thumbnail_url, owner_id)
-      VALUES($<game_id>, $<name>, $<thumbnail_url>, (SELECT id FROM users WHERE sub=$<sub>))
+    `INSERT INTO games(id, name, image_url, owner_id)
+      VALUES($<id>, $<name>, $<image_url>, (SELECT id FROM users WHERE sub=$<sub>))
       RETURNING *`,
     { ...game, sub },
   );
