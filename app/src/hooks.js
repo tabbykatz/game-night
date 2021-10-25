@@ -15,22 +15,3 @@ export const useMyGames = () => {
 
   return { myGames, loadGames };
 };
-
-export const useGameDetail = () => {
-  const [selectedGame, setSelectedGame] = React.useState([]);
-  const { loading, apiClient } = useApi();
-
-  const showDetails = React.useCallback(
-    async (id) =>
-      setSelectedGame(
-        await apiClient.getGame(id).then((game) => game.games[0]),
-      ),
-    [apiClient],
-  );
-
-  React.useEffect(() => {
-    setSelectedGame();
-  }, []);
-
-  return { selectedGame, showDetails };
-};

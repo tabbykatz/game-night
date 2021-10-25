@@ -2,46 +2,43 @@ import * as React from "react";
 
 import { toast } from "react-hot-toast";
 import { FaMinusSquare } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 import useApi from "../auth/useApi";
-import { useGameDetail, useMyGames } from "../hooks";
+import { useMyGames } from "../hooks";
 
 import styles from "./styles.module.scss";
 
 const Games = () => {
   const { myGames, loadGames } = useMyGames();
-  const { selectedGame, showDetails } = useGameDetail();
-
   const { apiClient } = useApi();
 
   const deleteGame = (id) => {
     apiClient.deleteGame(id).then(loadGames());
     toast("Game removed!");
   };
-  console.log(selectedGame);
-  return myGames && !selectedGame ? (
+
+  return myGames ? (
     <>
       <h1>list of all games with remove buttons plus +add a game</h1>
       <section>
-        <GameList games={myGames} {...{ deleteGame, showDetails }} />
+        <GameList games={myGames} {...{ deleteGame }} />
       </section>
     </>
-  ) : selectedGame?.name ? (
-    <GameDetails {...{ selectedGame }} />
   ) : null;
 };
 
-const GameList = ({ games, deleteGame, showDetails }) => (
+const GameList = ({ games, deleteGame }) => (
   <ul className={styles.grid}>
     {games.map((game) => (
       <li className={styles.card} key={game.id}>
-        <GameCard {...{ game, deleteGame, showDetails }} />
+        <GameCard {...{ game, deleteGame }} />
       </li>
     ))}
   </ul>
 );
 
-const GameCard = ({ game, deleteGame, showDetails }) => {
+const GameCard = ({ game, deleteGame }) => {
   const onClick = () => {
     deleteGame(game.id);
   };
@@ -49,16 +46,11 @@ const GameCard = ({ game, deleteGame, showDetails }) => {
   return (
     <>
       <div className={styles.wrapper}>
-        <div
-          key={game.id}
-          className={`${styles.box} ${styles.dropshadow}`}
-          onClick={() => showDetails(game.game_id)}
-          onKeyDown={() => showDetails(game.game_id)}
-          role="button"
-          tabIndex={0}
-        >
+        <div key={game.id} className={`${styles.box} ${styles.dropshadow}`}>
           {/* currently entering details when tabbed , not skipping */}
-          <header>{game.name}</header>
+          <header>
+            <Link to={`/games/${game.game_id}`}>{game.name}</Link>
+          </header>
           <img
             src={game.thumbnail_url}
             alt={game.name}
@@ -67,32 +59,6 @@ const GameCard = ({ game, deleteGame, showDetails }) => {
         </div>
       </div>
       <FaMinusSquare {...{ onClick }} />
-    </>
-  );
-};
-
-const GameDetails = ({ selectedGame }) => {
-  return (
-    <>
-      <div className={styles.container}>
-        <img
-          alt={selectedGame.name}
-          className={`${styles.detailsimage} ${styles.left}`}
-          src={selectedGame.image_url}
-        />
-        <div className={styles.right}>
-          <h1>{selectedGame.name}</h1>
-          <em>{selectedGame.primary_designer.name}</em> <br />
-          {selectedGame.min_players}-{selectedGame.max_players} Players
-          <br />
-          Playtime: {selectedGame.min_playtime}-{selectedGame.max_playtime}{" "}
-          minutes
-        </div>
-      </div>
-      <details className={styles.description}>
-        <summary>Get description</summary>
-        {selectedGame.description_preview}
-      </details>
     </>
   );
 };
