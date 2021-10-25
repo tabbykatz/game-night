@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { toast } from "react-hot-toast";
 import { FaPlusSquare } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 import useApi from "../auth/useApi";
 import { useMyGames } from "../hooks";
@@ -9,8 +10,6 @@ import { useMyGames } from "../hooks";
 import styles from "./styles.module.scss";
 
 const Search = () => {
-  const [detailsView, setDetailsView] = React.useState(false);
-  const [selectedGame, setSelectedGame] = React.useState([]);
   const [results, setResults] = React.useState([]);
   const { myGames, loadGames } = useMyGames();
   const { apiClient } = useApi();
@@ -23,21 +22,10 @@ const Search = () => {
       toast("Game added!");
     });
 
-  const showDetails = (id) => {
-    apiClient.getGame(id).then((game) => {
-      setSelectedGame(game.games[0]);
-      setDetailsView(true);
-    });
-  };
-
   return (
     <>
       <FindGames {...{ findGames }} />
-      {results && !detailsView ? (
-        <SearchResults {...{ results, myGames, addGame, showDetails }} />
-      ) : detailsView ? (
-        <GameDetails {...{ selectedGame }} />
-      ) : null}
+      {results ? <SearchResults {...{ results, myGames, addGame }} /> : null}
     </>
   );
 };
@@ -66,7 +54,7 @@ const FindGames = ({ findGames }) => {
   );
 };
 
-const SearchResults = ({ results, myGames, addGame, showDetails }) => {
+const SearchResults = ({ results, myGames, addGame }) => {
   const myGameIds = myGames.map((game) => game.game_id);
   const gameIds = results
     .map((game) => game.id)
@@ -77,7 +65,7 @@ const SearchResults = ({ results, myGames, addGame, showDetails }) => {
       {results.map((game) => (
         <li key={game.id} className={styles.card}>
           <GameCard
-            {...{ game, addGame, showDetails }}
+            {...{ game, addGame }}
             isInMyCollection={gameIds.includes(game.id)}
           />
         </li>
@@ -86,7 +74,7 @@ const SearchResults = ({ results, myGames, addGame, showDetails }) => {
   );
 };
 
-const GameCard = ({ game, addGame, isInMyCollection, showDetails }) => {
+const GameCard = ({ game, addGame, isInMyCollection }) => {
   const onClick = () => {
     const newGame = {
       game_id: game.id,
@@ -99,16 +87,10 @@ const GameCard = ({ game, addGame, isInMyCollection, showDetails }) => {
   return (
     <>
       <div className={styles.wrapper}>
-        <div
-          key={game.id}
-          className={`${styles.box} ${styles.dropshadow}`}
-          onClick={() => showDetails(game.id)}
-          onKeyDown={() => showDetails(game.id)}
-          role="button"
-          tabIndex={0}
-        >
-          {/* currently entering details when tabbed , not skipping */}
-          <header>{game.name}</header>
+        <div key={game.id} className={`${styles.box} ${styles.dropshadow}`}>
+          <header>
+            <Link to={`/games/${game.id}`}>{game.name}</Link>
+          </header>
           <img
             src={game.image_url}
             alt={game.name}
@@ -117,32 +99,6 @@ const GameCard = ({ game, addGame, isInMyCollection, showDetails }) => {
         </div>
       </div>
       {isInMyCollection ? null : <FaPlusSquare {...{ onClick }} />}
-    </>
-  );
-};
-
-const GameDetails = ({ selectedGame }) => {
-  return (
-    <>
-      <div className={styles.container}>
-        <img
-          alt={selectedGame.name}
-          className={`${styles.detailsimage} ${styles.left}`}
-          src={selectedGame.image_url}
-        />
-        <div className={styles.right}>
-          <h1>{selectedGame.name}</h1>
-          <em>{selectedGame.primary_designer.name}</em> <br />
-          {selectedGame.min_players}-{selectedGame.max_players} Players
-          <br />
-          Playtime: {selectedGame.min_playtime}-{selectedGame.max_playtime}{" "}
-          minutes
-        </div>
-      </div>
-      <details className={styles.description}>
-        <summary>Get description</summary>
-        {selectedGame.description_preview}
-      </details>
     </>
   );
 };

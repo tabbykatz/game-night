@@ -47,7 +47,6 @@ const GameCard = ({ game, deleteGame }) => {
     <>
       <div className={styles.wrapper}>
         <div key={game.id} className={`${styles.box} ${styles.dropshadow}`}>
-          {/* currently entering details when tabbed , not skipping */}
           <header>
             <Link to={`/games/${game.game_id}`}>{game.name}</Link>
           </header>
