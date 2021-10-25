@@ -3,6 +3,7 @@ import * as React from "react";
 import { useParams } from "react-router-dom";
 
 import useApi from "../auth/useApi";
+import NotFound from "../components/NotFound";
 
 const GameDetails = () => {
   const [game, setGame] = React.useState(null);
@@ -13,7 +14,11 @@ const GameDetails = () => {
     !loading && apiClient.getGame(id).then((game) => setGame(game));
   }, [loading, apiClient, id]);
 
-  return game ? (
+  return !game ? (
+    <p>loading...</p>
+  ) : game.error ? (
+    <NotFound />
+  ) : (
     <>
       <div>
         <img alt={game.name} src={game.image_url} />
@@ -31,8 +36,6 @@ const GameDetails = () => {
       </details>
       <p>{id}</p>
     </>
-  ) : (
-    <p>Loading...</p>
   );
 };
 
