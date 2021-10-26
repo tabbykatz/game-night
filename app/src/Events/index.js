@@ -4,7 +4,6 @@ import { toast } from "react-hot-toast";
 
 import useApi from "../auth/useApi";
 import Card from "../components/Card";
-// TODO: make this real
 import { useMyEvents } from "../hooks";
 
 import styles from "./styles.module.scss";
