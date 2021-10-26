@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 import { Routes, Route } from "react-router-dom";
 
 import Dashboard from "../Dashboard";
+import Events from "../Events";
 import GameDetails from "../GameDetails";
 import Games from "../Games";
 import Nav from "../Nav";
@@ -57,7 +58,7 @@ const App = () => {
   );
 };
 // TODO: move this
-const Events = () => <h1>Events</h1>;
+
 const CreateEvent = () => <h1>Create an Event</h1>;
 // end TODO
 

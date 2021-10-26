@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import Events from "../Events";
 import Games from "../Games";
 
 import styles from "./styles.module.scss";
@@ -15,6 +16,7 @@ const Dashboard = () => {
       <h1>Upcoming Events</h1>
       <button className={styles.button}>View All</button>
       <button className={styles.button}>Create Event</button>
+      <Events limit={6} />
     </>
   );
 };

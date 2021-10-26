@@ -20,29 +20,29 @@ router.post("/games", async (request, response) => {
   response.status(201).json(game);
 });
 
-router.post("/events", async (request, response) => {
-  const event = await db.addEvent(request.body.event, request.user.sub);
-  response.status(201).json(event);
-});
+// router.post("/events", async (request, response) => {
+//   const event = await db.addEvent(request.body.event, request.user.sub);
+//   response.status(201).json(event);
+// });
 
 router.delete("/games/:id", async (request, response) => {
   await db.deleteGame(request.params.id, request.user.sub);
   response.status(204).end();
 });
 
-router.delete("/events/:id", async (request, response) => {
-  await db.deleteEvent(request.params.id, request.user.sub);
-  response.status(204).end();
-});
+// router.delete("/events/:id", async (request, response) => {
+//   await db.deleteEvent(request.params.id, request.user.sub);
+//   response.status(204).end();
+// });
 
-router.put("/games/:id", async (request, response) => {
-  const game = await db.updateGame(
-    request.params.id,
-    request.body.game,
-    request.user.sub,
-  );
-  response.json(game);
-});
+// router.put("/events/:id", async (request, response) => {
+//   const event = await db.updateEvent(
+//     request.params.id,
+//     request.body.event,
+//     request.user.sub,
+//   );
+//   response.json(event);
+// });
 
 router.use(express.json());
 router.post("/", async (request, response) => {

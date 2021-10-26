@@ -20,13 +20,16 @@ const Nav = () => (
 
 const Auth = () => {
   const { isAuthenticated, user } = useAuth0();
-
   return isAuthenticated ? (
     <>
       <div className={styles.greeting}>
         Hello, {user.given_name} <Logout />
         <div className={styles.hex}>
-          <img src={user.picture} alt="" />
+          <img
+            // trying to account for weird 403 error on some avatars
+            src={user.picture === undefined ? "/logo192.png" : user.picture}
+            alt=""
+          />
         </div>
       </div>
     </>
