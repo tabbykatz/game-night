@@ -3,6 +3,7 @@ import * as React from "react";
 import { Toaster } from "react-hot-toast";
 import { Routes, Route } from "react-router-dom";
 
+import CreateEvent from "../CreateEvent";
 import Dashboard from "../Dashboard";
 import Events from "../Events";
 import GameDetails from "../GameDetails";
@@ -48,7 +49,7 @@ const App = () => {
             element={<Protected component={GameDetails} />}
           />
           <Route
-            path="/create-event"
+            path="/events/create"
             element={<Protected component={CreateEvent} />}
           />
         </Routes>
@@ -57,10 +58,6 @@ const App = () => {
     </>
   );
 };
-// TODO: move this
-
-const CreateEvent = () => <h1>Create an Event</h1>;
-// end TODO
 
 const Home = () => {
   return (
