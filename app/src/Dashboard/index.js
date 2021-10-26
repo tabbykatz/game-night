@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import { Link } from "react-router-dom";
+
 import Events from "../Events";
 import Games from "../Games";
 
@@ -9,13 +11,16 @@ const Dashboard = () => {
   return (
     <>
       <h1>Your Recently Added Games</h1>
-      <button className={styles.button}>View All</button>
-      <button className={styles.button}>Add Game</button>
+      <Link to="/search">Add a Game</Link>
+      <br />
+      <Link to="/games">View All</Link>
       <Games limit={6} />
 
       <h1>Upcoming Events</h1>
-      <button className={styles.button}>View All</button>
-      <button className={styles.button}>Create Event</button>
+      <Link to="/events/create">Create an Event</Link>
+      <br />
+      <Link to="/events">View All</Link>
+
       <Events limit={6} />
     </>
   );

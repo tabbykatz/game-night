@@ -12,7 +12,6 @@ const Events = ({ limit }) => {
   const { myEvents, loadEvents } = useMyEvents();
   const { apiClient } = useApi();
 
-  console.log("myEvents", myEvents);
   const deleteEvent = (event) => {
     apiClient
       // TODO: make this real
