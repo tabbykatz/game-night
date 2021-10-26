@@ -21,6 +21,35 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: events; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.events (
+    id integer NOT NULL,
+    name text NOT NULL,
+    owner_id integer NOT NULL,
+    location text NOT NULL,
+    start_time timestamp without time zone NOT NULL,
+    end_time timestamp without time zone NOT NULL,
+    description text
+);
+
+
+--
+-- Name: events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.events ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
 -- Name: games; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -31,37 +60,6 @@ CREATE TABLE public.games (
     owner_id integer NOT NULL,
     date_added timestamp without time zone DEFAULT now()
 );
-
-
---
--- Name: tasks; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.tasks (
-    id integer NOT NULL,
-    name text NOT NULL,
-    user_id integer NOT NULL
-);
-
-
---
--- Name: tasks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.tasks_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: tasks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.tasks_id_seq OWNED BY public.tasks.id;
 
 
 --
@@ -93,10 +91,11 @@ ALTER TABLE public.users ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
 
 
 --
--- Name: tasks id; Type: DEFAULT; Schema: public; Owner: -
+-- Data for Name: events; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.tasks ALTER COLUMN id SET DEFAULT nextval('public.tasks_id_seq'::regclass);
+COPY public.events (id, name, owner_id, location, start_time, end_time, description) FROM stdin;
+\.
 
 
 --
@@ -104,22 +103,18 @@ ALTER TABLE ONLY public.tasks ALTER COLUMN id SET DEFAULT nextval('public.tasks_
 --
 
 COPY public.games (id, name, image_url, owner_id, date_added) FROM stdin;
-\.
-
-
---
--- Data for Name: tasks; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY public.tasks (id, name, user_id) FROM stdin;
-1	🙏 Be nice when you add test entries	1
-2	⏲ Added entries will be reset every Sunday	1
-3	End white supremacy	1
-4	Advocate for living wage	1
-5	Provide universal health care	1
-7	yay	2
-8	hi xiao	2
-9	hello george	2
+MiOTS94YV3	Catan Card Game	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257476571-51iAbkahd1L.jpg	2	2021-10-25 21:59:15.461004
+NoWy3nPYfj	Catan: Seafarers Expansion	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257503054-51u0777bL3L.jpg	2	2021-10-25 21:59:16.533915
+tECB3ktBhP	Catan: Cities & Knights 5-6 Player Extension	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254849801-51V-pZNL3hL.jpg	2	2021-10-25 21:59:18.295698
+2anJuFWYTH	Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1590179491791	2	2021-10-25 22:17:25.963413
+tmvXEOgJVz	Zombie Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257925865-510MUA2BFxJL.jpg	2	2021-10-25 22:17:26.781391
+Hn2qbeBQh6	Monty Python Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254179056-51Hk5zRIxLL.jpg	2	2021-10-25 22:17:28.25488
+asOU5AKr0l	Pirate Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559255081576-61q-lKgUJlL.jpg	2	2021-10-25 22:17:29.608924
+JoKLJmpEkD	Cthulhu Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254167104-61f2xP59dkL.jpg	2	2021-10-25 22:17:30.332105
+ahqg4WBywD	Star Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559256889756-51RsZlW2crL.jpg	2	2021-10-25 22:17:31.128989
+nD2d82dPld	Fluxx: Rick and Morty	https://s3-us-west-1.amazonaws.com/5cc.images/games/empty+box.jpg	2	2021-10-25 22:17:33.024773
+2jQG6mQFrD	Doctor Who Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1540934950320	2	2021-10-25 22:17:34.616668
+7gah7pAYJZ	Jumanji Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/userfiles/1631239180963-102.jpg	2	2021-10-25 22:17:35.639916
 \.
 
 
@@ -136,17 +131,25 @@ COPY public.users (id, given_name, family_name, picture, email, sub) FROM stdin;
 
 
 --
--- Name: tasks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: events_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.tasks_id_seq', 9, true);
+SELECT pg_catalog.setval('public.events_id_seq', 1, false);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 1422, true);
+SELECT pg_catalog.setval('public.users_id_seq', 1548, true);
+
+
+--
+-- Name: events events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.events
+    ADD CONSTRAINT events_pkey PRIMARY KEY (id);
 
 
 --
@@ -166,14 +169,6 @@ ALTER TABLE ONLY public.games
 
 
 --
--- Name: tasks tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.tasks
-    ADD CONSTRAINT tasks_pkey PRIMARY KEY (id);
-
-
---
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -190,11 +185,11 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: tasks fk_user; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: events events_owner_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.tasks
-    ADD CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.events
+    ADD CONSTRAINT events_owner_id_fkey FOREIGN KEY (owner_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
 
 --
