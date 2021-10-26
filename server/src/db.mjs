@@ -10,6 +10,12 @@ export const getGames = (sub) =>
     { sub },
   );
 
+export const getEvents = (sub) =>
+  db.any(
+    "SELECT events.* FROM events LEFT JOIN users on owner_id=users.id WHERE sub=$<sub>",
+    { sub },
+  );
+
 export const addGame = (game, sub) =>
   db.one(
     `INSERT INTO games(id, name, image_url, owner_id)
