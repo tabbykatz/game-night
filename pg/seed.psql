@@ -21,6 +21,32 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: attending; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.attending (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    event_id integer NOT NULL,
+    is_owner boolean DEFAULT false
+);
+
+
+--
+-- Name: attending_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.attending ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.attending_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
 -- Name: events; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -63,6 +89,32 @@ CREATE TABLE public.games (
 
 
 --
+-- Name: playable; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.playable (
+    id integer NOT NULL,
+    game_id text NOT NULL,
+    user_id integer NOT NULL,
+    event_id integer NOT NULL
+);
+
+
+--
+-- Name: playable_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.playable ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.playable_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -88,6 +140,14 @@ ALTER TABLE public.users ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
     NO MAXVALUE
     CACHE 1
 );
+
+
+--
+-- Data for Name: attending; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.attending (id, user_id, event_id, is_owner) FROM stdin;
+\.
 
 
 --
@@ -119,6 +179,14 @@ nD2d82dPld	Fluxx: Rick and Morty	https://s3-us-west-1.amazonaws.com/5cc.images/g
 
 
 --
+-- Data for Name: playable; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.playable (id, game_id, user_id, event_id) FROM stdin;
+\.
+
+
+--
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -131,6 +199,13 @@ COPY public.users (id, given_name, family_name, picture, email, sub) FROM stdin;
 
 
 --
+-- Name: attending_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.attending_id_seq', 1, false);
+
+
+--
 -- Name: events_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -138,10 +213,25 @@ SELECT pg_catalog.setval('public.events_id_seq', 1, false);
 
 
 --
+-- Name: playable_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.playable_id_seq', 1, false);
+
+
+--
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.users_id_seq', 1548, true);
+
+
+--
+-- Name: attending attending_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.attending
+    ADD CONSTRAINT attending_pkey PRIMARY KEY (id);
 
 
 --
@@ -169,6 +259,14 @@ ALTER TABLE ONLY public.games
 
 
 --
+-- Name: playable playable_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.playable
+    ADD CONSTRAINT playable_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -185,6 +283,14 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: attending attending_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.attending
+    ADD CONSTRAINT attending_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
 -- Name: events events_owner_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -198,6 +304,22 @@ ALTER TABLE ONLY public.events
 
 ALTER TABLE ONLY public.games
     ADD CONSTRAINT games_owner_id_fkey FOREIGN KEY (owner_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: playable playable_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.playable
+    ADD CONSTRAINT playable_event_id_fkey FOREIGN KEY (event_id) REFERENCES public.events(id) ON DELETE CASCADE;
+
+
+--
+-- Name: playable playable_game_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.playable
+    ADD CONSTRAINT playable_game_id_fkey FOREIGN KEY (game_id) REFERENCES public.games(id) ON DELETE CASCADE;
 
 
 --
