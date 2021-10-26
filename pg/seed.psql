@@ -129,6 +129,16 @@ CREATE TABLE public.users (
 
 
 --
+-- Name: users_games; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.users_games (
+    user_id integer NOT NULL,
+    game_id text NOT NULL
+);
+
+
+--
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -199,6 +209,14 @@ COPY public.users (id, given_name, family_name, picture, email, sub) FROM stdin;
 
 
 --
+-- Data for Name: users_games; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.users_games (user_id, game_id) FROM stdin;
+\.
+
+
+--
 -- Name: attending_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -264,6 +282,14 @@ ALTER TABLE ONLY public.games
 
 ALTER TABLE ONLY public.playable
     ADD CONSTRAINT playable_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_games users_games_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users_games
+    ADD CONSTRAINT users_games_pkey PRIMARY KEY (user_id, game_id);
 
 
 --
