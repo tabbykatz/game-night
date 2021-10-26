@@ -10,13 +10,58 @@ $sans: "IBM Plex Sans", sans-serif;
   font-family: $sans;
   font-weight: bolder;
   a[class="active"] {
-    background-color: #333333;
+    background-color: $ultimate-grey;
     color: white;
     text-decoration: none;
   }
+}
 
-  img {
-    max-height: 50px;
-    max-width: 50px;
+.greeting {
+  display: flex;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+
+  & button {
+    // border: none;
+  }
+}
+
+.hex {
+  display: flex;
+  margin: 0 auto;
+  width: 50px;
+  height: 43.3px; /* width * 0.866 */
+  background: $lighter-grey;
+  -webkit-clip-path: polygon(
+    0% 50%,
+    25% 0%,
+    75% 0%,
+    100% 50%,
+    75% 100%,
+    25% 100%
+  );
+  -moz-clip-path: polygon(0% 50%, 25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%);
+  & img {
+    // position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    -webkit-clip-path: polygon(
+      0% 50%,
+      25% 0%,
+      75% 0%,
+      100% 50%,
+      75% 100%,
+      25% 100%
+    );
+    -moz-clip-path: polygon(
+      0% 50%,
+      25% 0%,
+      75% 0%,
+      100% 50%,
+      75% 100%,
+      25% 100%
+    );
   }
 }

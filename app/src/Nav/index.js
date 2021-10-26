@@ -23,8 +23,12 @@ const Auth = () => {
 
   return isAuthenticated ? (
     <>
-      <img src={user.picture} alt="" />
-      Hello, {user.given_name} <Logout />
+      <div className={styles.greeting}>
+        Hello, {user.given_name} <Logout />
+        <div className={styles.hex}>
+          <img src={user.picture} alt="" />
+        </div>
+      </div>
     </>
   ) : (
     <Login />
