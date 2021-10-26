@@ -12,6 +12,7 @@ const Events = ({ limit }) => {
   const { myEvents, loadEvents } = useMyEvents();
   const { apiClient } = useApi();
 
+  console.log("myEvents", myEvents);
   const deleteEvent = (event) => {
     apiClient
       // TODO: make this real
@@ -48,7 +49,7 @@ const EventsList = ({ events, deleteEvent, limit }) => {
         {events.map((event) => (
           <li className={styles.card} key={event.id}>
             <Card
-              {...{ event }}
+              game={event}
               handleClick={deleteEvent}
               isIn={true}
               action={"remove"}

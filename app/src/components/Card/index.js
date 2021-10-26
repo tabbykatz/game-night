@@ -21,11 +21,13 @@ const Card = ({ game, handleClick, isIn, action }) => {
           <header>
             <Link to={`/games/${game.id}`}>{game.name}</Link>
           </header>
-          <img
-            src={game.image_url}
-            alt={game.name}
-            className={styles.cardthumb}
-          />
+          {game.image_url ? (
+            <img
+              src={game.image_url}
+              alt={game.name}
+              className={styles.cardthumb}
+            />
+          ) : null}
           {action === "add" && !isIn ? (
             <FaPlusSquare {...{ onClick }} />
           ) : action === "add" && isIn ? null : action === "remove" && isIn ? (

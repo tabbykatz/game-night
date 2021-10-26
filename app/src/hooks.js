@@ -26,6 +26,6 @@ export const useMyEvents = () => {
   React.useEffect(() => {
     !loading && loadEvents();
   }, [loading, loadEvents]);
-
+  console.log(myEvents);
   return { myEvents, loadEvents };
 };
