@@ -1,7 +1,5 @@
 import * as React from "react";
 
-import { toast } from "react-hot-toast";
-
 import useApi from "../auth/useApi";
 import Card from "../components/Card";
 import { useMyGames } from "../hooks";
@@ -10,27 +8,19 @@ import styles from "./styles.module.scss";
 
 const Search = () => {
   const [results, setResults] = React.useState([]);
-  const { myGames, loadGames } = useMyGames();
+  const { myGames, addGame, deleteGame, isInMyGames } = useMyGames();
   const { apiClient } = useApi();
 
   const findGames = (name) => apiClient.findGames(name).then(setResults);
 
-  const addGame = (game) => {
-    const newGame = {
-      id: game.id,
-      name: game.name,
-      image_url: game.image_url,
-    };
-    apiClient.addGame(newGame).then(() => {
-      loadGames();
-    });
-    toast("Game added!");
-  };
-
   return (
     <>
       <FindGames {...{ findGames }} />
-      {results ? <SearchResults {...{ results, myGames, addGame }} /> : null}
+      {results ? (
+        <SearchResults
+          {...{ results, myGames, addGame, deleteGame, isInMyGames }}
+        />
+      ) : null}
     </>
   );
 };
@@ -59,12 +49,13 @@ const FindGames = ({ findGames }) => {
   );
 };
 
-const SearchResults = ({ results, myGames, addGame }) => {
-  const myGameIds = myGames.map((game) => game.id);
-  const gameIds = results
-    .map((game) => game.id)
-    .filter((id) => myGameIds.includes(id));
-
+const SearchResults = ({
+  results,
+  myGames,
+  addGame,
+  deleteGame,
+  isInMyGames,
+}) => {
   return (
     <ul className={styles.grid}>
       {results.map((game) => (
@@ -72,7 +63,7 @@ const SearchResults = ({ results, myGames, addGame }) => {
           <Card
             {...{ game }}
             handleClick={addGame}
-            isIn={gameIds.includes(game.id)}
+            isIn={isInMyGames(game.id)}
             action={"add"}
           />
         </li>

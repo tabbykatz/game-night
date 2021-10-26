@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import { toast } from "react-hot-toast";
+
 import useApi from "./auth/useApi";
 
 export const useMyGames = () => {
@@ -13,7 +15,31 @@ export const useMyGames = () => {
     !loading && loadGames();
   }, [loading, loadGames]);
 
-  return { myGames, loadGames };
+  const addGame = (game) => {
+    const newGame = {
+      id: game.id,
+      name: game.name,
+      image_url: game.image_url,
+    };
+    apiClient.addGame(newGame).then(() => {
+      loadGames();
+    });
+    toast("Game added!");
+  };
+
+  const deleteGame = (game) => {
+    apiClient
+      .deleteGame(game.id)
+      .then(loadGames())
+      .then(() => toast("Game deleted!"));
+  };
+
+  const isInMyGames = (id) => {
+    const myGameIds = myGames.map((game) => game.id);
+    return myGameIds.includes(id);
+  };
+
+  return { myGames, loadGames, addGame, deleteGame, isInMyGames };
 };
 
 export const useMyEvents = () => {
