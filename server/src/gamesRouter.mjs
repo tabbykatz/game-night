@@ -17,9 +17,9 @@ router.get("/:id", async (request, response) => {
     const { games } = await bga("search", {
       searchParams: { ids: request.params.id },
     });
-    response.json(games[0]).end();
-  } catch (error) {
-    response.json({ error: "game not found" });
+    response.json(games[0]);
+  } catch ({ response: { statusCode, statusMessage } }) {
+    response.status(statusCode).json({ error: statusMessage });
   }
 });
 
