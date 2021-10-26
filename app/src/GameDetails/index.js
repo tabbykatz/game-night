@@ -8,7 +8,7 @@ import NotFound from "../components/NotFound";
 import styles from "./styles.module.scss";
 
 const GameDetails = () => {
-  const [game, setGame] = React.useState(null);
+  const [game, setGame] = React.useState();
   const { loading, apiClient } = useApi();
   const { id } = useParams();
 
@@ -16,7 +16,7 @@ const GameDetails = () => {
     !loading && apiClient.getGame(id).then((game) => setGame(game));
   }, [loading, apiClient, id]);
 
-  return !game ? (
+  return game === undefined ? (
     <p>loading...</p>
   ) : game.error ? (
     <NotFound />
@@ -30,7 +30,7 @@ const GameDetails = () => {
         />
         <div className={styles.right}>
           <h1>{game.name}</h1>
-          <em>{game.primary_designer.name}</em> <br />
+          <em>{game.primary_designer?.name}</em> <br />
           {game.min_players}-{game.max_players} Players
           <br />
           Playtime: {game.min_playtime}-{game.max_playtime} minutes
