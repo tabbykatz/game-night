@@ -3,7 +3,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 
 import Events from "../Events";
-import CardList from "../components/CardList";
+import GameList from "../components/GameList";
 import { useMyGames } from "../hooks";
 
 const Dashboard = () => {
@@ -16,7 +16,7 @@ const Dashboard = () => {
       <br />
       <Link to="/games">View All</Link>
 
-      <CardList games={myGames.slice(0, 6)} />
+      <GameList games={myGames.slice(0, 6)} />
 
       <h1>Upcoming Events</h1>
       <Link to="/events/create">Create an Event</Link>

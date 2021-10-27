@@ -7,7 +7,7 @@ import CreateEvent from "../CreateEvent";
 import Dashboard from "../Dashboard";
 import Events from "../Events";
 import GameDetails from "../GameDetails";
-import Games from "../Games";
+import MyGames from "../MyGames";
 import Nav from "../Nav";
 import Search from "../Search";
 import useApi from "../auth/useApi";
@@ -41,7 +41,7 @@ const App = () => {
           <Route path="/search" element={<Protected component={Search} />} />
           <Route
             path="/games"
-            element={<Protected component={Games} limit={0} />}
+            element={<Protected component={MyGames} limit={0} />}
           />
           <Route path="/events" element={<Protected component={Events} />} />
           <Route
