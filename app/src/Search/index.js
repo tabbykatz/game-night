@@ -2,7 +2,6 @@ import * as React from "react";
 
 import useApi from "../auth/useApi";
 import GameList from "../components/GameList";
-import { useMyGames } from "../hooks";
 
 import styles from "./styles.module.scss";
 
