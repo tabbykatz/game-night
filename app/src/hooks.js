@@ -16,12 +16,7 @@ export const useMyGames = () => {
   }, [loading, loadGames]);
 
   const addGame = (game) => {
-    const newGame = {
-      id: game.id,
-      name: game.name,
-      image_url: game.image_url,
-    };
-    apiClient.addGame(newGame).then(() => {
+    apiClient.addGame(game).then(() => {
       loadGames();
     });
     toast("Game added!");
