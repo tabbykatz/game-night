@@ -3,7 +3,6 @@ import * as React from "react";
 import { toast } from "react-hot-toast";
 
 import useApi from "../auth/useApi";
-import Card from "../components/Card";
 import { useMyEvents } from "../hooks";
 
 import styles from "./styles.module.scss";
@@ -47,12 +46,8 @@ const EventsList = ({ events, deleteEvent, limit }) => {
       <ul className={styles.grid}>
         {events.map((event) => (
           <li className={styles.card} key={event.id}>
-            <Card
-              game={event}
-              handleClick={deleteEvent}
-              isIn={true}
-              action={"remove"}
-            />
+            {event.name}
+            {/* TODO: EventList */}
           </li>
         ))}
       </ul>

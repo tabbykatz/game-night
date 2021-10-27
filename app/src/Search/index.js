@@ -8,7 +8,6 @@ import styles from "./styles.module.scss";
 
 const Search = () => {
   const [results, setResults] = React.useState([]);
-  const { myGames, addGame, deleteGame, isInMyGames } = useMyGames();
   const { apiClient } = useApi();
 
   const findGames = (name) => apiClient.findGames(name).then(setResults);
@@ -16,9 +15,7 @@ const Search = () => {
   return (
     <>
       <FindGames {...{ findGames }} />
-      {results ? (
-        <CardList games={results} {...{ addGame, deleteGame, isInMyGames }} />
-      ) : null}
+      {results ? <CardList games={results} /> : null}
     </>
   );
 };
