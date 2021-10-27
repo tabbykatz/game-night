@@ -16,17 +16,13 @@ export const useMyGames = () => {
   }, [loading, loadGames]);
 
   const addGame = (game) => {
-    apiClient.addGame(game).then(() => {
-      loadGames();
-    });
+    apiClient.addGame(game).then(() => loadGames());
     toast("Game added!");
   };
 
   const deleteGame = (game) => {
-    apiClient
-      .deleteGame(game.id)
-      .then(loadGames())
-      .then(() => toast("Game deleted!"));
+    apiClient.deleteGame(game.id).then(() => loadGames());
+    toast("Game deleted!");
   };
 
   const isInMyGames = (id) => {
