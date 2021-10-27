@@ -47,27 +47,4 @@ const FindGames = ({ findGames }) => {
   );
 };
 
-// const CardList = ({
-//   results,
-//   myGames,
-//   addGame,
-//   deleteGame,
-//   isInMyGames,
-// }) => {
-//   return (
-//     <ul className={styles.grid}>
-//       {results.map((game) => (
-//         <li key={game.id} className={styles.card}>
-//           {/* <Card
-//             {...{ game }}
-//             handleClick={addGame}
-//             isIn={isInMyGames(game.id)}
-//             action={"add"}
-//           /> */}
-//         </li>
-//       ))}
-//     </ul>
-//   );
-// };
-
 export default Search;
