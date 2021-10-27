@@ -7,6 +7,7 @@ import useApi from "./auth/useApi";
 export const useMyGames = () => {
   const [myGames, setMyGames] = React.useState([]);
   const { loading, apiClient } = useApi();
+
   const loadGames = React.useCallback(async () => {
     setMyGames(await apiClient.getGames());
   }, [apiClient]);
@@ -16,12 +17,12 @@ export const useMyGames = () => {
   }, [loading, loadGames]);
 
   const addGame = (game) => {
-    apiClient.addGame(game).then(() => loadGames());
+    apiClient.addGame(game).then(loadGames);
     toast("Game added!");
   };
 
   const deleteGame = (game) => {
-    apiClient.deleteGame(game.id).then(() => loadGames());
+    apiClient.deleteGame(game.id).then(loadGames);
     toast("Game deleted!");
   };
 
@@ -30,7 +31,7 @@ export const useMyGames = () => {
     return myGameIds.includes(id);
   };
 
-  return { myGames, loadGames, addGame, deleteGame, isInMyGames };
+  return { myGames, addGame, deleteGame, isInMyGames };
 };
 
 export const useMyEvents = () => {
