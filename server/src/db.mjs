@@ -12,7 +12,7 @@ export const getGames = (sub) =>
 
 export const getEvents = (sub) =>
   db.any(
-    "SELECT events.* FROM events LEFT JOIN attending on event_id=events.id where (SELECT id from users where sub=$<sub>)=user_id",
+    "SELECT events.* FROM events LEFT JOIN events_users on event_id=events.id where (SELECT id from users where sub=$<sub>)=user_id",
     { sub },
   );
 
