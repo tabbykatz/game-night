@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import useApi from "../auth/useApi";
-import Card from "../components/Card";
+import CardList from "../components/CardList";
 import { useMyGames } from "../hooks";
 
 import styles from "./styles.module.scss";
@@ -17,9 +17,7 @@ const Search = () => {
     <>
       <FindGames {...{ findGames }} />
       {results ? (
-        <SearchResults
-          {...{ results, myGames, addGame, deleteGame, isInMyGames }}
-        />
+        <CardList games={results} {...{ addGame, deleteGame, isInMyGames }} />
       ) : null}
     </>
   );
@@ -49,27 +47,27 @@ const FindGames = ({ findGames }) => {
   );
 };
 
-const SearchResults = ({
-  results,
-  myGames,
-  addGame,
-  deleteGame,
-  isInMyGames,
-}) => {
-  return (
-    <ul className={styles.grid}>
-      {results.map((game) => (
-        <li key={game.id} className={styles.card}>
-          <Card
-            {...{ game }}
-            handleClick={addGame}
-            isIn={isInMyGames(game.id)}
-            action={"add"}
-          />
-        </li>
-      ))}
-    </ul>
-  );
-};
+// const CardList = ({
+//   results,
+//   myGames,
+//   addGame,
+//   deleteGame,
+//   isInMyGames,
+// }) => {
+//   return (
+//     <ul className={styles.grid}>
+//       {results.map((game) => (
+//         <li key={game.id} className={styles.card}>
+//           {/* <Card
+//             {...{ game }}
+//             handleClick={addGame}
+//             isIn={isInMyGames(game.id)}
+//             action={"add"}
+//           /> */}
+//         </li>
+//       ))}
+//     </ul>
+//   );
+// };
 
 export default Search;
