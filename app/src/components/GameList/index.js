@@ -7,7 +7,7 @@ import { useMyGames } from "../../hooks";
 
 import styles from "./styles.module.scss";
 
-const CardList = ({ games }) => {
+const GameList = ({ games }) => {
   const { addGame, deleteGame, isInMyGames } = useMyGames();
 
   return (
@@ -47,4 +47,4 @@ const Card = ({ game, addGame, deleteGame, isInMyGames }) => (
   </>
 );
 
-export default CardList;
+export default GameList;

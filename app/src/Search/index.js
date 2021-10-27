@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import useApi from "../auth/useApi";
-import CardList from "../components/CardList";
+import GameList from "../components/GameList";
 import { useMyGames } from "../hooks";
 
 import styles from "./styles.module.scss";
@@ -15,7 +15,7 @@ const Search = () => {
   return (
     <>
       <FindGames {...{ findGames }} />
-      {results ? <CardList games={results} /> : null}
+      {results ? <GameList games={results} /> : null}
     </>
   );
 };
