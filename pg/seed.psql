@@ -180,12 +180,13 @@ COPY public.events_users (id, user_id, event_id, is_owner) FROM stdin;
 --
 
 COPY public.games (id, name, image_url, date_added) FROM stdin;
-MiOTS94YV3	Catan Card Game	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257476571-51iAbkahd1L.jpg	2021-10-25 21:59:15.461004
 D0OHY8b8Oc	Hive	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324309199.jpg	2021-10-26 21:25:32.578171
 XRp8KrEcdC	Hive Pocket	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324302747.jpg	2021-10-26 21:26:15.808213
 Bwawckx54U	Glory To Rome	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257325268-41pQ1U0GUvL.jpg	2021-10-26 21:11:08.335592
-E5TYKwLTf0	Catan: Cities & Knights	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257359245-51DYsPZcYyL.jpg	2021-10-26 21:38:06.595851
 EvYzPCnCGG	Catan: 5-6 Player Extension	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254797611-51uLrWkNt0L.jpg	2021-10-26 21:38:07.709331
+NoWy3nPYfj	Catan: Seafarers Expansion	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257503054-51u0777bL3L.jpg	2021-10-27 14:00:36.70912
+MiOTS94YV3	Catan Card Game	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257476571-51iAbkahd1L.jpg	2021-10-25 21:59:15.461004
+E5TYKwLTf0	Catan: Cities & Knights	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257359245-51DYsPZcYyL.jpg	2021-10-26 21:38:06.595851
 OIXt3DmJU0	Catan	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324722072.jpg	2021-10-26 21:38:05.383455
 \.
 
@@ -207,6 +208,7 @@ COPY public.users (id, given_name, family_name, picture, email, sub) FROM stdin;
 --
 
 COPY public.users_games (user_id, game_id) FROM stdin;
+2	OIXt3DmJU0
 \.
 
 
@@ -235,7 +237,7 @@ SELECT pg_catalog.setval('public.playable_id_seq', 1, false);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 1597, true);
+SELECT pg_catalog.setval('public.users_id_seq', 1657, true);
 
 
 --
