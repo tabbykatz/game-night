@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import App from "./App";
 import AuthProvider from "./auth/AuthProvider";
+import { MyGamesProvider } from "./myCollection";
 import reportWebVitals from "./reportWebVitals";
 
 import "./global.scss";
@@ -13,7 +14,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <AuthProvider>
-        <App />
+        <MyGamesProvider>
+          <App />
+        </MyGamesProvider>
       </AuthProvider>
     </Router>
   </React.StrictMode>,

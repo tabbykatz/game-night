@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import Events from "../Events";
 import GameList from "../components/GameList";
-import { useMyGames } from "../hooks";
+import { useMyGames } from "../myCollection";
 
 const Dashboard = () => {
   const { myGames } = useMyGames();
