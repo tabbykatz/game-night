@@ -22,6 +22,7 @@ router.post("/games", async (request, response) => {
 
 router.post("/events", async (request, response) => {
   const event = await db.addEvent(request.body.event, request.user.sub);
+  console.log(event);
   response.status(201).json(event);
 });
 

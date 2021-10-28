@@ -35,6 +35,24 @@ export const addGame = async (game, sub) => {
   );
 };
 
+export const addEvent = async (event, sub) => {
+  const newEvent = await db.one(
+    `
+    INSERT INTO events(name, owner_id, address, city, state, zip, country, start_time, end_time, description)
+    VALUES($<name>, (SELECT id from users where sub=$<sub>), $<address>, $<city>, $<state>, $<zip>, $<country>, $<start_time>, $<end_time>, $<description>) RETURNING *
+    `,
+    { ...event, sub },
+  );
+  console.log(newEvent);
+  return db.one(
+    `
+    INSERT INTO events_users(user_id, event_id, is_owner)
+    VALUES((SELECT id FROM users where sub=$<sub>), $<id>, true) RETURNING *
+    `,
+    { id: newEvent.id, sub },
+  );
+};
+
 export const deleteGame = (id, sub) => {
   db.none(
     "DELETE FROM users_games WHERE game_id = $<id> AND user_id = (SELECT id FROM users WHERE sub = $<sub>)",
