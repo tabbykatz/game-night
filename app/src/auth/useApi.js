@@ -4,11 +4,8 @@ import useAuth0 from "./useAuth0";
 
 const makeApi = (accessToken) => {
   const actions = {
-    getEvents: () => _get("api/users/events"),
-    //getEvent: (id) => _get(`api/users/events/${id}`),
-    //createEvent: (event) => _post("api/users/events", { event }),
-    //deleteEvent: (id) => _delete(`api/users/events/${id}`),
-    // TODO updateEvent: (id, event) => _patch(`api/users/events/${id}`, { event }),
+    getEvents: () => _get("/api/users/events"),
+    addEvent: (event) => _post("/api/users/events", { event }),
     getGames: () => _get("/api/users/games"),
     findGames: (name) => _get("/api/games", { name }),
     getGame: (id) => _get(`/api/games/${id}`),
