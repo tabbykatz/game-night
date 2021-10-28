@@ -18,6 +18,7 @@ const GameList = ({ games }) => (
     </ul>
   </>
 );
+
 const Card = ({ game }) => {
   const { addGame, deleteGame, isInMyGames } = useMyGames();
 

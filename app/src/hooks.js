@@ -5,6 +5,7 @@ import useApi from "./auth/useApi";
 export const useMyEvents = () => {
   const [myEvents, setMyEvents] = React.useState([]);
   const { loading, apiClient } = useApi();
+
   const loadEvents = React.useCallback(async () => {
     setMyEvents(await apiClient.getEvents());
   }, [apiClient]);
