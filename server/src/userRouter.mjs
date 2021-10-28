@@ -20,10 +20,10 @@ router.post("/games", async (request, response) => {
   response.status(201).json(game);
 });
 
-// router.post("/events", async (request, response) => {
-//   const event = await db.addEvent(request.body.event, request.user.sub);
-//   response.status(201).json(event);
-// });
+router.post("/events", async (request, response) => {
+  const event = await db.addEvent(request.body.event, request.user.sub);
+  response.status(201).json(event);
+});
 
 router.delete("/games/:id", async (request, response) => {
   await db.deleteGame(request.params.id, request.user.sub);

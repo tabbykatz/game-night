@@ -21,10 +21,10 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: attending; Type: TABLE; Schema: public; Owner: -
+-- Name: events_users; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.attending (
+CREATE TABLE public.events_users (
     id integer NOT NULL,
     user_id integer NOT NULL,
     event_id integer NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE public.attending (
 -- Name: attending_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-ALTER TABLE public.attending ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+ALTER TABLE public.events_users ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
     SEQUENCE NAME public.attending_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -62,17 +62,46 @@ CREATE TABLE public.events (
 
 
 --
+<<<<<<< HEAD
+-- Name: playable; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.playable (
+=======
+-- Name: events_games; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.events_games (
+>>>>>>> a1e918ce0ede1d44df5000a47c313261b41e0c33
+    id integer NOT NULL,
+    game_id text NOT NULL,
+    user_id integer NOT NULL,
+    event_id integer NOT NULL
+);
+
+
+--
+<<<<<<< HEAD
+-- Name: playable_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.playable ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.playable_id_seq
+=======
 -- Name: events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 ALTER TABLE public.events ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
     SEQUENCE NAME public.events_id_seq
+>>>>>>> a1e918ce0ede1d44df5000a47c313261b41e0c33
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1
 );
+<<<<<<< HEAD
+=======
 
 
 --
@@ -83,20 +112,7 @@ CREATE TABLE public.games (
     id text NOT NULL,
     name text NOT NULL,
     image_url text NOT NULL,
-    owner_id integer NOT NULL,
     date_added timestamp without time zone DEFAULT now()
-);
-
-
---
--- Name: playable; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.playable (
-    id integer NOT NULL,
-    game_id text NOT NULL,
-    user_id integer NOT NULL,
-    event_id integer NOT NULL
 );
 
 
@@ -104,7 +120,7 @@ CREATE TABLE public.playable (
 -- Name: playable_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-ALTER TABLE public.playable ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+ALTER TABLE public.events_games ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
     SEQUENCE NAME public.playable_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -112,6 +128,7 @@ ALTER TABLE public.playable ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
     NO MAXVALUE
     CACHE 1
 );
+>>>>>>> a1e918ce0ede1d44df5000a47c313261b41e0c33
 
 
 --
@@ -125,6 +142,16 @@ CREATE TABLE public.users (
     picture text,
     email text,
     sub text NOT NULL
+);
+
+
+--
+-- Name: users_games; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.users_games (
+    user_id integer NOT NULL,
+    game_id text NOT NULL
 );
 
 
@@ -143,6 +170,7 @@ ALTER TABLE public.users ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
 
 
 --
+<<<<<<< HEAD
 -- Data for Name: attending; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -154,14 +182,20 @@ COPY public.attending (id, user_id, event_id, is_owner) FROM stdin;
 -- Data for Name: events; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+=======
+-- Data for Name: events; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+>>>>>>> a1e918ce0ede1d44df5000a47c313261b41e0c33
 COPY public.events (id, name, owner_id, location, start_time, end_time, description) FROM stdin;
 \.
 
 
 --
--- Data for Name: games; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: events_games; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+<<<<<<< HEAD
 COPY public.games (id, name, image_url, owner_id, date_added) FROM stdin;
 MiOTS94YV3	Catan Card Game	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257476571-51iAbkahd1L.jpg	2	2021-10-25 21:59:15.461004
 NoWy3nPYfj	Catan: Seafarers Expansion	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257503054-51u0777bL3L.jpg	2	2021-10-25 21:59:16.533915
@@ -175,14 +209,40 @@ ahqg4WBywD	Star Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/upload
 nD2d82dPld	Fluxx: Rick and Morty	https://s3-us-west-1.amazonaws.com/5cc.images/games/empty+box.jpg	2	2021-10-25 22:17:33.024773
 2jQG6mQFrD	Doctor Who Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1540934950320	2	2021-10-25 22:17:34.616668
 7gah7pAYJZ	Jumanji Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/userfiles/1631239180963-102.jpg	2	2021-10-25 22:17:35.639916
+=======
+COPY public.events_games (id, game_id, user_id, event_id) FROM stdin;
+>>>>>>> a1e918ce0ede1d44df5000a47c313261b41e0c33
 \.
 
 
 --
+<<<<<<< HEAD
 -- Data for Name: playable; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.playable (id, game_id, user_id, event_id) FROM stdin;
+=======
+-- Data for Name: events_users; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.events_users (id, user_id, event_id, is_owner) FROM stdin;
+\.
+
+
+--
+-- Data for Name: games; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.games (id, name, image_url, date_added) FROM stdin;
+D0OHY8b8Oc	Hive	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324309199.jpg	2021-10-26 21:25:32.578171
+XRp8KrEcdC	Hive Pocket	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324302747.jpg	2021-10-26 21:26:15.808213
+Bwawckx54U	Glory To Rome	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257325268-41pQ1U0GUvL.jpg	2021-10-26 21:11:08.335592
+EvYzPCnCGG	Catan: 5-6 Player Extension	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254797611-51uLrWkNt0L.jpg	2021-10-26 21:38:07.709331
+NoWy3nPYfj	Catan: Seafarers Expansion	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257503054-51u0777bL3L.jpg	2021-10-27 14:00:36.70912
+MiOTS94YV3	Catan Card Game	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257476571-51iAbkahd1L.jpg	2021-10-25 21:59:15.461004
+E5TYKwLTf0	Catan: Cities & Knights	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257359245-51DYsPZcYyL.jpg	2021-10-26 21:38:06.595851
+OIXt3DmJU0	Catan	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324722072.jpg	2021-10-26 21:38:05.383455
+>>>>>>> a1e918ce0ede1d44df5000a47c313261b41e0c33
 \.
 
 
@@ -199,6 +259,18 @@ COPY public.users (id, given_name, family_name, picture, email, sub) FROM stdin;
 
 
 --
+<<<<<<< HEAD
+=======
+-- Data for Name: users_games; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.users_games (user_id, game_id) FROM stdin;
+2	OIXt3DmJU0
+\.
+
+
+--
+>>>>>>> a1e918ce0ede1d44df5000a47c313261b41e0c33
 -- Name: attending_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -223,6 +295,7 @@ SELECT pg_catalog.setval('public.playable_id_seq', 1, false);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
+<<<<<<< HEAD
 SELECT pg_catalog.setval('public.users_id_seq', 1548, true);
 
 
@@ -231,6 +304,16 @@ SELECT pg_catalog.setval('public.users_id_seq', 1548, true);
 --
 
 ALTER TABLE ONLY public.attending
+=======
+SELECT pg_catalog.setval('public.users_id_seq', 1657, true);
+
+
+--
+-- Name: events_users attending_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.events_users
+>>>>>>> a1e918ce0ede1d44df5000a47c313261b41e0c33
     ADD CONSTRAINT attending_pkey PRIMARY KEY (id);
 
 
@@ -259,11 +342,27 @@ ALTER TABLE ONLY public.games
 
 
 --
+<<<<<<< HEAD
 -- Name: playable playable_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.playable
     ADD CONSTRAINT playable_pkey PRIMARY KEY (id);
+=======
+-- Name: events_games playable_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.events_games
+    ADD CONSTRAINT playable_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_games users_games_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users_games
+    ADD CONSTRAINT users_games_pkey PRIMARY KEY (user_id, game_id);
+>>>>>>> a1e918ce0ede1d44df5000a47c313261b41e0c33
 
 
 --
@@ -283,6 +382,7 @@ ALTER TABLE ONLY public.users
 
 
 --
+<<<<<<< HEAD
 -- Name: attending attending_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -296,14 +396,37 @@ ALTER TABLE ONLY public.attending
 
 ALTER TABLE ONLY public.events
     ADD CONSTRAINT events_owner_id_fkey FOREIGN KEY (owner_id) REFERENCES public.users(id) ON DELETE CASCADE;
+=======
+-- Name: events_users attending_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.events_users
+    ADD CONSTRAINT attending_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+>>>>>>> a1e918ce0ede1d44df5000a47c313261b41e0c33
 
 
 --
--- Name: games games_owner_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: events events_owner_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.games
-    ADD CONSTRAINT games_owner_id_fkey FOREIGN KEY (owner_id) REFERENCES public.users(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.events
+    ADD CONSTRAINT events_owner_id_fkey FOREIGN KEY (owner_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: events_games playable_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.events_games
+    ADD CONSTRAINT playable_event_id_fkey FOREIGN KEY (event_id) REFERENCES public.events(id) ON DELETE CASCADE;
+
+
+--
+-- Name: events_games playable_game_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.events_games
+    ADD CONSTRAINT playable_game_id_fkey FOREIGN KEY (game_id) REFERENCES public.games(id) ON DELETE CASCADE;
 
 
 --

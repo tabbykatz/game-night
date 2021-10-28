@@ -6,33 +6,44 @@ const db = initDb();
 
 export const getGames = (sub) =>
   db.any(
-    "SELECT games.* FROM games LEFT JOIN users on owner_id=users.id WHERE sub=$<sub> ORDER BY date_added DESC",
+    "SELECT games.* FROM games LEFT JOIN users_games ON games.id=users_games.game_id WHERE users_games.user_id = (SELECT id FROM users WHERE sub=$<sub>)",
     { sub },
   );
 
 export const getEvents = (sub) =>
   db.any(
-    "SELECT events.* FROM events LEFT JOIN attending on event_id=events.id where (SELECT id from users where sub=$<sub>)=user_id",
+    "SELECT events.* FROM events LEFT JOIN events_users on event_id=events.id where (SELECT id from users where sub=$<sub>)=user_id",
     { sub },
   );
 
-export const addGame = (game, sub) =>
-  db.one(
-    `INSERT INTO games(id, name, image_url, owner_id)
-      VALUES($<id>, $<name>, $<image_url>, (SELECT id FROM users WHERE sub=$<sub>))
-      RETURNING *`,
+export const addGame = async (game, sub) => {
+  await db.none(
+    `
+    INSERT INTO games(id, name, image_url)
+    VALUES($<id>, $<name>, $<image_url>)
+    ON CONFLICT (id) DO UPDATE
+      SET name=$<name>, image_url=$<image_url>
+    `,
     { ...game, sub },
   );
+  return db.one(
+    `
+    INSERT INTO users_games(user_id, game_id)
+    VALUES((SELECT id FROM users where sub=$<sub>), $<id>) RETURNING *
+    `,
+    { id: game.id, sub },
+  );
+};
 
 export const deleteGame = (id, sub) => {
   db.none(
-    "DELETE FROM games WHERE id = $<id> AND owner_id = (SELECT id FROM users WHERE sub = $<sub>)",
+    "DELETE FROM users_games WHERE game_id = $<id> AND user_id = (SELECT id FROM users WHERE sub = $<sub>)",
     { id, sub },
   );
 };
 
-export const addOrUpdateUser = (user) =>
-  db.one(
+export const addOrUpdateUser = (user) => {
+  return db.one(
     `INSERT INTO users(given_name, family_name, picture, email, sub)
       VALUES($<given_name>, $<family_name>, $<picture>, $<email>, $<sub>)
       ON CONFLICT (sub) DO
@@ -41,6 +52,7 @@ export const addOrUpdateUser = (user) =>
       RETURNING *`,
     user,
   );
+};
 
 function initDb() {
   let connection;
