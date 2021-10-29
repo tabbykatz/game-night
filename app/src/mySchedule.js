@@ -17,7 +17,7 @@ export const MyEventsProvider = (props) => {
   React.useEffect(() => {
     !loading && loadEvents();
   }, [loading, loadEvents]);
-
+  console.log(myEvents[0]);
   const addEvent = (event) => {
     apiClient.addEvent(event).then(loadEvents);
   };

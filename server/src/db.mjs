@@ -6,13 +6,29 @@ const db = initDb();
 
 export const getGames = (sub) =>
   db.any(
-    "SELECT games.* FROM games LEFT JOIN users_games ON games.id=users_games.game_id WHERE users_games.user_id = (SELECT id FROM users WHERE sub=$<sub>)",
+    `SELECT games.* 
+    FROM games LEFT JOIN users_games ON games.id = users_games.game_id
+    WHERE users_games.user_id = (
+      SELECT id FROM users
+      WHERE sub = $<sub>
+      )`,
     { sub },
   );
 
 export const getEvents = (sub) =>
   db.any(
-    "SELECT events.* FROM events LEFT JOIN events_users on event_id=events.id where (SELECT id from users where sub=$<sub>)=user_id",
+    `
+    SELECT events.*, ARRAY_AGG(user_id) events_users
+    FROM events LEFT JOIN events_users ON event_id=events.id
+    WHERE events.id IN (
+      SELECT events.id
+      FROM events LEFT JOIN events_users ON event_id=events.id
+      WHERE (
+        SELECT id FROM users
+        WHERE sub=$<sub>)=user_id
+      )
+    GROUP BY events.id
+    `,
     { sub },
   );
 
