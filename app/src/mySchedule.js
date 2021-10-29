@@ -20,7 +20,6 @@ export const MyEventsProvider = (props) => {
 
   const addEvent = (event) => {
     apiClient.addEvent(event).then(loadEvents);
-    toast("Event added!");
   };
 
   const deleteEvent = (event) => {

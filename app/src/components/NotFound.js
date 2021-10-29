@@ -4,7 +4,7 @@ const NotFound = () => {
   return (
     <div>
       <h1>404</h1>
-      <p>Game not found</p>
+      <p>Not found</p>
     </div>
   );
 };

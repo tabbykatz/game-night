@@ -2,14 +2,16 @@ import * as React from "react";
 
 import { enGB } from "date-fns/locale";
 import { DatePicker } from "react-nice-dates";
+import { useNavigate } from "react-router-dom";
 
-import useApi from "../auth/useApi";
+import { useMyEvents } from "../mySchedule";
 
 import styles from "./styles.module.scss";
 import "react-nice-dates/build/style.css";
 
 const CreateEvent = () => {
-  const { apiClient } = useApi();
+  const navigate = useNavigate();
+  const { addEvent } = useMyEvents();
   const [startTime, setStartTime] = React.useState(new Date());
   const [endTime, setEndTime] = React.useState(new Date());
 
@@ -23,10 +25,9 @@ const CreateEvent = () => {
       start_time: startTime.toUTCString(),
       end_time: endTime.toUTCString(),
     };
-
     event.preventDefault();
-    apiClient.addEvent(newEvent);
-    // navigate to events
+    addEvent(newEvent);
+    navigate("/events");
   };
 
   return (

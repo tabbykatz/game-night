@@ -1,11 +1,11 @@
 import * as React from "react";
 
-import GameList from "../components/GameList";
-//import { useMyGames } from "../mySchedule";
-
+import EventList from "../components/EventList";
+import { useMyEvents } from "../mySchedule";
 const MyEvents = () => {
-  //const { myGames } = useMyGames();
-  //return <EventList />;
+  const { myEvents } = useMyEvents();
+
+  return <EventList events={myEvents} />;
 };
 
 export default MyEvents;

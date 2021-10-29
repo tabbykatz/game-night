@@ -6,8 +6,8 @@ import { Routes, Route } from "react-router-dom";
 import CreateEvent from "../CreateEvent";
 import Dashboard from "../Dashboard";
 import EventDetails from "../EventDetails";
-import Events from "../Events";
 import GameDetails from "../GameDetails";
+import MyEvents from "../MyEvents";
 import MyGames from "../MyGames";
 import Nav from "../Nav";
 import Search from "../Search";
@@ -44,7 +44,7 @@ const App = () => {
             path="/games"
             element={<Protected component={MyGames} limit={0} />}
           />
-          <Route path="/events" element={<Protected component={Events} />} />
+          <Route path="/events" element={<Protected component={MyEvents} />} />
           <Route
             path="/games/:id"
             element={<Protected component={GameDetails} />}
