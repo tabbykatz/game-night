@@ -2,12 +2,14 @@ import * as React from "react";
 
 import { Link } from "react-router-dom";
 
-import Events from "../Events";
+import EventList from "../components/EventList";
 import GameList from "../components/GameList";
 import { useMyGames } from "../myCollection";
+import { useMyEvents } from "../mySchedule";
 
 const Dashboard = () => {
   const { myGames } = useMyGames();
+  const { myEvents } = useMyEvents();
 
   return (
     <>
@@ -23,7 +25,7 @@ const Dashboard = () => {
       <br />
       <Link to="/events">View All</Link>
 
-      <Events limit={6} />
+      <EventList events={myEvents.slice(0, 6)} />
     </>
   );
 };

@@ -6,6 +6,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import AuthProvider from "./auth/AuthProvider";
 import { MyGamesProvider } from "./myCollection";
+import { MyEventsProvider } from "./mySchedule";
 import reportWebVitals from "./reportWebVitals";
 
 import "./global.scss";
@@ -15,7 +16,9 @@ ReactDOM.render(
     <Router>
       <AuthProvider>
         <MyGamesProvider>
-          <App />
+          <MyEventsProvider>
+            <App />
+          </MyEventsProvider>
         </MyGamesProvider>
       </AuthProvider>
     </Router>

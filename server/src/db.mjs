@@ -43,7 +43,6 @@ export const addEvent = async (event, sub) => {
     `,
     { ...event, sub },
   );
-  console.log(newEvent);
   return db.one(
     `
     INSERT INTO events_users(user_id, event_id, is_owner)

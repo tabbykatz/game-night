@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 
 import CreateEvent from "../CreateEvent";
 import Dashboard from "../Dashboard";
+import EventDetails from "../EventDetails";
 import Events from "../Events";
 import GameDetails from "../GameDetails";
 import MyGames from "../MyGames";
@@ -47,6 +48,10 @@ const App = () => {
           <Route
             path="/games/:id"
             element={<Protected component={GameDetails} />}
+          />
+          <Route
+            path="/events/:id"
+            element={<Protected component={EventDetails} />}
           />
           <Route
             path="/events/create"

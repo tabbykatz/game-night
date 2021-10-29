@@ -14,6 +14,11 @@ router.get("/events", async (request, response) => {
   response.json(events);
 });
 
+router.get("/events/:id", async (request, response) => {
+  const event = await db.getEvent(request.params.id);
+  response.json(event);
+});
+
 router.use(express.json());
 router.post("/games", async (request, response) => {
   const game = await db.addGame(request.body.game, request.user.sub);
@@ -22,7 +27,6 @@ router.post("/games", async (request, response) => {
 
 router.post("/events", async (request, response) => {
   const event = await db.addEvent(request.body.event, request.user.sub);
-  console.log(event);
   response.status(201).json(event);
 });
 

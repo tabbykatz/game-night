@@ -20,11 +20,10 @@ const CreateEvent = () => {
     const form = event.currentTarget;
     const newEvent = {
       ...objectFromFormData(form),
-      start_time: startTime.toISOString(),
-      end_time: endTime.toISOString(),
+      start_time: startTime.toUTCString(),
+      end_time: endTime.toUTCString(),
     };
 
-    console.log(newEvent);
     event.preventDefault();
     apiClient.addEvent(newEvent);
     // navigate to events
