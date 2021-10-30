@@ -7,7 +7,7 @@ import { useMyEvents } from "../mySchedule";
 
 const EventDetails = () => {
   const { id } = useParams();
-  const { eventById } = useMyEvents();
+  const { eventById, users } = useMyEvents();
   const event = { ...eventById(id)[0] };
 
   return event.id ? (

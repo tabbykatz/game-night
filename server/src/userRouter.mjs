@@ -11,12 +11,9 @@ router.get("/games", async (request, response) => {
 
 router.get("/events", async (request, response) => {
   const events = await db.getEvents(request.user.sub);
+  //  wow I have wasted a lot of time trying to
+  //  add a list of user objects instead of user ids for events_users
   response.json(events);
-});
-
-router.get("/events/:id", async (request, response) => {
-  const event = await db.getEvent(request.params.id);
-  response.json(event);
 });
 
 router.use(express.json());
@@ -48,6 +45,14 @@ router.delete("/games/:id", async (request, response) => {
 //   );
 //   response.json(event);
 // });
+router.get("/", async (request, response) => {
+  const users = await db.getUsers();
+  const betterUsers = users.reduce((acc, user) => {
+    acc[user.id] = user;
+    return acc;
+  }, new Map());
+  response.json(betterUsers);
+});
 
 router.use(express.json());
 router.post("/", async (request, response) => {

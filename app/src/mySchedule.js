@@ -9,15 +9,20 @@ const MyEventsContext = React.createContext();
 export const MyEventsProvider = (props) => {
   const { loading, apiClient } = useApi();
   const [myEvents, setMyEvents] = React.useState([]);
+  const [users, setUsers] = React.useState([]);
 
+  const loadUsers = React.useCallback(
+    async () => setUsers(await apiClient.getUsers()),
+    [apiClient],
+  );
   const loadEvents = React.useCallback(async () => {
     setMyEvents(await apiClient.getEvents());
   }, [apiClient]);
 
   React.useEffect(() => {
-    !loading && loadEvents();
-  }, [loading, loadEvents]);
-  console.log(myEvents[0]);
+    !loading && loadEvents() && loadUsers();
+  }, [loading, loadEvents, loadUsers]);
+
   const addEvent = (event) => {
     apiClient.addEvent(event).then(loadEvents);
   };
@@ -33,7 +38,7 @@ export const MyEventsProvider = (props) => {
 
   return (
     <MyEventsContext.Provider
-      value={{ myEvents, addEvent, deleteEvent, eventById }}
+      value={{ myEvents, addEvent, deleteEvent, eventById, users }}
       {...props}
     />
   );

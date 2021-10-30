@@ -4,6 +4,8 @@ import { load_dotenv_if_exists } from "./utils.mjs";
 
 const db = initDb();
 
+export const getUsers = () => db.any("SELECT * FROM users");
+
 export const getGames = (sub) =>
   db.any(
     `SELECT games.* 
