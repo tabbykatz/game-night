@@ -27,10 +27,10 @@ router.post("/events", async (request, response) => {
   response.status(201).json(event);
 });
 
-router.post("/events/:eventId/users", async (request, response) => {
+router.post("/events/:eventId", async (request, response) => {
   const addition = await db.addUserToEvent(
-    request.params.eventId,
     request.body.userId,
+    request.params.eventId,
   );
   response.status(201).json(addition);
 });

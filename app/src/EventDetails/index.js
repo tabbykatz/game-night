@@ -14,7 +14,7 @@ const EventDetails = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    addUserToEvent(e.currentTarget.elements.email.value);
+    addUserToEvent(e.currentTarget.elements.email.value, id);
   };
 
   return event.id ? (

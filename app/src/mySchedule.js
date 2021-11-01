@@ -46,8 +46,11 @@ export const MyEventsProvider = (props) => {
   };
 
   const addUserToEvent = (userEmail, eventId) => {
-    const user = users.filter((user) => user.email === userEmail);
-    apiClient.addUserToEvent(eventId, user.id).then(loadEvents);
+    console.log(users);
+    const user = Object.values(users).filter(
+      (user) => user.email === userEmail,
+    );
+    apiClient.addUserToEvent(user[0].id, eventId).then(loadEvents);
   };
 
   return (

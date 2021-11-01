@@ -75,7 +75,6 @@ export const addUserToEvent = async (userId, eventId) => {
     `
     INSERT INTO events_users(user_id, event_id)
     VALUES($<userId>, $<eventId>)
-    ON CONFLICT (user_id, event_id) DO NOTHING
     `,
     { userId, eventId },
   );
