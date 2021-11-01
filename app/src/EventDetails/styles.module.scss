@@ -6,28 +6,78 @@ $black: #010203;
 $mono: "IBM Plex Mono", monospace;
 $sans: "IBM Plex Sans", sans-serif;
 
-.nav {
-  font-family: $sans;
-  font-weight: bolder;
-  a[class="active"] {
-    background-color: $ultimate-grey;
-    color: white;
-    text-decoration: none;
+li {
+  list-style: none;
+}
+
+.button {
+  margin-left: 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-gap: 1rem;
+}
+
+@supports (width: min(30%, 100%)) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(30%, 100%), 1fr));
   }
 }
 
-.greeting {
-  display: flex;
-  position: absolute;
-  top: 5px;
-  right: 5px;
+// for cards
 
-  & button {
-    // border: none;
-  }
+.dropshadow {
+  filter: drop-shadow(1px 2px 4px hsl(210deg, 2%, 58%));
+}
+
+.box {
+  width: 150px;
+  height: 150px;
+  background-color: white;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cardthumb {
+  display: flex;
+  width: 30%;
+  height: auto;
+}
+
+.detailsimage {
+  display: flex;
+  width: 50%;
+}
+
+.container {
+  display: flex;
+}
+
+.left {
+  flex: 1;
+  padding: 1rem;
+}
+
+.right {
+  flex: 1;
+  padding: 1rem;
+}
+.description {
 }
 
 .hex {
+  position: absolute;
+  left: 5px;
+
   display: flex;
   margin: 0 auto;
   width: 50px;

@@ -13,11 +13,14 @@ router.get("/", async ({ query: { name } }, response) => {
 });
 
 router.get("/:id", async (request, response) => {
-  console.log(request.params.id);
-  const { games } = await bga("search", {
-    searchParams: { ids: request.params.id },
-  });
-  response.json(games[0]);
+  try {
+    const { games } = await bga("search", {
+      searchParams: { ids: request.params.id },
+    });
+    response.json(games[0]);
+  } catch ({ response: { statusCode, statusMessage } }) {
+    response.status(statusCode).json({ error: statusMessage });
+  }
 });
 
 const bga = got.extend({

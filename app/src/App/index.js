@@ -3,9 +3,12 @@ import * as React from "react";
 import { Toaster } from "react-hot-toast";
 import { Routes, Route } from "react-router-dom";
 
+import CreateEvent from "../CreateEvent";
 import Dashboard from "../Dashboard";
+import EventDetails from "../EventDetails";
 import GameDetails from "../GameDetails";
-import Games from "../Games";
+import MyEvents from "../MyEvents";
+import MyGames from "../MyGames";
 import Nav from "../Nav";
 import Search from "../Search";
 import useApi from "../auth/useApi";
@@ -37,14 +40,21 @@ const App = () => {
             element={<Protected component={Dashboard} />}
           />
           <Route path="/search" element={<Protected component={Search} />} />
-          <Route path="/games" element={<Protected component={Games} />} />
-          <Route path="/events" element={<Protected component={Events} />} />
+          <Route
+            path="/games"
+            element={<Protected component={MyGames} limit={0} />}
+          />
+          <Route path="/events" element={<Protected component={MyEvents} />} />
           <Route
             path="/games/:id"
             element={<Protected component={GameDetails} />}
           />
           <Route
-            path="/create-event"
+            path="/events/:id"
+            element={<Protected component={EventDetails} />}
+          />
+          <Route
+            path="/events/create"
             element={<Protected component={CreateEvent} />}
           />
         </Routes>
@@ -53,10 +63,6 @@ const App = () => {
     </>
   );
 };
-// TODO: move this
-const Events = () => <h1>Events</h1>;
-const CreateEvent = () => <h1>Create an Event</h1>;
-// end TODO
 
 const Home = () => {
   return (

@@ -21,24 +21,23 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: games; Type: TABLE; Schema: public; Owner: -
+-- Name: events_users; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.games (
+CREATE TABLE public.events_users (
     id integer NOT NULL,
-    game_id text NOT NULL,
-    name text NOT NULL,
-    thumbnail_url text,
-    owner_id integer NOT NULL
+    user_id integer NOT NULL,
+    event_id integer NOT NULL,
+    is_owner boolean DEFAULT false
 );
 
 
 --
--- Name: games_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: attending_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-ALTER TABLE public.games ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
-    SEQUENCE NAME public.games_id_seq
+ALTER TABLE public.events_users ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.attending_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -48,34 +47,74 @@ ALTER TABLE public.games ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
 
 
 --
--- Name: tasks; Type: TABLE; Schema: public; Owner: -
+-- Name: events; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.tasks (
+CREATE TABLE public.events (
     id integer NOT NULL,
     name text NOT NULL,
-    user_id integer NOT NULL
+    owner_id integer NOT NULL,
+    address text NOT NULL,
+    start_time timestamp with time zone NOT NULL,
+    end_time timestamp with time zone NOT NULL,
+    description text,
+    city text,
+    state text,
+    zip text,
+    country text
 );
 
 
 --
--- Name: tasks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: events_games; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.tasks_id_seq
-    AS integer
+CREATE TABLE public.events_games (
+    id integer NOT NULL,
+    game_id text NOT NULL,
+    user_id integer NOT NULL,
+    event_id integer NOT NULL
+);
+
+
+--
+-- Name: events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.events ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.events_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
-    CACHE 1;
+    CACHE 1
+);
 
 
 --
--- Name: tasks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: games; Type: TABLE; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.tasks_id_seq OWNED BY public.tasks.id;
+CREATE TABLE public.games (
+    id text NOT NULL,
+    name text NOT NULL,
+    image_url text NOT NULL,
+    date_added timestamp without time zone DEFAULT now()
+);
+
+
+--
+-- Name: playable_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.events_games ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.playable_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
 
 
 --
@@ -89,6 +128,16 @@ CREATE TABLE public.users (
     picture text,
     email text,
     sub text NOT NULL
+);
+
+
+--
+-- Name: users_games; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.users_games (
+    user_id integer NOT NULL,
+    game_id text NOT NULL
 );
 
 
@@ -107,51 +156,66 @@ ALTER TABLE public.users ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
 
 
 --
--- Name: tasks id; Type: DEFAULT; Schema: public; Owner: -
+-- Data for Name: events; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.tasks ALTER COLUMN id SET DEFAULT nextval('public.tasks_id_seq'::regclass);
+COPY public.events (id, name, owner_id, address, start_time, end_time, description, city, state, zip, country) FROM stdin;
+7	Family Game Night	2	1627 Ashby Avenue	2021-10-28 20:09:55.433+00	2021-10-28 20:09:55.433+00	All ages welcome!	Berkeley	CA	94703	US
+8	Thanksgiving Boardgame Gathering	2	1627 Ashby Avenue	2021-11-25 22:30:00+00	2021-10-29 03:00:00+00	Potluck & Games!	Berkeley	CA	94703	US
+\.
+
+
+--
+-- Data for Name: events_games; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.events_games (id, game_id, user_id, event_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: events_users; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.events_users (id, user_id, event_id, is_owner) FROM stdin;
+5	2	7	t
+6	2	8	t
+\.
 
 
 --
 -- Data for Name: games; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.games (id, game_id, name, thumbnail_url, owner_id) FROM stdin;
-2	T8zWWdh0DR	Above and Below	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1605133478422	2
-3	7xA6uN9iXn	Game of Thrones: The Iron Throne	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254206689-51Hyj0YRdzL.jpg	1
-7	OIXt3DmJU0	Catan	https://cdn.shopify.com/s/files/1/0513/4077/1515/products/catan-board-game.jpg?v=1609629082	2
-8	btFnlGIdZD	Near and Far	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559255083453-51JQ9Z7Ag9L.jpg	2
-9	DL9kvv4ChL	Near and Far: Amber Mines	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1540095338997	2
-10	fDn9rQjH9O	Terraforming Mars	https://cdn.shopify.com/s/files/1/0513/4077/1515/products/terraforming-mars-board-game.jpg?v=1611091381	2
-11	1T4vPMhOoB	Terraforming Mars: Prelude	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254890820-51pZqHor2BkL.jpg	2
-12	BsW53eMDNO	Terraforming Mars: Hellas & Elysium	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254971844-51AOyXPEvOL.jpg	2
-13	ygzsA7wRGq	Terraforming Mars: Venus Next	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254957621-51j9TsNhPVL.jpg	2
-14	x1IU2t8NBx	Terraforming Mars: Colonies	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1618417771429	2
-15	O0G8z5Wgz1	Splendor	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254164722-51AHDwGznvL.jpg	2
-16	kPDxpJZ8PD	Spirit Island	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254941010-61PJxjjnbfL.jpg	2
-17	otIQ3ZB83G	Spirit Island: Branch & Claw	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257847539-41t6RZe13CL.jpg	2
-18	fxLx94woFL	Islebound	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559255094769-51bGOqvCQJL.jpg	2
-19	Y8krJnsfFQ	Megaland	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257651311-51exqDKFf6L.jpg	2
-20	5mPjB6Ap5h	The Werewolves of Miller's Hollow	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1630613307189	2
-21	gVKfdWySRW	The Werewolves of Miller's Hollow: New Moon	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257765061-51bR3NspGRL.jpg	2
-22	4j91q8rjVA	The Werewolves of Miller's Hollow: Characters	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1587431815344	2
-\.
-
-
---
--- Data for Name: tasks; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY public.tasks (id, name, user_id) FROM stdin;
-1	🙏 Be nice when you add test entries	1
-2	⏲ Added entries will be reset every Sunday	1
-3	End white supremacy	1
-4	Advocate for living wage	1
-5	Provide universal health care	1
-7	yay	2
-8	hi xiao	2
-9	hello george	2
+COPY public.games (id, name, image_url, date_added) FROM stdin;
+D0OHY8b8Oc	Hive	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324309199.jpg	2021-10-26 21:25:32.578171
+XRp8KrEcdC	Hive Pocket	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324302747.jpg	2021-10-26 21:26:15.808213
+Bwawckx54U	Glory To Rome	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257325268-41pQ1U0GUvL.jpg	2021-10-26 21:11:08.335592
+iSVnYdrsZQ	Rivals for Catan	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1610427446373	2021-10-28 01:49:24.006781
+l2i97dfuvD	Star Trek: Catan	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559253947477-61rFuGiFBWL.jpg	2021-10-28 01:49:24.90798
+EiVU77dgUm	Ticket to Ride: New York	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324726067.jpg	2021-10-27 16:21:01.451239
+XZ9BeWAgCu	Ticket To Ride: USA 1910 Expansion	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254700843-51KVaiiqmgL.jpg	2021-10-27 16:21:02.407929
+sqyQ05Wvs1	Ticket to Ride Map Collection: Volume 2 – India & Switzerland	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324727880.jpg	2021-10-27 16:21:04.236763
+GJ94Cl7cz5	Ticket to Ride: Europe	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254183527-61HYBjXXnEL.jpg	2021-10-27 16:21:06.318998
+GGwRDABj7L	Ticket to Ride: Nordic Countries	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324749088.jpg	2021-10-27 16:21:07.639489
+PkWvBrzYor	Ticket to Ride: Märklin	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257533218-51ZMX6Z86WL.jpg	2021-10-27 16:21:08.996194
+AuBvbISHR6	Ticket to Ride	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324738308.jpg	2021-10-27 16:20:58.538134
+b6BQGn5PIY	Ticket to Ride: Map Collection Volume 5 - United Kingdom	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257689020-61Q4FIWagtL.jpg	2021-10-27 16:20:59.469498
+YggHdAlO32	Ticket to Ride: Map Collection Volume 4 - Nederland	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559258036387-61KoFKv7p2BL.jpg	2021-10-27 16:21:00.532686
+EvYzPCnCGG	Catan: 5-6 Player Extension	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254797611-51uLrWkNt0L.jpg	2021-10-26 21:38:07.709331
+07FXm6tX4o	Clank! A Deck-Building Adventure	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254970101-61gHdS3ds2L.jpg	2021-10-27 19:26:10.827376
+JhgjCBqoLa	Space Base	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1551968196589	2021-10-27 19:26:12.116298
+xGn6ak2zxy	Clank! In! Space!	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254136775-61TF2XNJuLL.jpg	2021-10-27 19:26:14.499531
+uVD7OzRUNZ	Space Alert	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254968358-512yA0s-XGL.jpg	2021-10-27 19:26:17.310195
+G9zZZtzy0E	Space Hulk: Death Angel - The Card Game	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257964349-5158LesLBVL.jpg	2021-10-27 19:26:18.461954
+2RICv6q7dj	Deep Space D-6	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254888822-512B81HPxRqL.jpg	2021-10-27 19:26:23.053736
+g0J496TM5k	Escape From the Aliens in Outer Space	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1599052459114	2021-10-27 19:26:23.958337
+OIXt3DmJU0	Catan	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324722072.jpg	2021-10-26 21:38:05.383455
+E5TYKwLTf0	Catan: Cities & Knights	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257359245-51DYsPZcYyL.jpg	2021-10-26 21:38:06.595851
+tECB3ktBhP	Catan: Cities & Knights 5-6 Player Extension	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254849801-51V-pZNL3hL.jpg	2021-10-27 16:29:02.756684
+MiOTS94YV3	Catan Card Game	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257476571-51iAbkahd1L.jpg	2021-10-25 21:59:15.461004
+NoWy3nPYfj	Catan: Seafarers Expansion	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257503054-51u0777bL3L.jpg	2021-10-27 14:00:36.70912
+Wp2pGHZHIO	Catan: Seafarers 5-6 Player Extension	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254869479-51XMaRqBcJL.jpg	2021-10-28 01:49:22.739897
 \.
 
 
@@ -162,30 +226,83 @@ COPY public.tasks (id, name, user_id) FROM stdin;
 COPY public.users (id, given_name, family_name, picture, email, sub) FROM stdin;
 1	George	Song	https://lh3.googleusercontent.com/a-/AOh14GisMQBkZ6bxLA6L0p7EBnaPny8aK52UKRI2_tQIaw=s96-c	george@damacy.net	google-oauth2|111226858800048009044
 4	Tabitha	O'Melay	https://s.gravatar.com/avatar/1d966a39f6ba6020a5b17f3e00d3328c?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Ftm.png	tomelay@gmail.com	auth0|61677955fe39bb006924412c
-7	Tabitha	O'Melay	https://avatars.githubusercontent.com/u/55110763?v=4	tomelay@gmail.com	github|55110763
 2	Tabitha	O'Melay	https://lh3.googleusercontent.com/a-/AOh14Gj5BnRLcyNMAfQ-zSa8E8GnLSVfkRVs29k-cp0waCc=s96-c	tomelay@gmail.com	google-oauth2|105287325829057414677
+7	Tabitha	O'Melay	https://avatars.githubusercontent.com/u/55110763?v=4	tomelay@gmail.com	github|55110763
 \.
 
 
 --
--- Name: games_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Data for Name: users_games; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.games_id_seq', 22, true);
+COPY public.users_games (user_id, game_id) FROM stdin;
+7	OIXt3DmJU0
+7	MiOTS94YV3
+2	07FXm6tX4o
+2	JhgjCBqoLa
+2	G9zZZtzy0E
+2	2RICv6q7dj
+2	g0J496TM5k
+2	E5TYKwLTf0
+2	tECB3ktBhP
+2	MiOTS94YV3
+2	NoWy3nPYfj
+2	Wp2pGHZHIO
+2	iSVnYdrsZQ
+2	l2i97dfuvD
+\.
 
 
 --
--- Name: tasks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: attending_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.tasks_id_seq', 9, true);
+SELECT pg_catalog.setval('public.attending_id_seq', 6, true);
+
+
+--
+-- Name: events_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.events_id_seq', 8, true);
+
+
+--
+-- Name: playable_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.playable_id_seq', 1, false);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 349, true);
+SELECT pg_catalog.setval('public.users_id_seq', 1896, true);
+
+
+--
+-- Name: events_users attending_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.events_users
+    ADD CONSTRAINT attending_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: events events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.events
+    ADD CONSTRAINT events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: games games_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.games
+    ADD CONSTRAINT games_id_key UNIQUE (id);
 
 
 --
@@ -197,11 +314,19 @@ ALTER TABLE ONLY public.games
 
 
 --
--- Name: tasks tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: events_games playable_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.tasks
-    ADD CONSTRAINT tasks_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.events_games
+    ADD CONSTRAINT playable_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_games users_games_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users_games
+    ADD CONSTRAINT users_games_pkey PRIMARY KEY (user_id, game_id);
 
 
 --
@@ -221,19 +346,43 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: tasks fk_user; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: events_users attending_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.tasks
-    ADD CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.events_users
+    ADD CONSTRAINT attending_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
 
 --
--- Name: games games_owner_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: events events_owner_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.games
-    ADD CONSTRAINT games_owner_id_fkey FOREIGN KEY (owner_id) REFERENCES public.users(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.events
+    ADD CONSTRAINT events_owner_id_fkey FOREIGN KEY (owner_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: events_users events_users_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.events_users
+    ADD CONSTRAINT events_users_event_id_fkey FOREIGN KEY (event_id) REFERENCES public.events(id) ON DELETE CASCADE;
+
+
+--
+-- Name: events_games playable_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.events_games
+    ADD CONSTRAINT playable_event_id_fkey FOREIGN KEY (event_id) REFERENCES public.events(id) ON DELETE CASCADE;
+
+
+--
+-- Name: events_games playable_game_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.events_games
+    ADD CONSTRAINT playable_game_id_fkey FOREIGN KEY (game_id) REFERENCES public.games(id) ON DELETE CASCADE;
 
 
 --

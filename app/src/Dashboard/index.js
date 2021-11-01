@@ -1,51 +1,32 @@
 import * as React from "react";
 
-import Games from "../Games";
-import useApi from "../auth/useApi";
-import useAuth0 from "../auth/useAuth0";
+import { Link } from "react-router-dom";
 
-import styles from "./styles.module.scss";
+import EventList from "../components/EventList";
+import GameList from "../components/GameList";
+import { useMyGames } from "../myCollection";
+import { useMyEvents } from "../mySchedule";
 
 const Dashboard = () => {
-  const { isAuthenticated } = useAuth0();
+  const { myGames } = useMyGames();
+  const { myEvents } = useMyEvents();
 
-  const Recents = () => {
-    return (
-      <>
-        <h1>list of recently added games +all games button</h1>
-        <ul>
-          <li>
-            <a href="/games">All Games</a>
-          </li>
-          <li>
-            <a href="/search">Add more games</a>
-          </li>
-        </ul>
-      </>
-    );
-  };
-
-  const UpcomingEvents = () => {
-    return (
-      <>
-        <h1>list of some upcoming events +more button</h1>
-        <ul>
-          <li>
-            <a href="/events">All Events</a>
-          </li>
-          <li>
-            <a href="/create-event">Create an Event</a>
-          </li>
-        </ul>
-      </>
-    );
-  };
-  return isAuthenticated ? (
+  return (
     <>
-      <Recents />
-      <UpcomingEvents />
-    </>
-  ) : null;
-};
+      <h1>Your Recently Added Games</h1>
+      <Link to="/search">Add a Game</Link>
+      <br />
+      <Link to="/games">View All</Link>
 
+      <GameList games={myGames.slice(0, 6)} />
+
+      <h1>Upcoming Events</h1>
+      <Link to="/events/create">Create an Event</Link>
+      <br />
+      <Link to="/events">View All</Link>
+
+      <EventList events={myEvents.slice(0, 6)} />
+    </>
+  );
+};
 export default Dashboard;
