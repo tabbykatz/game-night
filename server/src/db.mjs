@@ -70,6 +70,17 @@ export const addEvent = async (event, sub) => {
   );
 };
 
+export const addUserToEvent = async (userId, eventId) => {
+  await db.none(
+    `
+    INSERT INTO events_users(user_id, event_id)
+    VALUES($<userId>, $<eventId>)
+    ON CONFLICT (user_id, event_id) DO NOTHING
+    `,
+    { userId, eventId },
+  );
+};
+
 export const deleteGame = (id, sub) => {
   db.none(
     "DELETE FROM users_games WHERE game_id = $<id> AND user_id = (SELECT id FROM users WHERE sub = $<sub>)",

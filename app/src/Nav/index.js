@@ -25,11 +25,7 @@ const Auth = () => {
       <div className={styles.greeting}>
         Hello, {user.given_name} <Logout />
         <div className={styles.hex}>
-          <img
-            // trying to account for weird 403 error on some avatars
-            src={user.picture === undefined ? "/logo192.png" : user.picture}
-            alt=""
-          />
+          <img src={user.picture} alt="" />
         </div>
       </div>
     </>

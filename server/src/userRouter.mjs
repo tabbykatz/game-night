@@ -27,6 +27,14 @@ router.post("/events", async (request, response) => {
   response.status(201).json(event);
 });
 
+router.post("/events/:eventId/users", async (request, response) => {
+  const addition = await db.addUserToEvent(
+    request.params.eventId,
+    request.body.userId,
+  );
+  response.status(201).json(addition);
+});
+
 router.delete("/games/:id", async (request, response) => {
   await db.deleteGame(request.params.id, request.user.sub);
   response.status(204).end();

@@ -1,3 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300&family=IBM+Plex+Sans:wght@300&display=swap");
+$white: #ffffff;
+$ultimate-grey: hsl(210deg, 2%, 58%);
+$lighter-grey: #b9babc;
+$black: #010203;
+$mono: "IBM Plex Mono", monospace;
+$sans: "IBM Plex Sans", sans-serif;
+
 li {
   list-style: none;
 }
@@ -64,4 +72,46 @@ li {
   padding: 1rem;
 }
 .description {
+}
+
+.hex {
+  position: absolute;
+  left: 5px;
+
+  display: flex;
+  margin: 0 auto;
+  width: 50px;
+  height: 43.3px; /* width * 0.866 */
+  background: $lighter-grey;
+  -webkit-clip-path: polygon(
+    0% 50%,
+    25% 0%,
+    75% 0%,
+    100% 50%,
+    75% 100%,
+    25% 100%
+  );
+  -moz-clip-path: polygon(0% 50%, 25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%);
+  & img {
+    // position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    -webkit-clip-path: polygon(
+      0% 50%,
+      25% 0%,
+      75% 0%,
+      100% 50%,
+      75% 100%,
+      25% 100%
+    );
+    -moz-clip-path: polygon(
+      0% 50%,
+      25% 0%,
+      75% 0%,
+      100% 50%,
+      75% 100%,
+      25% 100%
+    );
+  }
 }

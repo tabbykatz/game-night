@@ -36,9 +36,30 @@ export const MyEventsProvider = (props) => {
     return myEvents.filter((event) => event.id === +id);
   };
 
+  const getAttendee = (id) => {
+    const user = users[id];
+    return {
+      name: `${user.given_name} ${user.family_name}`,
+      email: user.email,
+      picture: user.picture,
+    };
+  };
+
+  const addUserToEvent = (userEmail, eventId) => {
+    const user = users.filter((user) => user.email === userEmail);
+    apiClient.addUserToEvent(eventId, user.id).then(loadEvents);
+  };
+
   return (
     <MyEventsContext.Provider
-      value={{ myEvents, addEvent, deleteEvent, eventById, users }}
+      value={{
+        myEvents,
+        addEvent,
+        deleteEvent,
+        eventById,
+        getAttendee,
+        addUserToEvent,
+      }}
       {...props}
     />
   );
