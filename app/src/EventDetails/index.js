@@ -31,7 +31,7 @@ const EventDetails = () => {
               <div className={styles.hex}>
                 <img src={user.picture} alt="" />
               </div>
-              <li key={id}>
+              <li key={user.id}>
                 {user.name}, {user.email}
               </li>
             </>

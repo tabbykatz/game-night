@@ -42,14 +42,27 @@ export const MyEventsProvider = (props) => {
       name: `${user.given_name} ${user.family_name}`,
       email: user.email,
       picture: user.picture,
+      id: user.id,
     };
   };
 
   const addUserToEvent = (userEmail, eventId) => {
-    console.log(users);
     const user = Object.values(users).filter(
       (user) => user.email === userEmail,
     );
+    console.log(user);
+    if (!user.length) {
+      toast("User not found!");
+      return;
+    }
+    if (eventById(eventId)[0].events_users.includes(user[0].id)) {
+      toast("User already added!");
+      return;
+    }
+    if (user.length > 1) {
+      toast("Multiple users found!");
+      return;
+    }
     apiClient.addUserToEvent(user[0].id, eventId).then(loadEvents);
   };
 
