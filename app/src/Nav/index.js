@@ -30,7 +30,9 @@ const Auth = () => {
       </div>
     </>
   ) : (
-    <Login />
+    <div className={styles.greeting}>
+      <Login />
+    </div>
   );
 };
 

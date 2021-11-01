@@ -19,31 +19,37 @@ const EventDetails = () => {
 
   return event.id ? (
     <>
-      <h1>{event.name}</h1>
-      <p>{event.description}</p>
-      <address>{event.address}</address>
-      <p>attending:</p>
-      <ul>
-        {event.events_users.map((id) => {
-          const user = getAttendee(id);
-          return (
-            <>
-              <div className={styles.hex}>
-                <img src={user.picture} alt="" />
-              </div>
-              <li key={user.id}>
-                {user.name}, {user.email}
-              </li>
-            </>
-          );
-        })}
-      </ul>
-      <form {...{ onSubmit }}>
-        <label htmlFor="attendee">
-          <input type="text" name="email" placeholder="email" />
-        </label>
-        <button>Add Attendee</button>
-      </form>
+      <div className={styles.container}>
+        <div className={styles.left}>
+          <h1>{event.title}</h1>
+          <h1>{event.name}</h1>
+          <p>{event.description}</p>
+          <address>{event.address}</address>
+          <p>attending:</p>
+          <ul>
+            {event.events_users.map((id) => {
+              const user = getAttendee(id);
+              return (
+                <>
+                  <div className={styles.hex}>
+                    <img src={user.picture} alt="" />
+                  </div>
+                  <li key={user.id}>
+                    {user.name}, {user.email}
+                  </li>
+                </>
+              );
+            })}
+          </ul>
+          <form {...{ onSubmit }}>
+            <label htmlFor="attendee">
+              <input type="text" name="email" placeholder="email" />
+            </label>
+            <button>Add attendee</button>
+          </form>
+        </div>
+        <div className={styles.right}>games and add games</div>
+      </div>
     </>
   ) : (
     <NotFound />

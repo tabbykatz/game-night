@@ -50,7 +50,7 @@ export const MyEventsProvider = (props) => {
     const user = Object.values(users).filter(
       (user) => user.email === userEmail,
     );
-    console.log(user);
+    // TODO: wow. this is a mess. fix it.
     if (!user.length) {
       toast("User not found!");
       return;
