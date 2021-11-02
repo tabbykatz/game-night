@@ -6,6 +6,7 @@ const makeApi = (accessToken) => {
   const actions = {
     getUsers: () => _get("/api/users"),
     getEvents: () => _get("/api/users/events"),
+    getGamesByEvent: (eventId) => _get(`/api/events/${eventId}`),
     addEvent: (event) => _post("/api/users/events", { event }),
     addUserToEvent: (userId, eventId) =>
       _post(`/api/users/events/${eventId}`, { userId }),

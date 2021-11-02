@@ -13,6 +13,7 @@ const Search = () => {
 
   return (
     <>
+      <h1>Add games to your collection</h1>
       <FindGames {...{ findGames }} />
       {results ? <GameList games={results} /> : null}
     </>
