@@ -1,7 +1,8 @@
 import * as React from "react";
 
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
+import GameList from "../components/GameList";
 import NotFound from "../components/NotFound";
 import { useMyEvents } from "../mySchedule";
 
@@ -16,7 +17,6 @@ const EventDetails = () => {
     e.preventDefault();
     addUserToEvent(e.currentTarget.elements.email.value, id);
   };
-
   return event.id ? (
     <>
       <div className={styles.container}>
@@ -48,7 +48,14 @@ const EventDetails = () => {
             <button>Add attendee</button>
           </form>
         </div>
-        <div className={styles.right}>games and add games</div>
+        <div className={styles.right}>
+          <h1>Games</h1>
+          <p>
+            Here are the games you can expect at the event! Add or edit your
+            own.
+          </p>
+          {/* <GameList games={eventGames} /> */}
+        </div>
       </div>
     </>
   ) : (

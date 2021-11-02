@@ -16,6 +16,16 @@ export const getGames = (sub) =>
       )`,
     { sub },
   );
+//TODO: this is such a mess! i need a lot of information
+export const getGamesByEvent = (id) => {
+  db.any(
+    `SELECT events_games.*, games.* 
+    FROM events_games
+    INNER JOIN games ON game_id = games.id
+    WHERE event_id = $<id> RETURNING *`,
+    id,
+  );
+};
 
 export const getEvents = (sub) =>
   db.any(

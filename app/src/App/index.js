@@ -70,6 +70,10 @@ const Home = () => {
       <header className={styles.header}>
         <h1>Home</h1>
       </header>
+      <p>
+        This is going to be a splash page sorta place for explaining what the
+        app does/ a place to land when you are not logged in.
+      </p>
     </>
   );
 };

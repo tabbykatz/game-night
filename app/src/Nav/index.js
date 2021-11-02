@@ -10,11 +10,7 @@ const Nav = () => (
     <NavLink to="/" end>
       Home
     </NavLink>{" "}
-    | {/*most of this nav is just for me right now | */}
-    <NavLink to="dashboard">Dashboard</NavLink>|{" "}
-    <NavLink to="search">Search</NavLink>|{" "}
-    <NavLink to="games">All Games</NavLink>
-    <Auth />
+    | <NavLink to="dashboard">Dashboard</NavLink> <Auth />
   </nav>
 );
 
