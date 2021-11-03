@@ -10,6 +10,10 @@ const makeApi = (accessToken) => {
     addEvent: (event) => _post("/api/users/events", { event }),
     addUserToEvent: (userEmail, eventId) =>
       _post(`/api/users/events/${eventId}`, { userEmail }),
+    addGameToEvent: (gameId, eventId) =>
+      _post(`/api/users/events/${eventId}/games`, { gameId }),
+    removeGameFromEvent: (gameId, eventId) =>
+      _delete(`/api/users/events/${eventId}/${gameId}`),
     getGames: () => _get("/api/users/games"),
     findGames: (name) => _get("/api/games", { name }),
     getGame: (id) => _get(`/api/games/${id}`),

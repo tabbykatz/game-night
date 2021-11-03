@@ -102,6 +102,29 @@ export const addUserToEvent = (userEmail, eventId) => {
   );
 };
 
+export const removeGameFromEvent = (eventId, gameId) =>
+  db.none(
+    `
+    DELETE FROM events_games
+    WHERE event_id=$<eventId> AND game_id=$<gameId>
+    `,
+    { eventId, gameId },
+  );
+
+export const addGameToEvent = (eventId, gameId, sub) =>
+  db.none(
+    `
+      INSERT INTO events_games(event_id, game_id, user_id) VALUES($<eventId>, $<gameId>, (SELECT id from users where sub=$<sub>))
+      `,
+    { eventId, gameId, sub },
+  );
+
+export const editEvent = (event, id) =>
+  db.one(
+    `UPDATE events SET name=$<name>, address=$<address>, city=$<city>, state=$<state>, zip=$<zip>, country=$<country>, start_time=$<start_time>, end_time=$<end_time>, description=$<description> WHERE id=$<id> RETURNING *`,
+    { ...event, id },
+  );
+
 export const deleteGame = (id, sub) => {
   db.none(
     "DELETE FROM users_games WHERE game_id = $<id> AND user_id = (SELECT id FROM users WHERE sub = $<sub>)",

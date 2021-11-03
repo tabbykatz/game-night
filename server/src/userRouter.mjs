@@ -33,6 +33,23 @@ router.post("/events/:eventId", async (request, response) => {
   response.status(201).json(addition);
 });
 
+router.post("/events/:eventId/games", async (request, response) => {
+  const addition = await db.addGameToEvent(
+    request.body.gameId,
+    request.params.eventId,
+    request.user.sub,
+  );
+  response.status(201).json(addition);
+});
+
+router.delete("/events/:eventId/:gameId", async (request, response) => {
+  const deletion = await db.removeGameFromEvent(
+    request.params.eventId,
+    request.params.gameId,
+  );
+  response.status(200).json(deletion);
+});
+
 router.get("/events/:eventId", async (request, response) => {
   const event = await db.getEventById(request.params.eventId);
   response.json(event);
