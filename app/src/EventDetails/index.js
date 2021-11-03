@@ -3,7 +3,6 @@ import * as React from "react";
 import { Link, useParams } from "react-router-dom";
 
 import useApi from "../auth/useApi";
-import useAuth0 from "../auth/useAuth0";
 import EventGameList from "../components/EventGameList";
 import NotFound from "../components/NotFound";
 
