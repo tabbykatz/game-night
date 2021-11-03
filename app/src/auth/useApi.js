@@ -8,6 +8,8 @@ const makeApi = (accessToken) => {
     getEvents: () => _get("/api/users/events"),
     getEventById: (eventId) => _get(`/api/users/events/${eventId}`),
     addEvent: (event) => _post("/api/users/events", { event }),
+    editEvent: (event, eventId) =>
+      _put(`/api/users/events/${eventId}`, { event }),
     addUserToEvent: (userEmail, eventId) =>
       _post(`/api/users/events/${eventId}`, { userEmail }),
     addGameToEvent: (gameId, eventId) =>
@@ -35,6 +37,19 @@ const makeApi = (accessToken) => {
   const _post = async (url, body) => {
     const response = await _fetch(url, {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    let result;
+    try {
+      result = await response.json();
+    } catch {}
+    return result;
+  };
+
+  const _put = async (url, body) => {
+    const response = await _fetch(url, {
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
