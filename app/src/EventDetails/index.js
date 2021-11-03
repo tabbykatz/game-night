@@ -38,7 +38,8 @@ const EventDetails = () => {
   };
 
   const isEventOwner = () => {
-    return currentUser.id === event.owner_id;
+    console.log({ currentUser, event });
+    return currentUser === event.owner_id;
   };
 
   const removeGame = (gameId) => {
@@ -74,7 +75,7 @@ const EventDetails = () => {
                     <img src={attendee.picture} alt="" />
                   </div>
                   <li key={attendee.id}>
-                    {isEventOwner(attendee.id) ? "Host: " : null}
+                    {attendee.id === event.owner_id ? "Host: " : null}
                     {attendee.given_name}, {attendee.email}
                   </li>
                 </>
@@ -87,6 +88,12 @@ const EventDetails = () => {
             </label>
             <button>Add attendee</button>
           </form>
+          {isEventOwner() ? (
+            <>
+              <button>Edit Event</button>
+              <button>Delete Event</button>
+            </>
+          ) : null}
         </div>
         <div className={styles.right}>
           <h1>Games</h1>
