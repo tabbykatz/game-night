@@ -11,8 +11,6 @@ router.get("/games", async (request, response) => {
 
 router.get("/events", async (request, response) => {
   const events = await db.getEvents(request.user.sub);
-  //  wow I have wasted a lot of time trying to
-  //  add a list of user objects instead of user ids for events_users
   response.json(events);
 });
 
@@ -29,15 +27,15 @@ router.post("/events", async (request, response) => {
 
 router.post("/events/:eventId", async (request, response) => {
   const addition = await db.addUserToEvent(
-    request.body.userId,
+    request.body.userEmail,
     request.params.eventId,
   );
   response.status(201).json(addition);
 });
 
 router.get("/events/:eventId", async (request, response) => {
-  const games = await db.getGamesByEvent(request.params.eventId);
-  response.json(games);
+  const event = await db.getEventById(request.params.eventId);
+  response.json(event);
 });
 
 router.delete("/games/:id", async (request, response) => {
@@ -45,26 +43,9 @@ router.delete("/games/:id", async (request, response) => {
   response.status(204).end();
 });
 
-// router.delete("/events/:id", async (request, response) => {
-//   await db.deleteEvent(request.params.id, request.user.sub);
-//   response.status(204).end();
-// });
-
-// router.put("/events/:id", async (request, response) => {
-//   const event = await db.updateEvent(
-//     request.params.id,
-//     request.body.event,
-//     request.user.sub,
-//   );
-//   response.json(event);
-// });
 router.get("/", async (request, response) => {
-  const users = await db.getUsers();
-  const betterUsers = users.reduce((acc, user) => {
-    acc[user.id] = user;
-    return acc;
-  }, new Map());
-  response.json(betterUsers);
+  const user = await db.getUser(request.user.sub);
+  response.json(user.id);
 });
 
 router.use(express.json());

@@ -19,8 +19,6 @@ const EventList = ({ events }) => (
 );
 
 const Card = ({ event }) => {
-  const { isOwner } = useMyEvents();
-
   return (
     <>
       <div className={styles.wrapper}>
@@ -28,12 +26,6 @@ const Card = ({ event }) => {
           <header>
             <Link to={`/events/${event.id}`}>{event.name}</Link>
           </header>
-          {isOwner(event) ? (
-            <>
-              <button>Edit</button>
-              <button>Delete</button>
-            </>
-          ) : null}
         </div>
       </div>
     </>
