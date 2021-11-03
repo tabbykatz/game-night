@@ -33,6 +33,11 @@ router.post("/events/:eventId", async (request, response) => {
   response.status(201).json(addition);
 });
 
+router.put("/events/:eventId", async (request, response) => {
+  const event = await db.editEvent(request.body.event, request.params.eventId);
+  response.status(200).json(event);
+});
+
 router.post("/events/:eventId/games", async (request, response) => {
   const addition = await db.addGameToEvent(
     request.body.gameId,
