@@ -33,6 +33,11 @@ router.post("/events/:eventId", async (request, response) => {
   response.status(201).json(addition);
 });
 
+router.delete("/events/:eventId", async (request, response) => {
+  const deletion = await db.deleteEvent(request.params.eventId);
+  response.status(200).json(deletion);
+});
+
 router.put("/events/:eventId", async (request, response) => {
   const event = await db.editEvent(request.body.event, request.params.eventId);
   response.status(200).json(event);

@@ -125,6 +125,15 @@ export const editEvent = (event, id) =>
     { ...event, id },
   );
 
+export const deleteEvent = (id) =>
+  db.none(
+    `
+    DELETE FROM events
+    WHERE id=$<id>
+    `,
+    { id },
+  );
+
 export const deleteGame = (id, sub) => {
   db.none(
     "DELETE FROM users_games WHERE game_id = $<id> AND user_id = (SELECT id FROM users WHERE sub = $<sub>)",
