@@ -4,7 +4,8 @@ import { load_dotenv_if_exists } from "./utils.mjs";
 
 const db = initDb();
 
-export const getUsers = () => db.any("SELECT * FROM users");
+export const getUser = (sub) =>
+  db.one("SELECT * FROM users WHERE sub = $<sub>", { sub });
 
 export const getGames = (sub) =>
   db.any(
@@ -16,15 +17,27 @@ export const getGames = (sub) =>
       )`,
     { sub },
   );
-//TODO: this is such a mess! i need a lot of information
-export const getGamesByEvent = (id) => {
-  db.any(
-    `SELECT events_games.*, games.* 
-    FROM events_games
-    INNER JOIN games ON game_id = games.id
-    WHERE event_id = $<id> RETURNING *`,
+
+export const getEventById = async (id) => {
+  const event = await db.one(`SELECT events.* FROM events WHERE id = $<id>`, {
     id,
+  });
+
+  event.attendees = await db.any(
+    `SELECT users.*
+    FROM events_users
+    LEFT JOIN users ON users.id = events_users.user_id
+    WHERE event_id = ${event.id}`,
   );
+
+  event.games = await db.any(
+    `SELECT games.*, user_id AS owner
+    FROM events_games
+    LEFT JOIN games ON games.id = events_games.game_id
+    WHERE event_id = ${event.id}`,
+  );
+
+  return event;
 };
 
 export const getEvents = (sub) =>
@@ -80,13 +93,12 @@ export const addEvent = async (event, sub) => {
   );
 };
 
-export const addUserToEvent = async (userId, eventId) => {
-  await db.none(
+export const addUserToEvent = (userEmail, eventId) => {
+  db.one(
     `
-    INSERT INTO events_users(user_id, event_id)
-    VALUES($<userId>, $<eventId>)
+    INSERT INTO events_users(user_id, event_id, is_owner) VALUES((SELECT id FROM users where email=$<userEmail>), $<eventId>, false) RETURNING *
     `,
-    { userId, eventId },
+    { userEmail, eventId },
   );
 };
 

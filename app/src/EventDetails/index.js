@@ -2,40 +2,80 @@ import * as React from "react";
 
 import { Link, useParams } from "react-router-dom";
 
-import GameList from "../components/GameList";
+import useApi from "../auth/useApi";
+import useAuth0 from "../auth/useAuth0";
+import EventGameList from "../components/EventGameList";
 import NotFound from "../components/NotFound";
-import { useMyEvents } from "../mySchedule";
 
 import styles from "./styles.module.scss";
 
 const EventDetails = () => {
   const { id } = useParams();
-  const { eventById, getAttendee, addUserToEvent } = useMyEvents();
-  const event = { ...eventById(id)[0] };
+  const { loading, apiClient } = useApi();
+  const [event, setEvent] = React.useState(null);
+  const [currentUser, setCurrentUser] = React.useState(null);
+
+  const loadEvent = React.useCallback(
+    async (id) => {
+      setEvent(await apiClient.getEventById(id));
+    },
+    [apiClient],
+  );
+
+  const loadUser = React.useCallback(async () => {
+    apiClient.getUser().then(setCurrentUser);
+  }, [apiClient]);
+
+  React.useEffect(() => {
+    !loading && loadEvent(id) && loadUser();
+  }, [id, loadEvent, loading, loadUser]);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    addUserToEvent(e.currentTarget.elements.email.value, id);
+    apiClient
+      .addUserToEvent(e.currentTarget.elements.email.value, +event.id)
+      .then(loadEvent(id));
   };
-  return event.id ? (
+
+  const isEventOwner = () => {
+    return currentUser.id === event.owner_id;
+  };
+
+  const removeGame = (gameId) => {
+    apiClient.removeGameFromEvent(gameId, event.id).then(loadEvent(id));
+  };
+
+  const addGame = (gameId) => {
+    apiClient.addGameToEvent(gameId, event.id).then(loadEvent(id));
+  };
+
+  return event ? (
     <>
+      <pre>{JSON.stringify(event, null, 2)}</pre>
+
       <div className={styles.container}>
         <div className={styles.left}>
-          <h1>{event.title}</h1>
           <h1>{event.name}</h1>
+          <p>Starts at: {new Date(event.start_time).toLocaleString()}</p>
           <p>{event.description}</p>
-          <address>{event.address}</address>
+          <address>
+            {event.address}
+            <br />
+            {event.city}, {event.state}
+            <br />
+            {event.zip}
+          </address>
           <p>attending:</p>
           <ul>
-            {event.events_users.map((id) => {
-              const user = getAttendee(id);
+            {event.attendees.map((attendee) => {
               return (
                 <>
                   <div className={styles.hex}>
-                    <img src={user.picture} alt="" />
+                    <img src={attendee.picture} alt="" />
                   </div>
-                  <li key={user.id}>
-                    {user.name}, {user.email}
+                  <li key={attendee.id}>
+                    {isEventOwner(attendee.id) ? "Host: " : null}
+                    {attendee.given_name}, {attendee.email}
                   </li>
                 </>
               );
@@ -54,7 +94,10 @@ const EventDetails = () => {
             Here are the games you can expect at the event! Add or edit your
             own.
           </p>
-          {/* <GameList games={eventGames} /> */}
+          <EventGameList
+            games={event.games}
+            {...{ removeGame, addGame, currentUser }}
+          />
         </div>
       </div>
     </>
