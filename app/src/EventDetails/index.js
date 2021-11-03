@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { enGB } from "date-fns/locale";
 import { DatePicker } from "react-nice-dates";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 import useApi from "../auth/useApi";
 import EventGameList from "../components/EventGameList";
@@ -13,6 +13,7 @@ import styles from "./styles.module.scss";
 const EventDetails = () => {
   const { id } = useParams();
   const { loading, apiClient } = useApi();
+  const navigate = useNavigate();
   const [event, setEvent] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState(null);
   const [isEditing, setIsEditing] = React.useState(false);
@@ -40,6 +41,13 @@ const EventDetails = () => {
       .addUserToEvent(e.currentTarget.elements.email.value, +event.id)
       .then(loadEvent(id));
   };
+
+  const deleteEvent = async (id) => {
+    await apiClient.deleteEvent(event.id);
+    // why when this happens is the event still there. Shouldn't navigating to that view reload events?
+    navigate("/events");
+  };
+
   const editEvent = (e) => {
     const objectFromFormData = (form) =>
       Object.fromEntries(new FormData(form).entries());
@@ -111,7 +119,9 @@ const EventDetails = () => {
           {isEventOwner() ? (
             <>
               <button onClick={() => setIsEditing(true)}>Edit Event</button>
-              <button>Delete Event</button>
+              <button onClick={() => deleteEvent(event.id)}>
+                Delete Event
+              </button>
             </>
           ) : null}
           {isEditing ? (
