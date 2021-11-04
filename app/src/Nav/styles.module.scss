@@ -11,7 +11,7 @@ $sans: "IBM Plex Sans", sans-serif;
   font-weight: bolder;
   a[class="active"] {
     background-color: $ultimate-grey;
-    color: white;
+    color: $white;
     text-decoration: none;
   }
 }
@@ -21,10 +21,6 @@ $sans: "IBM Plex Sans", sans-serif;
   position: absolute;
   top: 5px;
   right: 5px;
-
-  & button {
-    // border: none;
-  }
 }
 
 .hex {

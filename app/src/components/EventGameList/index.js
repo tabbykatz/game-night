@@ -3,25 +3,29 @@ import * as React from "react";
 import { FaMinusSquare, FaPlusSquare } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-import useAuth0 from "../../auth/useAuth0";
-
 import styles from "./styles.module.scss";
 
-const GameList = ({ games, removeGame, addGame, currentUser }) => (
+const EventGameList = ({
+  games,
+  isAlreadyComing,
+  addGame,
+  removeGame,
+  imBringing,
+}) => (
   <>
     <ul className={styles.grid}>
       {games.map((game) => (
         <li className={styles.card} key={game.id}>
-          <Card {...{ game, removeGame, addGame, currentUser }} />
+          <Card
+            {...{ game, isAlreadyComing, addGame, removeGame, imBringing }}
+          />
         </li>
       ))}
     </ul>
   </>
 );
 
-const Card = ({ game, removeGame, addGame, currentUser }) => {
-  const isMine = (id) => currentUser.id === id;
-
+const Card = ({ game, isAlreadyComing, addGame, removeGame, imBringing }) => {
   return (
     <>
       <div className={styles.wrapper}>
@@ -36,13 +40,17 @@ const Card = ({ game, removeGame, addGame, currentUser }) => {
               className={styles.cardthumb}
             />
           ) : null}
-          {isMine(game.owner) ? (
+          {isAlreadyComing(game.id) ? (
+            <p>Someone else is bringing this one!</p>
+          ) : imBringing(game.id) ? (
             <FaMinusSquare onClick={() => removeGame(game.id)} />
-          ) : null}
+          ) : (
+            <FaPlusSquare onClick={() => addGame(game.id)} />
+          )}
         </div>
       </div>
     </>
   );
 };
 
-export default GameList;
+export default EventGameList;

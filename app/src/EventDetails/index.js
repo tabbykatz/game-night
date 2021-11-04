@@ -5,7 +5,7 @@ import { DatePicker } from "react-nice-dates";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 import useApi from "../auth/useApi";
-import EventGameList from "../components/EventGameList";
+import GameList from "../components/GameList";
 import NotFound from "../components/NotFound";
 
 import styles from "./styles.module.scss";
@@ -68,14 +68,6 @@ const EventDetails = () => {
   const isEventOwner = () => {
     console.log({ currentUser, event });
     return currentUser === event.owner_id;
-  };
-
-  const removeGame = (gameId) => {
-    apiClient.removeGameFromEvent(gameId, event.id).then(loadEvent(id));
-  };
-
-  const addGame = (gameId) => {
-    apiClient.addGameToEvent(gameId, event.id).then(loadEvent(id));
   };
 
   return event ? (
@@ -211,13 +203,10 @@ const EventDetails = () => {
         <div className={styles.right}>
           <h1>Games</h1>
           <p>
-            Here are the games you can expect at the event! Add or edit your
-            own.
+            Here are the games you can expect at the event!{" "}
+            <Link to={`/events/${event.id}/games`}>Add or edit your own.</Link>
           </p>
-          <EventGameList
-            games={event.games}
-            {...{ removeGame, addGame, currentUser }}
-          />
+          <GameList games={event.games} />
         </div>
       </div>
     </>
