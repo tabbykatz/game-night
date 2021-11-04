@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import useApi from "../auth/useApi";
 import EventGameList from "../components/EventGameList";
@@ -14,15 +14,14 @@ const AddGames = () => {
   const [currentUser, setCurrentUser] = React.useState(null);
 
   const loadEvent = React.useCallback(
-    async (id) => {
-      setEvent(await apiClient.getEventById(id));
-    },
+    (id) => apiClient.getEventById(id).then(setEvent),
     [apiClient],
   );
 
-  const loadUser = React.useCallback(async () => {
-    apiClient.getUser().then(setCurrentUser);
-  }, [apiClient]);
+  const loadUser = React.useCallback(
+    () => apiClient.getUser().then(setCurrentUser),
+    [apiClient],
+  );
 
   React.useEffect(() => {
     !loading && loadEvent(id) && loadUser();
@@ -49,18 +48,15 @@ const AddGames = () => {
     );
   };
 
-  return (
+  return event ? (
     <>
-      {" "}
-      {event ? (
-        <h1>Add games from your library that you'll bring to {event.name} </h1>
-      ) : null}
+      <h1>Add games from your library that you'll bring to {event.name} </h1>
       <EventGameList
         games={myGames}
         {...{ isAlreadyComing, addGame, removeGame, imBringing }}
       />
     </>
-  );
+  ) : null;
 };
 
 export default AddGames;
