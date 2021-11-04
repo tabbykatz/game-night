@@ -1,14 +1,13 @@
-@font-face {
-  font-family: system;
-  font-style: normal;
-  font-weight: 300;
-  src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"),
-    local(".LucidaGrandeUI"), local("Ubuntu Light"), local("Segoe UI Light"),
-    local("Roboto-Light"), local("DroidSans"), local("Tahoma");
-}
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300&family=IBM+Plex+Sans:wght@300&display=swap");
+$white: #ffffff;
+$ultimate-grey: hsl(210deg, 2%, 58%);
+$lighter-grey: #b9babc;
+$black: #010203;
+$mono: "IBM Plex Mono", monospace;
+$sans: "IBM Plex Sans", sans-serif;
 
 body {
-  font-family: "system";
+  font-family: $sans;
 }
 
 html {
@@ -19,4 +18,76 @@ html {
 *:before,
 *:after {
   box-sizing: inherit;
+}
+
+button {
+  align-items: center;
+  appearance: none;
+  background-color: #fff;
+  border-radius: 24px;
+  border-style: none;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 3px 5px -1px,
+    rgba(0, 0, 0, 0.14) 0 6px 10px 0, rgba(0, 0, 0, 0.12) 0 1px 18px 0;
+  box-sizing: border-box;
+  color: $ultimate-grey;
+  cursor: pointer;
+  display: inline-flex;
+  fill: currentcolor;
+  font-size: 0.8rem;
+  font-weight: 500;
+  justify-content: center;
+  line-height: normal;
+  // max-width: 100%;
+  overflow: visible;
+  padding: 2px 24px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 15ms linear 30ms, transform 270ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: auto;
+  will-change: transform, opacity;
+  z-index: 0;
+}
+
+button:hover {
+  background: $white;
+  color: $lighter-grey;
+}
+
+button:active {
+  box-shadow: 0 4px 4px 0 rgb(60, 64, 67), 0 8px 12px 6px rgb(60, 64, 67);
+  outline: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:not(:disabled) {
+  box-shadow: rgba(60, 64, 67, 0.3) 0 1px 3px 0,
+    rgba(60, 64, 67, 0.15) 0 4px 8px 3px;
+}
+
+button:not(:disabled):hover {
+  box-shadow: rgba(60, 64, 67, 0.3) 0 2px 3px 0,
+    rgba(60, 64, 67, 0.15) 0 6px 10px 4px;
+}
+
+button:not(:disabled):focus {
+  box-shadow: rgba(60, 64, 67, 0.3) 0 1px 3px 0,
+    rgba(60, 64, 67, 0.15) 0 4px 8px 3px;
+}
+
+button:not(:disabled):active {
+  box-shadow: rgba(60, 64, 67, 0.3) 0 4px 4px 0,
+    rgba(60, 64, 67, 0.15) 0 8px 12px 6px;
+}
+
+button:disabled {
+  box-shadow: rgba(60, 64, 67, 0.3) 0 1px 3px 0,
+    rgba(60, 64, 67, 0.15) 0 4px 8px 3px;
 }

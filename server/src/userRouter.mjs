@@ -45,8 +45,8 @@ router.put("/events/:eventId", async (request, response) => {
 
 router.post("/events/:eventId/games", async (request, response) => {
   const addition = await db.addGameToEvent(
-    request.body.gameId,
     request.params.eventId,
+    request.body.gameId,
     request.user.sub,
   );
   response.status(201).json(addition);
