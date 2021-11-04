@@ -26,11 +26,15 @@ router.post("/events", async (request, response) => {
 });
 
 router.post("/events/:eventId", async (request, response) => {
-  const addition = await db.addUserToEvent(
-    request.body.userEmail,
-    request.params.eventId,
-  );
-  response.status(201).json(addition);
+  try {
+    const addition = await db.addUserToEvent(
+      request.body.userEmail,
+      request.params.eventId,
+    );
+    response.status(201).json(addition);
+  } catch ({ response: { statusCode, statusMessage } }) {
+    response.status(statusCode).json({ error: statusMessage });
+  }
 });
 
 router.delete("/events/:eventId", async (request, response) => {
@@ -73,6 +77,11 @@ router.delete("/games/:id", async (request, response) => {
 router.get("/", async (request, response) => {
   const user = await db.getUser(request.user.sub);
   response.json(user.id);
+});
+
+router.get("/all", async (request, response) => {
+  const users = await db.getUsers();
+  response.json(users);
 });
 
 router.use(express.json());

@@ -7,6 +7,8 @@ const db = initDb();
 export const getUser = (sub) =>
   db.one("SELECT * FROM users WHERE sub = $<sub>", { sub });
 
+export const getUsers = () => db.any("SELECT * FROM users");
+
 export const getGames = (sub) =>
   db.any(
     `SELECT games.* 
