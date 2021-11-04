@@ -217,7 +217,7 @@ const EventDetails = () => {
             Here are the games you can expect at the event!{" "}
             <Link to={`/events/${event.id}/games`}>Add or edit your own.</Link>
           </p>
-          <GameList games={event.games} />
+          <GameList games={event.games} event={true} />
         </div>
       </div>
     </>
