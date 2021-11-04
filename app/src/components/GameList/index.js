@@ -7,19 +7,19 @@ import { useMyGames } from "../../myCollection";
 
 import styles from "./styles.module.scss";
 
-const GameList = ({ games }) => (
+const GameList = ({ games, event = false }) => (
   <>
     <ul className={styles.grid}>
       {games.map((game) => (
         <li className={styles.card} key={game.id}>
-          <Card {...{ game }} />
+          <Card {...{ game, event }} />
         </li>
       ))}
     </ul>
   </>
 );
 
-const Card = ({ game }) => {
+const Card = ({ game, event }) => {
   const { addGame, deleteGame, isInMyGames } = useMyGames();
 
   return (
@@ -36,11 +36,12 @@ const Card = ({ game }) => {
               className={styles.cardthumb}
             />
           ) : null}
-          {isInMyGames(game.id) ? (
+
+          {isInMyGames(game.id) && !event ? (
             <FaMinusSquare onClick={() => deleteGame(game)} />
-          ) : (
+          ) : !event ? (
             <FaPlusSquare onClick={() => addGame(game)} />
-          )}
+          ) : null}
         </div>
       </div>
     </>
