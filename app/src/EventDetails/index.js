@@ -1,12 +1,14 @@
 import * as React from "react";
 
 import { enGB } from "date-fns/locale";
+import { toast } from "react-hot-toast";
 import { DatePicker } from "react-nice-dates";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 import useApi from "../auth/useApi";
 import GameList from "../components/GameList";
 import NotFound from "../components/NotFound";
+import { useMyEvents } from "../mySchedule";
 
 import styles from "./styles.module.scss";
 
@@ -19,6 +21,7 @@ const EventDetails = () => {
   const [isEditing, setIsEditing] = React.useState(false);
   const [startTime, setStartTime] = React.useState(new Date());
   const [endTime, setEndTime] = React.useState(new Date());
+  const { validateUser } = useMyEvents();
 
   const loadEvent = React.useCallback(
     async (id) => {
@@ -37,9 +40,17 @@ const EventDetails = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    apiClient
-      .addUserToEvent(e.currentTarget.elements.email.value, +event.id)
-      .then(loadEvent(id));
+    const newUserEmail = e.currentTarget.elements.email.value;
+    if (event.attendees.some((a) => a.email === newUserEmail)) {
+      toast("User already attending event.");
+      return;
+    }
+    if (validateUser(newUserEmail)) {
+      apiClient.addUserToEvent(newUserEmail, +event.id).then(loadEvent(id));
+    } else {
+      toast("Not a valid user email.");
+    }
+    e.currentTarget.reset();
   };
 
   const deleteEvent = async (id) => {

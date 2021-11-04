@@ -23,6 +23,7 @@ const makeApi = (accessToken) => {
     addGame: (game) => _post("/api/users/games", { game }),
     deleteGame: (id) => _delete(`/api/users/games/${id}`),
     addOrUpdateUser: (user) => _post("/api/users", { user }),
+    getUsers: () => _get("/api/users/all"),
   };
 
   const _delete = (url) => _fetch(url, { method: "DELETE" });
