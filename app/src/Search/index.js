@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import { Link } from "react-router-dom";
+
 import useApi from "../auth/useApi";
 import GameList from "../components/GameList";
 
@@ -13,7 +15,9 @@ const Search = () => {
 
   return (
     <>
-      <h1>Add games to your collection</h1>
+      <h1>
+        Add games to your <Link to={"/games"}>collection</Link>
+      </h1>
       <FindGames {...{ findGames }} />
       {results ? <GameList games={results} /> : null}
     </>

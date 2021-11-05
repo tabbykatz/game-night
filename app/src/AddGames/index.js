@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import useApi from "../auth/useApi";
 import EventGameList from "../components/EventGameList";
@@ -50,7 +50,10 @@ const AddGames = () => {
 
   return event ? (
     <>
-      <h1>Add games from your library that you'll bring to {event.name} </h1>
+      <h1>
+        Add games from your library that you'll bring to{" "}
+        <Link to={`/events/${event.id}`}>{event.name}</Link>
+      </h1>
       <EventGameList
         games={myGames}
         {...{ isAlreadyComing, addGame, removeGame, imBringing }}
