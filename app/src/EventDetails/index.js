@@ -55,7 +55,6 @@ const EventDetails = () => {
 
   const deleteEvent = async (id) => {
     await apiClient.deleteEvent(event.id);
-    // why when this happens is the event still there. Shouldn't navigating to that view reload events?
     navigate("/events");
   };
 
@@ -69,7 +68,6 @@ const EventDetails = () => {
       start_time: startTime.toUTCString(),
       end_time: endTime.toUTCString(),
     };
-    console.log(newEvent);
     e.preventDefault();
     apiClient.editEvent(newEvent, id);
     setIsEditing(false);
@@ -81,148 +79,138 @@ const EventDetails = () => {
     return currentUser === event.owner_id;
   };
 
-  return event ? (
+  return !event ? (
+    <NotFound />
+  ) : !isEditing ? (
     <>
-      <pre>{JSON.stringify(event, null, 2)}</pre>
-
-      <div className={styles.container}>
-        <div className={styles.left}>
-          <h1>{event.name}</h1>
-          <p>Starts at: {new Date(event.start_time).toLocaleString()}</p>
-          <p>{event.description}</p>
-          <address>
-            {event.address}
-            <br />
-            {event.city}, {event.state}
-            <br />
-            {event.zip}
-          </address>
-          <p>attending:</p>
-          <ul>
-            {event.attendees.map((attendee) => {
-              return (
-                <>
-                  <div className={styles.hex}>
-                    <img src={attendee.picture} alt="" />
-                  </div>
-                  <li key={attendee.id}>
-                    {attendee.id === event.owner_id ? "Host: " : null}
-                    {attendee.given_name}, {attendee.email}
-                  </li>
-                </>
-              );
-            })}
-          </ul>
-          <form {...{ onSubmit }}>
-            <label htmlFor="attendee">
-              <input type="text" name="email" placeholder="email" />
-            </label>
-            <button>Add attendee</button>
-          </form>
-          {isEventOwner() ? (
+      <h1>{event.name}</h1>
+      <p>Starts at: {new Date(event.start_time).toLocaleString()}</p>
+      <p>{event.description}</p>
+      <address>
+        {event.address}
+        <br />
+        {event.city}, {event.state}
+        <br />
+        {event.zip}
+      </address>
+      <p>attending:</p>
+      <ul>
+        {event.attendees.map((attendee) => {
+          return (
             <>
-              <button onClick={() => setIsEditing(true)}>Edit Event</button>
-              <button onClick={() => deleteEvent(event.id)}>
-                Delete Event
-              </button>
+              <div className={styles.hex}>
+                <img src={attendee.picture} alt="" />
+              </div>
+              <li key={attendee.id}>
+                {attendee.id === event.owner_id ? "Host: " : null}
+                {attendee.given_name},{" "}
+                <a href={`mailto: ${attendee.email}`}>{attendee.email}</a>
+              </li>
             </>
-          ) : null}
-          {isEditing ? (
-            <form onSubmit={(e) => editEvent(e)} className={styles.form}>
-              <label>
-                Name Your Event
-                <textarea name="name" required defaultValue={event.name} />
-              </label>
-              <label>
-                Description
-                <textarea
-                  name="description"
-                  required
-                  defaultValue={event.description}
-                />
-              </label>
-              <label>
-                Address
-                <input
-                  name="address"
-                  required
-                  placeholder="123 Any Street"
-                  autoComplete="street-address"
-                  defaultValue={event.address}
-                />
-                <input
-                  name="city"
-                  required
-                  placeholder="New York"
-                  autoComplete="address-level2"
-                  defaultValue={event.city}
-                />
-                <input
-                  name="state"
-                  required
-                  placeholder="NY"
-                  autoComplete="address-level1"
-                  defaultValue={event.state}
-                />
-                <input
-                  name="zip"
-                  required
-                  placeholder="10011"
-                  autoComplete="postal-code"
-                  defaultValue={event.zip}
-                />
-                <input
-                  name="country"
-                  required
-                  placeholder="USA"
-                  autoComplete="country"
-                  defaultValue={event.country}
-                />
-              </label>
+          );
+        })}
+      </ul>
+      <form {...{ onSubmit }}>
+        <label htmlFor="attendee">
+          <input type="text" name="email" placeholder="email" />
+        </label>
+        <button>Add attendee</button>
+      </form>
+      {isEventOwner() ? (
+        <>
+          <button onClick={() => setIsEditing(true)}>Edit Event</button>
+          <button onClick={() => deleteEvent(event.id)}>Delete Event</button>
+        </>
+      ) : null}
 
-              {/* I dont know how to include a label or similar for the date picker */}
-              <DatePicker
-                date={startTime}
-                onDateChange={setStartTime}
-                locale={enGB}
-                format="dd/MM/yyyy HH:mm"
-              >
-                {({ inputProps, focused }) => (
-                  <input
-                    className={"input" + (focused ? " -focused" : "")}
-                    {...inputProps}
-                  />
-                )}
-              </DatePicker>
-              <DatePicker
-                date={endTime}
-                onDateChange={setEndTime}
-                locale={enGB}
-                format="dd/MM/yyyy HH:mm"
-              >
-                {({ inputProps, focused }) => (
-                  <input
-                    className={"input" + (focused ? " -focused" : "")}
-                    {...inputProps}
-                  />
-                )}
-              </DatePicker>
-              <button>Update event</button>
-            </form>
-          ) : null}
-        </div>
-        <div className={styles.right}>
-          <h1>Games</h1>
-          <p>
-            Here are the games you can expect at the event!{" "}
-            <Link to={`/events/${event.id}/games`}>Add or edit your own.</Link>
-          </p>
-          <GameList games={event.games} event={true} />
-        </div>
-      </div>
+      <h1>Games</h1>
+      <p>
+        Here are the games you can expect at the event!{" "}
+        <Link to={`/events/${event.id}/games`}>Add or edit your own.</Link>
+      </p>
+      <GameList games={event.games} event={true} />
     </>
   ) : (
-    <NotFound />
+    <form onSubmit={(e) => editEvent(e)} className={styles.form}>
+      <label>
+        Name Your Event
+        <textarea name="name" required defaultValue={event.name} />
+      </label>
+      <label>
+        Description
+        <textarea
+          name="description"
+          required
+          defaultValue={event.description}
+        />
+      </label>
+      <label>
+        Address
+        <input
+          name="address"
+          required
+          placeholder="123 Any Street"
+          autoComplete="street-address"
+          defaultValue={event.address}
+        />
+        <input
+          name="city"
+          required
+          placeholder="New York"
+          autoComplete="address-level2"
+          defaultValue={event.city}
+        />
+        <input
+          name="state"
+          required
+          placeholder="NY"
+          autoComplete="address-level1"
+          defaultValue={event.state}
+        />
+        <input
+          name="zip"
+          required
+          placeholder="10011"
+          autoComplete="postal-code"
+          defaultValue={event.zip}
+        />
+        <input
+          name="country"
+          required
+          placeholder="USA"
+          autoComplete="country"
+          defaultValue={event.country}
+        />
+      </label>
+
+      <DatePicker
+        date={startTime}
+        onDateChange={setStartTime}
+        locale={enGB}
+        format="dd/MM/yyyy HH:mm"
+      >
+        {({ inputProps, focused }) => (
+          <input
+            className={"input" + (focused ? " -focused" : "")}
+            {...inputProps}
+          />
+        )}
+      </DatePicker>
+      <DatePicker
+        date={endTime}
+        onDateChange={setEndTime}
+        locale={enGB}
+        format="dd/MM/yyyy HH:mm"
+      >
+        {({ inputProps, focused }) => (
+          <input
+            className={"input" + (focused ? " -focused" : "")}
+            {...inputProps}
+          />
+        )}
+      </DatePicker>
+      <button>Update event</button>
+    </form>
   );
 };
 

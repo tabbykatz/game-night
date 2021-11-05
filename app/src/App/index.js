@@ -17,8 +17,6 @@ import useApi from "../auth/useApi";
 import useAuth0 from "../auth/useAuth0";
 import { Protected } from "../auth/widgets";
 
-import styles from "./styles.module.scss";
-
 const App = () => {
   const { isAuthenticated, user } = useAuth0();
   const { loading, apiClient } = useApi();
