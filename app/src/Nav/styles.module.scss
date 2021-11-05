@@ -7,6 +7,7 @@ $mono: "IBM Plex Mono", monospace;
 $sans: "IBM Plex Sans", sans-serif;
 
 .nav {
+  margin-bottom: 25px;
   font-family: $sans;
   font-weight: bolder;
   a[class="active"] {

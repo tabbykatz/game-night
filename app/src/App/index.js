@@ -8,6 +8,7 @@ import CreateEvent from "../CreateEvent";
 import Dashboard from "../Dashboard";
 import EventDetails from "../EventDetails";
 import GameDetails from "../GameDetails";
+import Home from "../Home";
 import MyEvents from "../MyEvents";
 import MyGames from "../MyGames";
 import Nav from "../Nav";
@@ -65,20 +66,6 @@ const App = () => {
         </Routes>
         <Toaster />
       </main>
-    </>
-  );
-};
-
-const Home = () => {
-  return (
-    <>
-      <header className={styles.header}>
-        <h1>Home</h1>
-      </header>
-      <p>
-        This is going to be a splash page sorta place for explaining what the
-        app does/ a place to land when you are not logged in.
-      </p>
     </>
   );
 };
