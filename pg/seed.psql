@@ -160,7 +160,7 @@ ALTER TABLE public.users ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
 --
 
 COPY public.events (id, name, owner_id, address, start_time, end_time, description, city, state, zip, country) FROM stdin;
-27	Game Night	2657	1627 Ashby Avenue	2021-11-02 20:31:52+00	2021-11-02 20:31:52+00	created by Tabby Katz, user id 2657	Berkeley	CA	94703	US
+34	Game Night	2657	1627 Ashby Avenue	2021-11-05 19:15:49+00	2021-11-05 19:15:49+00	All ages. 	Berkeley	CA	94703	US
 \.
 
 
@@ -169,7 +169,10 @@ COPY public.events (id, name, owner_id, address, start_time, end_time, descripti
 --
 
 COPY public.events_games (id, game_id, user_id, event_id) FROM stdin;
-6	2anJuFWYTH	2657	27
+25	ahqg4WBywD	2657	34
+26	2anJuFWYTH	2657	34
+27	OIXt3DmJU0	2657	34
+28	DxWHvojIM1	2657	34
 \.
 
 
@@ -178,9 +181,7 @@ COPY public.events_games (id, game_id, user_id, event_id) FROM stdin;
 --
 
 COPY public.events_users (id, user_id, event_id, is_owner) FROM stdin;
-76	1	27	f
-79	2803	27	f
-41	2657	27	t
+101	2657	34	t
 \.
 
 
@@ -192,12 +193,6 @@ COPY public.games (id, name, image_url, date_added) FROM stdin;
 D0OHY8b8Oc	Hive	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324309199.jpg	2021-10-26 21:25:32.578171
 XRp8KrEcdC	Hive Pocket	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324302747.jpg	2021-10-26 21:26:15.808213
 Bwawckx54U	Glory To Rome	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257325268-41pQ1U0GUvL.jpg	2021-10-26 21:11:08.335592
-l2i97dfuvD	Star Trek: Catan	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559253947477-61rFuGiFBWL.jpg	2021-10-28 01:49:24.90798
-OIXt3DmJU0	Catan	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324722072.jpg	2021-10-26 21:38:05.383455
-EvYzPCnCGG	Catan: 5-6 Player Extension	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254797611-51uLrWkNt0L.jpg	2021-10-26 21:38:07.709331
-E5TYKwLTf0	Catan: Cities & Knights	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257359245-51DYsPZcYyL.jpg	2021-10-26 21:38:06.595851
-iSVnYdrsZQ	Rivals for Catan	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1610427446373	2021-10-28 01:49:24.006781
-2anJuFWYTH	Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1590179491791	2021-11-02 14:48:36.284755
 EiVU77dgUm	Ticket to Ride: New York	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324726067.jpg	2021-10-27 16:21:01.451239
 XZ9BeWAgCu	Ticket To Ride: USA 1910 Expansion	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254700843-51KVaiiqmgL.jpg	2021-10-27 16:21:02.407929
 sqyQ05Wvs1	Ticket to Ride Map Collection: Volume 2 – India & Switzerland	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324727880.jpg	2021-10-27 16:21:04.236763
@@ -206,9 +201,7 @@ GGwRDABj7L	Ticket to Ride: Nordic Countries	https://s3-us-west-1.amazonaws.com/5
 PkWvBrzYor	Ticket to Ride: Märklin	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257533218-51ZMX6Z86WL.jpg	2021-10-27 16:21:08.996194
 AuBvbISHR6	Ticket to Ride	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324738308.jpg	2021-10-27 16:20:58.538134
 b6BQGn5PIY	Ticket to Ride: Map Collection Volume 5 - United Kingdom	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257689020-61Q4FIWagtL.jpg	2021-10-27 16:20:59.469498
-tmvXEOgJVz	Zombie Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257925865-510MUA2BFxJL.jpg	2021-11-02 14:48:37.289621
 YggHdAlO32	Ticket to Ride: Map Collection Volume 4 - Nederland	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559258036387-61KoFKv7p2BL.jpg	2021-10-27 16:21:00.532686
-Hn2qbeBQh6	Monty Python Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254179056-51Hk5zRIxLL.jpg	2021-11-02 14:48:38.336182
 ahqg4WBywD	Star Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559256889756-51RsZlW2crL.jpg	2021-11-02 14:48:40.239719
 JoKLJmpEkD	Cthulhu Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254167104-61f2xP59dkL.jpg	2021-11-02 14:48:41.273192
 asOU5AKr0l	Pirate Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559255081576-61q-lKgUJlL.jpg	2021-11-02 14:48:42.309311
@@ -221,8 +214,21 @@ G9zZZtzy0E	Space Hulk: Death Angel - The Card Game	https://s3-us-west-1.amazonaw
 g0J496TM5k	Escape From the Aliens in Outer Space	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1599052459114	2021-10-27 19:26:23.958337
 tECB3ktBhP	Catan: Cities & Knights 5-6 Player Extension	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254849801-51V-pZNL3hL.jpg	2021-10-27 16:29:02.756684
 MiOTS94YV3	Catan Card Game	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257476571-51iAbkahd1L.jpg	2021-10-25 21:59:15.461004
+2anJuFWYTH	Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1590179491791	2021-11-02 14:48:36.284755
+tmvXEOgJVz	Zombie Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257925865-510MUA2BFxJL.jpg	2021-11-02 14:48:37.289621
+Hn2qbeBQh6	Monty Python Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254179056-51Hk5zRIxLL.jpg	2021-11-02 14:48:38.336182
+iSVnYdrsZQ	Rivals for Catan	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1610427446373	2021-10-28 01:49:24.006781
+l2i97dfuvD	Star Trek: Catan	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559253947477-61rFuGiFBWL.jpg	2021-10-28 01:49:24.90798
+v7qbL1m0NH	Scattergories	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254866982-411FqBODvDL.jpg	2021-11-05 18:06:10.316861
+E5TYKwLTf0	Catan: Cities & Knights	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257359245-51DYsPZcYyL.jpg	2021-10-26 21:38:06.595851
+EvYzPCnCGG	Catan: 5-6 Player Extension	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254797611-51uLrWkNt0L.jpg	2021-10-26 21:38:07.709331
+OIXt3DmJU0	Catan	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324722072.jpg	2021-10-26 21:38:05.383455
 NoWy3nPYfj	Catan: Seafarers Expansion	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257503054-51u0777bL3L.jpg	2021-10-27 14:00:36.70912
 Wp2pGHZHIO	Catan: Seafarers 5-6 Player Extension	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254869479-51XMaRqBcJL.jpg	2021-10-28 01:49:22.739897
+GvBHptbeIx	Upwords	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1614989871616	2021-11-05 18:06:11.635052
+UI0oxncplG	Scrabble	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1599599554926	2021-11-05 18:06:06.547739
+0DKkv6wTLg	Agricola Family Edition	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254888822-5133IZqahnL.jpg	2021-11-05 18:06:29.348128
+DxWHvojIM1	Agricola	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1575999333848	2021-11-05 18:06:25.303006
 \.
 
 
@@ -232,8 +238,9 @@ Wp2pGHZHIO	Catan: Seafarers 5-6 Player Extension	https://s3-us-west-1.amazonaws.
 
 COPY public.users (id, given_name, family_name, picture, email, sub) FROM stdin;
 1	George	Song	https://lh3.googleusercontent.com/a-/AOh14GisMQBkZ6bxLA6L0p7EBnaPny8aK52UKRI2_tQIaw=s96-c	george@damacy.net	google-oauth2|111226858800048009044
-2657	Tabby	Katz	https://s.gravatar.com/avatar/1bd5b37a289e8c1d30f6fa9ba6021ffb?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Ftk.png	tabitha.machree@gmail.com	auth0|6180766ad3603a006906fa05
 2803	Tabitha	O'Melay	https://lh3.googleusercontent.com/a-/AOh14Gj5BnRLcyNMAfQ-zSa8E8GnLSVfkRVs29k-cp0waCc=s96-c	tomelay@gmail.com	google-oauth2|105287325829057414677
+2834	Tabitha	O'Melay	https://avatars.githubusercontent.com/u/55110763?v=4	tomelay@gmail.com	github|55110763
+2657	Tabby	Katz	https://s.gravatar.com/avatar/1bd5b37a289e8c1d30f6fa9ba6021ffb?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Ftk.png	tabitha.machree@gmail.com	auth0|6180766ad3603a006906fa05
 \.
 
 
@@ -242,27 +249,6 @@ COPY public.users (id, given_name, family_name, picture, email, sub) FROM stdin;
 --
 
 COPY public.users_games (user_id, game_id) FROM stdin;
-7	OIXt3DmJU0
-7	MiOTS94YV3
-2	07FXm6tX4o
-2	JhgjCBqoLa
-2	G9zZZtzy0E
-2	2RICv6q7dj
-2	g0J496TM5k
-2	tECB3ktBhP
-2	MiOTS94YV3
-2	NoWy3nPYfj
-2	l2i97dfuvD
-2	OIXt3DmJU0
-2	EvYzPCnCGG
-2	E5TYKwLTf0
-2	iSVnYdrsZQ
-2657	2anJuFWYTH
-2657	tmvXEOgJVz
-2657	Hn2qbeBQh6
-2657	ahqg4WBywD
-2657	JoKLJmpEkD
-2657	asOU5AKr0l
 \.
 
 
@@ -270,28 +256,28 @@ COPY public.users_games (user_id, game_id) FROM stdin;
 -- Name: attending_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.attending_id_seq', 79, true);
+SELECT pg_catalog.setval('public.attending_id_seq', 102, true);
 
 
 --
 -- Name: events_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.events_id_seq', 27, true);
+SELECT pg_catalog.setval('public.events_id_seq', 34, true);
 
 
 --
 -- Name: playable_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.playable_id_seq', 6, true);
+SELECT pg_catalog.setval('public.playable_id_seq', 28, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 2828, true);
+SELECT pg_catalog.setval('public.users_id_seq', 3159, true);
 
 
 --
@@ -396,6 +382,22 @@ ALTER TABLE ONLY public.events_games
 
 ALTER TABLE ONLY public.events_games
     ADD CONSTRAINT playable_game_id_fkey FOREIGN KEY (game_id) REFERENCES public.games(id) ON DELETE CASCADE;
+
+
+--
+-- Name: users_games users_games_game_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users_games
+    ADD CONSTRAINT users_games_game_id_fkey FOREIGN KEY (game_id) REFERENCES public.games(id) ON DELETE CASCADE;
+
+
+--
+-- Name: users_games users_games_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users_games
+    ADD CONSTRAINT users_games_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
 
 --

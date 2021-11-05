@@ -31,7 +31,6 @@
   "dependencies": {
     "@auth0/auth0-react": "^1.8.0",
     "date-fns": "^2.25.0",
-    "formik": "^2.2.9",
     "parse-full-name": "^1.2.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
