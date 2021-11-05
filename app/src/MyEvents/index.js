@@ -8,10 +8,10 @@ const MyEvents = () => {
   const { myEvents } = useMyEvents();
   return (
     <>
-      <p>
+      <h1>
         All your upcoming events are listed here. Don't see any?{" "}
         <Link to={"/events/create"}>Create one!</Link>
-      </p>
+      </h1>
       <EventList events={myEvents} />
     </>
   );
