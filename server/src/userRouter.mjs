@@ -37,6 +37,18 @@ router.post("/events/:eventId", async (request, response) => {
   }
 });
 
+router.delete("/events/:eventId/:userId", async (request, response) => {
+  try {
+    const deletion = await db.removeUserFromEvent(
+      request.params.eventId,
+      request.params.userId,
+    );
+    response.status(200).json(deletion);
+  } catch ({ response: { statusCode, statusMessage } }) {
+    response.status(statusCode).json({ error: statusMessage });
+  }
+});
+
 router.delete("/events/:eventId", async (request, response) => {
   const deletion = await db.deleteEvent(request.params.eventId);
   response.status(200).json(deletion);

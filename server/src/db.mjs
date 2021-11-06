@@ -104,6 +104,16 @@ export const addUserToEvent = (userEmail, eventId) => {
   );
 };
 
+export const removeUserFromEvent = (eventId, userId) => {
+  db.none(
+    `
+    DELETE FROM events_users
+    WHERE event_id=$<eventId> AND user_id=$<userId>
+    `,
+    { eventId, userId },
+  );
+};
+
 export const removeGameFromEvent = (eventId, gameId) =>
   db.none(
     `

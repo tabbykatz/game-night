@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { enGB } from "date-fns/locale";
 import { toast } from "react-hot-toast";
+import { FaMinusSquare } from "react-icons/fa";
 import { DatePicker } from "react-nice-dates";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
@@ -79,6 +80,9 @@ const EventDetails = () => {
     return currentUser === event.owner_id;
   };
 
+  const removeAttendee = (userId) =>
+    apiClient.removeUserFromEvent(id, userId).then(loadEvent(id));
+
   return !event ? (
     <NotFound />
   ) : !isEditing ? (
@@ -105,6 +109,13 @@ const EventDetails = () => {
                 {attendee.id === event.owner_id ? "Host: " : null}
                 {attendee.given_name},{" "}
                 <a href={`mailto: ${attendee.email}`}>{attendee.email}</a>
+                {isEventOwner() && attendee.id !== event.owner_id ? (
+                  <FaMinusSquare
+                    onClick={() => {
+                      removeAttendee(attendee.id);
+                    }}
+                  />
+                ) : null}
               </li>
             </>
           );
