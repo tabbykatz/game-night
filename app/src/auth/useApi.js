@@ -12,6 +12,8 @@ const makeApi = (accessToken) => {
       _put(`/api/users/events/${eventId}`, { event }),
     addUserToEvent: (userEmail, eventId) =>
       _post(`/api/users/events/${eventId}`, { userEmail }),
+    removeUserFromEvent: (eventId, userId) =>
+      _delete(`/api/users/events/${eventId}/${userId}`),
     addGameToEvent: (gameId, eventId) =>
       _post(`/api/users/events/${eventId}/games`, { gameId }),
     removeGameFromEvent: (gameId, eventId) =>
