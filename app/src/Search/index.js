@@ -41,9 +41,7 @@ const FindGames = ({ findGames }) => {
         New game:{" "}
         <input onChange={(e) => setName(e.currentTarget.value)} value={name} />
       </label>
-      <button disabled={!canAdd} className={styles.button}>
-        Search
-      </button>
+      <button disabled={!canAdd}>Search</button>
     </form>
   );
 };

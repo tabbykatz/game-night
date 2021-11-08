@@ -1,10 +1,16 @@
 @import "variables.scss";
 
+li {
+  list-style: none;
+  margin: 0;
+}
+
 #logout,
 #login {
   border-radius: 0;
   box-shadow: none;
 }
+
 body {
   font-family: $sans;
 }
