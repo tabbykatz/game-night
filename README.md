@@ -20,7 +20,7 @@ PostgreSQL database.
 
   <h3 align="center">Game Night</h3>
 
-  <p align="center">An app for boardgame enthusiasts who attend in-person gaming meetups</p>
+  <p align="center">An app for boardgame enthusiasts who attend in-person gaming meetups
     
     <br />
     <a href="#"><strong>Explore the docs »</strong></a>
