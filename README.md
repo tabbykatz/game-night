@@ -1,8 +1,3 @@
-# Built with PostgreSQL, Express, and React
-
-End-to-end React app backed by an Express API server, persisting data to
-PostgreSQL database.
-
 <div id="top"></div>
 
 [![Contributors][contributors-shield]][contributors-url]
@@ -18,21 +13,11 @@ PostgreSQL database.
     <img src="app/public/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Game Night</h3>
+  <h1 align="center">Game Night</h1>
 
-  <p align="center">An app for boardgame enthusiasts who attend in-person gaming meetups
-    
-    <br />
-    <a href="#"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="#">View Demo</a>
-    ·
-    <a href="https://github.com/tabbykatz/game-night/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/tabbykatz/game-night/issues">Request Feature</a>
-  </p>
-</div>
+  <p align="center">An app for boardgame enthusiasts who attend in-person gaming meetups</p>
+  <a href="#">View Demo</a> - <a href="https://github.com/tabbykatz/game-night/issues">Report Bug</a> - <a href="https://github.com/tabbykatz/game-night/issues">Request Feature</a>
+  </div>
 
 <details>
   <summary>Table of Contents</summary>
@@ -61,7 +46,7 @@ PostgreSQL database.
 
 ## About The Project
 
-[![Game Night Screen Shot][product-screenshot]](https://example.com)
+[![Game Night Screen Shot][app-screenshot]](https://gameknightapp.herokuapp.com/)
 
 This is my capstone project for my study with Techtonica.
 
@@ -212,7 +197,7 @@ Game Night: [https://github.com/tabbykatz/game-night](https://github.com/tabbyka
 [license-url]: https://github.com/tabbykatz/game-night/blob/main/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/tabithaomelay
-[product-screenshot]: app/public/logo.png
+[app-screenshot]: app/public/logo.png
 [homebrew-url]: https://brew.sh/
 [docker-url]: https://docker.com/
 [nvm-url]: https://github.com/nvm-sh/nvm
