@@ -71,13 +71,10 @@ li {
   flex: 1;
   padding: 1rem;
 }
-.description {
-}
 
 .hex {
   position: absolute;
   left: 5px;
-
   display: flex;
   margin: 0 auto;
   width: 50px;
@@ -114,4 +111,12 @@ li {
       25% 100%
     );
   }
+}
+li {
+  padding: 10px;
+  margin: 20px;
+}
+
+svg {
+  margin-left: 5px;
 }

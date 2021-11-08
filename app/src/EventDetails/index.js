@@ -103,7 +103,7 @@ const EventDetails = () => {
           return (
             <>
               <div className={styles.hex}>
-                <img src={attendee.picture} alt="" />
+                <img src={attendee.picture} alt="" className={styles.avatar} />
               </div>
               <li key={attendee.id}>
                 {attendee.id === event.owner_id ? "Host: " : null}

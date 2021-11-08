@@ -161,6 +161,9 @@ ALTER TABLE public.users ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
 
 COPY public.events (id, name, owner_id, address, start_time, end_time, description, city, state, zip, country) FROM stdin;
 34	Game Night	2657	1627 Ashby Avenue	2021-11-05 19:15:49+00	2021-11-05 19:15:49+00	All ages. 	Berkeley	CA	94703	US
+36	Game Night	2834	1627 Ashby Avenue	2021-11-05 23:36:26+00	2021-11-05 23:36:26+00	Potluck! Please bring games & a dish to share. 	Berkeley	CA	94703	US
+35	Game Night	2803	1627 Ashby Avenue	2021-11-05 23:38:38+00	2021-11-05 23:38:38+00	All ages welcome. Bring games & drinks. 	Berkeley	CA	94703	US
+37	Party at Ralph's!	3514	24 Acorn Court	2022-01-01 02:00:00+00	2021-12-31 19:59:00+00	Games!	Walnut Creek	CA	94595	USA
 \.
 
 
@@ -173,6 +176,11 @@ COPY public.events_games (id, game_id, user_id, event_id) FROM stdin;
 26	2anJuFWYTH	2657	34
 27	OIXt3DmJU0	2657	34
 28	DxWHvojIM1	2657	34
+30	DxWHvojIM1	2803	35
+31	ilkKd5gDhg	2803	35
+32	EnGYEQzyCo	2803	35
+33	OIXt3DmJU0	2803	35
+34	OF145SrX44	3514	37
 \.
 
 
@@ -182,6 +190,13 @@ COPY public.events_games (id, game_id, user_id, event_id) FROM stdin;
 
 COPY public.events_users (id, user_id, event_id, is_owner) FROM stdin;
 101	2657	34	t
+103	2803	35	t
+104	1	35	f
+106	2834	36	t
+107	1	36	f
+108	1	34	f
+109	3514	37	t
+111	2657	37	f
 \.
 
 
@@ -220,15 +235,23 @@ Hn2qbeBQh6	Monty Python Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/game
 iSVnYdrsZQ	Rivals for Catan	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1610427446373	2021-10-28 01:49:24.006781
 l2i97dfuvD	Star Trek: Catan	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559253947477-61rFuGiFBWL.jpg	2021-10-28 01:49:24.90798
 v7qbL1m0NH	Scattergories	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254866982-411FqBODvDL.jpg	2021-11-05 18:06:10.316861
-E5TYKwLTf0	Catan: Cities & Knights	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257359245-51DYsPZcYyL.jpg	2021-10-26 21:38:06.595851
-EvYzPCnCGG	Catan: 5-6 Player Extension	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254797611-51uLrWkNt0L.jpg	2021-10-26 21:38:07.709331
-OIXt3DmJU0	Catan	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324722072.jpg	2021-10-26 21:38:05.383455
 NoWy3nPYfj	Catan: Seafarers Expansion	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257503054-51u0777bL3L.jpg	2021-10-27 14:00:36.70912
 Wp2pGHZHIO	Catan: Seafarers 5-6 Player Extension	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254869479-51XMaRqBcJL.jpg	2021-10-28 01:49:22.739897
 GvBHptbeIx	Upwords	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1614989871616	2021-11-05 18:06:11.635052
 UI0oxncplG	Scrabble	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1599599554926	2021-11-05 18:06:06.547739
 0DKkv6wTLg	Agricola Family Edition	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254888822-5133IZqahnL.jpg	2021-11-05 18:06:29.348128
+OF145SrX44	7 Wonders	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559253945470-61dlm9QcXpL.jpg	2021-11-08 00:45:49.375078
+ilkKd5gDhg	A Feast for Odin	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254971843-51FVPlTTtoL.jpg	2021-11-05 19:41:40.549249
+EnGYEQzyCo	Cottage Garden	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254907272-51X7yQyL2BnL.jpg	2021-11-05 19:41:49.291348
+R8eX6r88zl	Indian Summer	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254915322-61RDnhby2UL.jpg	2021-11-05 19:41:59.310051
+lgtxzvZ1NM	Ra	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257824623-618DlNdwZ0L.jpg	2021-11-05 19:42:12.414636
+OIXt3DmJU0	Catan	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324722072.jpg	2021-10-26 21:38:05.383455
+E5TYKwLTf0	Catan: Cities & Knights	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257359245-51DYsPZcYyL.jpg	2021-10-26 21:38:06.595851
+EvYzPCnCGG	Catan: 5-6 Player Extension	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254797611-51uLrWkNt0L.jpg	2021-10-26 21:38:07.709331
 DxWHvojIM1	Agricola	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1575999333848	2021-11-05 18:06:25.303006
+qZ7XdSFpaI	Magic: The Gathering	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1547674624929	2021-11-08 00:45:00.958872
+vEdMjRlRYj	Magic: The Gathering - Arena of the Planeswalkers	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559256100783-512H0qWb1FL.jpg	2021-11-08 00:45:11.357896
+esKU38B2OY	7 Wonders: Leaders	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559255085419-51XG9er4G3L.jpg	2021-11-08 00:45:37.452628
 \.
 
 
@@ -238,9 +261,10 @@ DxWHvojIM1	Agricola	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded
 
 COPY public.users (id, given_name, family_name, picture, email, sub) FROM stdin;
 1	George	Song	https://lh3.googleusercontent.com/a-/AOh14GisMQBkZ6bxLA6L0p7EBnaPny8aK52UKRI2_tQIaw=s96-c	george@damacy.net	google-oauth2|111226858800048009044
+3514	Ralph	Colby	https://s.gravatar.com/avatar/9bf974d6653790e0b30626f9bbc7bfff?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Frc.png	ralphcolby@gmail.com	auth0|618872f393d5400069bebaae
+2657	Tabby	Katz	https://s.gravatar.com/avatar/1bd5b37a289e8c1d30f6fa9ba6021ffb?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Ftk.png	tabitha.machree@gmail.com	auth0|6180766ad3603a006906fa05
 2803	Tabitha	O'Melay	https://lh3.googleusercontent.com/a-/AOh14Gj5BnRLcyNMAfQ-zSa8E8GnLSVfkRVs29k-cp0waCc=s96-c	tomelay@gmail.com	google-oauth2|105287325829057414677
 2834	Tabitha	O'Melay	https://avatars.githubusercontent.com/u/55110763?v=4	tomelay@gmail.com	github|55110763
-2657	Tabby	Katz	https://s.gravatar.com/avatar/1bd5b37a289e8c1d30f6fa9ba6021ffb?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Ftk.png	tabitha.machree@gmail.com	auth0|6180766ad3603a006906fa05
 \.
 
 
@@ -249,6 +273,19 @@ COPY public.users (id, given_name, family_name, picture, email, sub) FROM stdin;
 --
 
 COPY public.users_games (user_id, game_id) FROM stdin;
+2803	DxWHvojIM1
+2803	ilkKd5gDhg
+2803	EnGYEQzyCo
+2803	R8eX6r88zl
+2803	lgtxzvZ1NM
+2803	OIXt3DmJU0
+2803	E5TYKwLTf0
+2803	EvYzPCnCGG
+2657	DxWHvojIM1
+3514	qZ7XdSFpaI
+3514	vEdMjRlRYj
+3514	esKU38B2OY
+3514	OF145SrX44
 \.
 
 
@@ -256,28 +293,28 @@ COPY public.users_games (user_id, game_id) FROM stdin;
 -- Name: attending_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.attending_id_seq', 102, true);
+SELECT pg_catalog.setval('public.attending_id_seq', 111, true);
 
 
 --
 -- Name: events_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.events_id_seq', 34, true);
+SELECT pg_catalog.setval('public.events_id_seq', 37, true);
 
 
 --
 -- Name: playable_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.playable_id_seq', 28, true);
+SELECT pg_catalog.setval('public.playable_id_seq', 34, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 3159, true);
+SELECT pg_catalog.setval('public.users_id_seq', 3538, true);
 
 
 --
@@ -350,6 +387,14 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.events_users
     ADD CONSTRAINT attending_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: events_games events_games_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.events_games
+    ADD CONSTRAINT events_games_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
 
 --
