@@ -19,7 +19,7 @@ const Auth = () => {
   return isAuthenticated ? (
     <>
       <div className={styles.greeting}>
-        <p className={styles.hello}>Hello, {user.given_name}</p> <Logout />
+        <Logout />
         <div className={styles.hex}>
           <img src={user.picture} alt="" />
         </div>
@@ -28,6 +28,7 @@ const Auth = () => {
   ) : (
     <div className={styles.greeting}>
       <Login />
+      <img src="./logo.png" alt="" />
     </div>
   );
 };

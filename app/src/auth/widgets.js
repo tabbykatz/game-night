@@ -7,14 +7,21 @@ import useAuth0 from "./useAuth0";
 export const Login = () => {
   const { loginWithRedirect } = useAuth0();
 
-  return <button onClick={loginWithRedirect}>Log in</button>;
+  return (
+    <button id="login" onClick={loginWithRedirect}>
+      Log in
+    </button>
+  );
 };
 
 export const Logout = () => {
   const { logout } = useAuth0();
 
   return (
-    <button onClick={() => logout({ returnTo: window.location.origin })}>
+    <button
+      id="logout"
+      onClick={() => logout({ returnTo: window.location.origin })}
+    >
       Log out
     </button>
   );
