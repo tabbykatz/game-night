@@ -7,8 +7,6 @@
 
 .container {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
 }
 
@@ -26,6 +24,7 @@
   }
   .left {
     flex: 1;
+    justify-content: center;
     padding: 10px;
   }
 
