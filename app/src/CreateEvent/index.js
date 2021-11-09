@@ -33,7 +33,7 @@ const CreateEvent = () => {
 
   return (
     <>
-      <h1>Create an event</h1>
+      <h1>Create an event.</h1>
       <form {...{ onSubmit }} className={styles.form}>
         <label>
           Event Name

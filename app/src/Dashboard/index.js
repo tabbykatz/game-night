@@ -17,18 +17,18 @@ const Dashboard = () => {
 
   return isAuthenticated ? (
     <>
-      <h1>Your Dashboard</h1>
-      <h2>Your Recently Added Games</h2>
-      <Link to="/search">Add a Game</Link>
+      <h1> Dashboard</h1>
+      <h2> Recently Added Games</h2>
+      <Link to="/search">Add a Game.</Link>
       <br />
-      <Link to="/games">View All</Link>
+      <Link to="/games">See your entire game collection.</Link>
 
       <GameList games={myGames.slice(0, 6)} />
 
       <h2>Upcoming Events</h2>
-      <Link to="/events/create">Create an Event</Link>
+      <Link to="/events/create">Create an Event.</Link>
       <br />
-      <Link to="/events">View All</Link>
+      <Link to="/events">View all your events.</Link>
 
       <EventList events={myEvents.slice(0, 6)} />
     </>
