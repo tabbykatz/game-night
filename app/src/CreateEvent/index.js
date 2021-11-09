@@ -86,11 +86,11 @@ const CreateEvent = () => {
         </fieldset>
         <label>
           Start Time
-          <input name="startDate" required type="datetime-local" />
+          <input name="start_time" required type="datetime-local" />
         </label>
         <label>
           End Time
-          <input name="endDate" required type="datetime-local" />
+          <input name="end_time" required type="datetime-local" />
         </label>
 
         <button>Add event</button>

@@ -89,6 +89,12 @@ const EventDetails = () => {
   ) : !isEditing ? (
     <>
       <h1>{event.name}</h1>
+      {isEventOwner() ? (
+        <>
+          <button onClick={() => setIsEditing(true)}>Edit Event</button>
+          <button onClick={() => deleteEvent(event.id)}>Delete Event</button>
+        </>
+      ) : null}
       <p>Starts at: {new Date(event.start_time).toLocaleString()}</p>
       <p>{event.description}</p>
       <address>
@@ -128,12 +134,6 @@ const EventDetails = () => {
         </label>
         <button>Add attendee</button>
       </form>
-      {isEventOwner() ? (
-        <>
-          <button onClick={() => setIsEditing(true)}>Edit Event</button>
-          <button onClick={() => deleteEvent(event.id)}>Delete Event</button>
-        </>
-      ) : null}
 
       <h1>Games</h1>
       <p>

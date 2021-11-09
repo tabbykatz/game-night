@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import { FaMinusSquare, FaPlusSquare } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 import { useMyGames } from "../../myCollection";
@@ -10,13 +9,15 @@ import styles from "./styles.module.scss";
 const GameList = ({ games, event = false }) => {
   return games.length ? (
     <>
-      <ul className={styles.grid}>
-        {games.map((game) => (
-          <li className={styles.card} key={game.id}>
-            <Card {...{ game, event }} />
-          </li>
-        ))}
-      </ul>
+      <div className={styles.list}>
+        <ul className={styles.grid}>
+          {games.map((game) => (
+            <li className={styles.card} key={game.id}>
+              <Card {...{ game, event }} />
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
   ) : (
     <p>No games found.</p>
@@ -42,9 +43,13 @@ const Card = ({ game, event }) => {
           ) : null}
 
           {isInMyGames(game.id) && !event ? (
-            <FaMinusSquare onClick={() => deleteGame(game)} />
+            <button onClick={() => deleteGame(game)}>
+              Remove from your Collection
+            </button>
           ) : !event ? (
-            <FaPlusSquare onClick={() => addGame(game)} />
+            <button onClick={() => addGame(game)}>
+              Add to your Collection
+            </button>
           ) : null}
         </div>
       </div>

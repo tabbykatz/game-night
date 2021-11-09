@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import { FaMinusSquare, FaPlusSquare } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 import styles from "./styles.module.scss";
@@ -43,9 +42,11 @@ const Card = ({ game, isAlreadyComing, addGame, removeGame, imBringing }) => {
           {isAlreadyComing(game.id) ? (
             <p>Someone else is bringing this one!</p>
           ) : imBringing(game.id) ? (
-            <FaMinusSquare onClick={() => removeGame(game.id)} />
+            <button onClick={() => removeGame(game.id)}>
+              Remove from Event
+            </button>
           ) : (
-            <FaPlusSquare onClick={() => addGame(game.id)} />
+            <button onClick={() => addGame(game.id)}>Add To Event</button>
           )}
         </div>
       </div>

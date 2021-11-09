@@ -3,11 +3,9 @@
 a :not(h1) {
   font-size: 1rem;
 }
-.grid {
-  display: grid;
-}
 
 .grid {
+  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
