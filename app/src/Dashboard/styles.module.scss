@@ -12,4 +12,13 @@
   display: flex;
   padding: 10px;
   margin: 10px;
+  justify-content: start;
+}
+
+li:nth-child(2) {
+  justify-content: end;
+}
+
+.home {
+  padding-top: 70px;
 }
