@@ -11,7 +11,7 @@ import { useMyEvents } from "../mySchedule";
 import styles from "./styles.module.scss";
 
 const Dashboard = () => {
-  const { isAuthenticated, user } = useAuth0();
+  const { isAuthenticated } = useAuth0();
   const { myGames } = useMyGames();
   const { myEvents } = useMyEvents();
 

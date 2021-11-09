@@ -5,8 +5,6 @@ import { Link } from "react-router-dom";
 import useApi from "../auth/useApi";
 import GameList from "../components/GameList";
 
-import styles from "./styles.module.scss";
-
 const Search = () => {
   const [results, setResults] = React.useState([]);
   const { apiClient } = useApi();

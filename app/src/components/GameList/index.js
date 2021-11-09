@@ -8,7 +8,6 @@ import { useMyGames } from "../../myCollection";
 import styles from "./styles.module.scss";
 
 const GameList = ({ games, event = false }) => {
-  console.log(games);
   return games.length ? (
     <>
       <ul className={styles.grid}>
