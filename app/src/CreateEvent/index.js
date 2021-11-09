@@ -27,6 +27,7 @@ const CreateEvent = () => {
     };
     event.preventDefault();
     addEvent(newEvent);
+
     navigate("/events");
   };
 

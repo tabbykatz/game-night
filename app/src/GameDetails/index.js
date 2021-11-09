@@ -17,7 +17,6 @@ const GameDetails = () => {
     !loading && apiClient.getGame(id).then((game) => setGame(game));
   }, [loading, apiClient, id]);
 
-  console.log(game);
   return game === undefined ? (
     <p>loading...</p>
   ) : game.error ? (

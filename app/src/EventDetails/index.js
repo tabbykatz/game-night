@@ -76,7 +76,6 @@ const EventDetails = () => {
   };
 
   const isEventOwner = () => {
-    console.log({ currentUser, event });
     return currentUser === event.owner_id;
   };
 
@@ -103,7 +102,7 @@ const EventDetails = () => {
           return (
             <>
               <div className={styles.hex}>
-                <img src={attendee.picture} alt="" className={styles.avatar} />
+                <img src={attendee.picture} alt="" />
               </div>
               <li key={attendee.id}>
                 {attendee.id === event.owner_id ? "Host: " : null}

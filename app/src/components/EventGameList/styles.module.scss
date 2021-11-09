@@ -3,9 +3,12 @@
 a :not(h1) {
   font-size: 0.75rem;
 }
+
+p {
+  font-size: 0.5rem;
+}
 .grid {
   display: grid;
-  // grid-gap: 1rem;
 }
 
 .grid {
