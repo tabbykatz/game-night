@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { FaMapPin } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 import styles from "./styles.module.scss";
@@ -42,6 +43,11 @@ const Card = ({ event }) => {
           <header>
             <Link to={`/events/${event.id}`}>{event.name}</Link>
           </header>
+          <p>{new Date(event.start_time).toLocaleString().slice(0, 9)}</p>
+          <p>
+            <FaMapPin />
+            {event.address}
+          </p>
           <img src={randomImage()} alt="" />
         </div>
       </div>

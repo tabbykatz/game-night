@@ -12,7 +12,7 @@ p {
 }
 
 .grid {
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 .dropshadow {
@@ -20,8 +20,9 @@ p {
 }
 
 .box {
-  width: 150px;
-  height: 150px;
+  padding: 10px;
+  width: 200px;
+  height: 250px;
   background-color: white;
   border-radius: 8px;
   display: flex;
