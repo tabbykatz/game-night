@@ -36,7 +36,7 @@ const CreateEvent = () => {
       <h1>Create an event</h1>
       <form {...{ onSubmit }} className={styles.form}>
         <label>
-          Name Your Event
+          Event Name
           <textarea name="name" required />
         </label>
         <label>
