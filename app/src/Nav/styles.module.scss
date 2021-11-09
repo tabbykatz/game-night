@@ -1,22 +1,11 @@
 @import "../variables.scss";
 
-.nav {
-  margin-bottom: 25px;
-  font-family: $sans;
-  a[class="active"] {
-    background-color: $ultimate-grey;
-    color: $white;
-    text-decoration: none;
-  }
-}
-
 .greeting {
   display: flex;
   position: absolute;
   top: 5px;
   right: 5px;
 }
-
 img {
   width: 50px;
 }

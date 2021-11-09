@@ -9,14 +9,16 @@ const Nav = () => {
   const { isAuthenticated } = useAuth0();
 
   return isAuthenticated ? (
-    <nav className={styles.nav}>
-      <NavLink to="/" end>
-        Dashboard
-      </NavLink>{" "}
-      | <NavLink to="games">Game Collection</NavLink>|{" "}
-      <NavLink to="events">Events</NavLink>
+    <>
+      <nav>
+        <NavLink to="/" end>
+          Dashboard
+        </NavLink>{" "}
+        |<NavLink to="games">Game Collection</NavLink>|
+        <NavLink to="events">Events</NavLink>
+      </nav>
       <Auth />
-    </nav>
+    </>
   ) : (
     <div className={styles.greeting}>
       <Login />
