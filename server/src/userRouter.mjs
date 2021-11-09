@@ -74,8 +74,12 @@ router.delete("/events/:eventId/games/:gameId", async (request, response) => {
 });
 
 router.get("/events/:eventId", async (request, response) => {
-  const event = await db.getEventById(request.params.eventId);
-  response.json(event);
+  try {
+    const event = await db.getEventById(request.params.eventId);
+    response.json(event);
+  } catch (error) {
+    response.status(404).json({ error: true });
+  }
 });
 
 router.delete("/games/:id", async (request, response) => {

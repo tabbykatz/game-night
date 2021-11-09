@@ -83,6 +83,8 @@ const EventDetails = () => {
     apiClient.removeUserFromEvent(id, userId).then(loadEvent(id));
 
   return !event ? (
+    <p>Loading...</p>
+  ) : event.error ? (
     <NotFound />
   ) : !isEditing ? (
     <>
@@ -104,7 +106,7 @@ const EventDetails = () => {
               <div key={attendee.id} className={styles.hex}>
                 <img src={attendee.picture} alt="" />
               </div>
-              <li>
+              <li key={attendee.id}>
                 {attendee.id === event.owner_id ? "Host: " : null}
                 {attendee.given_name},{" "}
                 <a href={`mailto: ${attendee.email}`}>{attendee.email}</a>

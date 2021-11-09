@@ -18,7 +18,7 @@ const GameDetails = () => {
   }, [loading, apiClient, id]);
 
   return game === undefined ? (
-    <p>loading...</p>
+    <p>Loading...</p>
   ) : game.error ? (
     <NotFound />
   ) : (
