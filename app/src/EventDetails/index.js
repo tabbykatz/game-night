@@ -106,7 +106,7 @@ const EventDetails = () => {
               <div key={attendee.id} className={styles.hex}>
                 <img src={attendee.picture} alt="" />
               </div>
-              <li key={attendee.id}>
+              <li>
                 {attendee.id === event.owner_id ? "Host: " : null}
                 {attendee.given_name},{" "}
                 <a href={`mailto: ${attendee.email}`}>{attendee.email}</a>

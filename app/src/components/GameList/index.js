@@ -28,8 +28,8 @@ const Card = ({ game, event }) => {
 
   return (
     <>
-      <div className={styles.wrapper}>
-        <div key={game.id} className={`${styles.box} ${styles.dropshadow}`}>
+      <div key={game.id} className={styles.wrapper}>
+        <div className={`${styles.box} ${styles.dropshadow}`}>
           <header>
             <Link to={`/games/${game.id}`}>{game.name}</Link>
           </header>
