@@ -68,12 +68,9 @@ router.post("/events/:eventId/games", async (request, response) => {
   response.status(201).json(addition);
 });
 
-router.delete("/events/:eventId/:gameId", async (request, response) => {
-  const deletion = await db.removeGameFromEvent(
-    request.params.eventId,
-    request.params.gameId,
-  );
-  response.status(200).json(deletion);
+router.delete("/events/:eventId/games/:gameId", async (request, response) => {
+  await db.removeGameFromEvent(request.params.eventId, request.params.gameId);
+  response.status(204).end();
 });
 
 router.get("/events/:eventId", async (request, response) => {

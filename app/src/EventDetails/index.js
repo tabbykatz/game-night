@@ -49,7 +49,7 @@ const EventDetails = () => {
     if (validateUser(newUserEmail)) {
       apiClient.addUserToEvent(newUserEmail, +event.id).then(loadEvent(id));
     } else {
-      toast("Not a valid user email.");
+      toast("User doesn't exist.");
     }
     e.currentTarget.reset();
   };
@@ -101,10 +101,10 @@ const EventDetails = () => {
         {event.attendees.map((attendee) => {
           return (
             <>
-              <div className={styles.hex}>
+              <div key={attendee.id} className={styles.hex}>
                 <img src={attendee.picture} alt="" />
               </div>
-              <li key={attendee.id}>
+              <li>
                 {attendee.id === event.owner_id ? "Host: " : null}
                 {attendee.given_name},{" "}
                 <a href={`mailto: ${attendee.email}`}>{attendee.email}</a>
@@ -143,7 +143,7 @@ const EventDetails = () => {
   ) : (
     <form onSubmit={(e) => editEvent(e)} className={styles.form}>
       <label>
-        Name Your Event
+        Event Name
         <textarea name="name" required defaultValue={event.name} />
       </label>
       <label>

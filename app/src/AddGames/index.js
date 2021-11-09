@@ -28,11 +28,7 @@ const AddGames = () => {
   }, [id, loadEvent, loading, loadUser]);
 
   const removeGame = (gameId) => {
-    apiClient.removeGameFromEvent(gameId, event.id).then(loadEvent(id));
-  };
-
-  const addGame = (gameId) => {
-    apiClient.addGameToEvent(gameId, event.id).then(loadEvent(id));
+    apiClient.removeGameFromEvent(event.id, gameId).then(loadEvent(id));
   };
 
   const isAlreadyComing = (gameId) => {
@@ -40,6 +36,10 @@ const AddGames = () => {
       (game) => game.id === gameId && game.owner !== currentUser,
     );
     return gamesList.includes(true);
+  };
+
+  const addGame = (gameId) => {
+    apiClient.addGameToEvent(gameId, event.id).then(loadEvent(id));
   };
 
   const imBringing = (gameId) => {
