@@ -5,14 +5,25 @@ import { Login, Logout } from "../auth/widgets";
 
 import styles from "./styles.module.scss";
 
-const Nav = () => (
-  <nav className={styles.nav}>
-    <NavLink to="/" end>
-      Home
-    </NavLink>{" "}
-    | <NavLink to="dashboard">Dashboard</NavLink> <Auth />
-  </nav>
-);
+const Nav = () => {
+  const { isAuthenticated } = useAuth0();
+
+  return isAuthenticated ? (
+    <nav className={styles.nav}>
+      <NavLink to="/" end>
+        Dashboard
+      </NavLink>{" "}
+      | <NavLink to="games">Game Collection</NavLink>|{" "}
+      <NavLink to="events">Events</NavLink>
+      <Auth />
+    </nav>
+  ) : (
+    <div className={styles.greeting}>
+      <Login />
+      <img src="./logo.png" alt="" />
+    </div>
+  );
+};
 
 const Auth = () => {
   const { isAuthenticated, user } = useAuth0();
@@ -25,12 +36,7 @@ const Auth = () => {
         </div>
       </div>
     </>
-  ) : (
-    <div className={styles.greeting}>
-      <Login />
-      <img src="./logo.png" alt="" />
-    </div>
-  );
+  ) : null;
 };
 
 export default Nav;
