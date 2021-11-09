@@ -19,7 +19,7 @@ const Search = () => {
         Add games to your <Link to={"/games"}>collection.</Link>
       </h1>
       <FindGames {...{ findGames }} />
-      {results ? <GameList games={results} /> : null}
+      {results.length ? <GameList games={results} /> : null}
     </>
   );
 };

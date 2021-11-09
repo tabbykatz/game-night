@@ -7,17 +7,22 @@ import { useMyGames } from "../../myCollection";
 
 import styles from "./styles.module.scss";
 
-const GameList = ({ games, event = false }) => (
-  <>
-    <ul className={styles.grid}>
-      {games.map((game) => (
-        <li className={styles.card} key={game.id}>
-          <Card {...{ game, event }} />
-        </li>
-      ))}
-    </ul>
-  </>
-);
+const GameList = ({ games, event = false }) => {
+  console.log(games);
+  return games.length ? (
+    <>
+      <ul className={styles.grid}>
+        {games.map((game) => (
+          <li className={styles.card} key={game.id}>
+            <Card {...{ game, event }} />
+          </li>
+        ))}
+      </ul>
+    </>
+  ) : (
+    <p>No games found.</p>
+  );
+};
 
 const Card = ({ game, event }) => {
   const { addGame, deleteGame, isInMyGames } = useMyGames();

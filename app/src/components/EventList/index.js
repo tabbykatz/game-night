@@ -17,17 +17,21 @@ const eventImages = [
   "./game_8.jpeg",
 ];
 
-const EventList = ({ events }) => (
-  <>
-    <ul className={styles.grid}>
-      {events.map((event) => (
-        <li className={styles.card} key={event.id}>
-          <Card {...{ event }} />
-        </li>
-      ))}
-    </ul>
-  </>
-);
+const EventList = ({ events }) => {
+  return events.length ? (
+    <>
+      <ul className={styles.grid}>
+        {events.map((event) => (
+          <li className={styles.card} key={event.id}>
+            <Card {...{ event }} />
+          </li>
+        ))}
+      </ul>
+    </>
+  ) : (
+    <p>No events found.</p>
+  );
+};
 
 const Card = ({ event }) => {
   const randomImage = () =>
