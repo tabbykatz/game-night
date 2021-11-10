@@ -107,27 +107,14 @@
         "question",
         "userTesting"
       ]
-    },
-    {
-      "login": "Clark73",
-      "name": "Kevin Clark",
-      "avatar_url": "https://avatars.githubusercontent.com/u/24253051?v=4",
-      "profile": "https://github.com/Clark73",
-      "contributions": [
-        "ideas"
-      ]
     }
   ],
   "commit": true,
   "commitConvention": "angular",
   "contributorsSortAlphabetically": true,
-  "projectName": "game-night",
-  "projectOwner": "tabbykatz",
+  "projectName": "express-react-project-example",
+  "projectOwner": "gsong",
   "repoHost": "https://github.com",
   "repoType": "github",
-  "skipCi": false,
-  "files": [
-    "README.md"
-  ],
-  "contributorsPerLine": 7
+  "skipCi": false
 }
