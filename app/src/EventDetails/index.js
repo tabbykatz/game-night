@@ -11,6 +11,7 @@ import GameList from "../components/GameList";
 import NotFound from "../components/NotFound";
 import { useMyEvents } from "../mySchedule";
 
+import "react-nice-dates/build/style.css";
 import styles from "./styles.module.scss";
 
 const EventDetails = () => {
