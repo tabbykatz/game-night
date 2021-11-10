@@ -18,19 +18,21 @@ const Dashboard = () => {
   return isAuthenticated ? (
     <>
       <h1> Dashboard</h1>
-      <h2> Recently Added Games</h2>
-      <Link to="/search">Add a Game.</Link>
-      <br />
-      <Link to="/games">See your entire game collection.</Link>
+      <Section>
+        <h2> Recently Added Games</h2>
+        <Link to="/search">Add a Game.</Link>
+        <Link to="/games">See your entire game collection.</Link>
 
-      <GameList games={myGames.slice(0, 6)} />
+        <GameList games={myGames.slice(0, 6)} />
+      </Section>
 
-      <h2>Upcoming Events</h2>
-      <Link to="/events/create">Create an Event.</Link>
-      <br />
-      <Link to="/events">View all your events.</Link>
+      <Section>
+        <h2>Upcoming Events</h2>
+        <Link to="/events/create">Create an Event.</Link>
+        <Link to="/events">View all your events.</Link>
 
-      <EventList events={myEvents.slice(0, 6)} />
+        <EventList events={myEvents.slice(0, 6)} />
+      </Section>
     </>
   ) : (
     <>
@@ -53,4 +55,7 @@ const Dashboard = () => {
     </>
   );
 };
+
+const Section = (props) => <section {...props} className={styles.section} />;
+
 export default Dashboard;
