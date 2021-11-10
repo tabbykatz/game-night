@@ -1,13 +1,3 @@
-<div id="top"></div>
-
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-<br />
 <div align="center">
   <a href="https://github.com/tabbykatz/game-night/README.md">
     <img src="app/public/logo.png" alt="Logo" width="80" height="80">
@@ -15,34 +5,10 @@
 
   <h1 align="center">Game Night</h1>
 
-  <p align="center">An app for boardgame enthusiasts who attend in-person gaming meetups</p>
+  <p align="center">An app for boardgame enthusiasts who attend in-person gaming meetups.</p>
   <a href="#">View Demo</a> - <a href="https://github.com/tabbykatz/game-night/issues">Report Bug</a> - <a href="https://github.com/tabbykatz/game-night/issues">Request Feature</a>
-  </div>
 
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
+  </div>
 
 ## About The Project
 
@@ -56,8 +22,6 @@ Why?
 - I love board games!
 - I learn best while doing.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 ### Built With
 
 - [Node.js](https://nodejs.org/en/)
@@ -67,8 +31,6 @@ Why?
 - [Sass](https://sass-lang.com/)
 - [Docker][docker-url]
 - [Heroku](https://heroku.com)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Getting Started
 
@@ -108,31 +70,28 @@ recommended.
    ```sh
    npm install
    ```
-4. Copy the example environment file
+4. Copy the example environment files. You will need to configure Auth0 and use your own values.
 
    ```sh
    cp .env.example .env
    ```
 
-5. Initialize the Database
+   ```sh
+   cd app
+   cp .env.example .env
+   ```
 
-Let's set up the database server, create the application database, and seed it
-with some data. You only need to do this the first time you set up your
-development environment.
+5. Initialize the database.
 
-```sh
-npm run db:init
-```
+   ```sh
+   npm run db:init
+   ```
 
-//TODO: make sure I have all the steps in here
+6. Run
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-## Usage
-
-_This will be an area to show the flow of using the app_
-
-<p align="right">(<a href="#top">back to top</a>)</p>
+   ```sh
+   npm start
+   ```
 
 ## Roadmap
 
@@ -144,13 +103,11 @@ _This will be an area to show the flow of using the app_
 
 See the [open issues](https://github.com/tabbykatz/game-night/issues) for a full list of proposed features (and known issues).
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+If you have a suggestion that would make this app better, please fork the repo and create a pull request. You can also simply open an issue with the label "enhancement".
 Don't forget to give the project a star! Thanks again!
 
 1. Fork the Project
@@ -159,45 +116,22 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Contact
 
 Tabitha O'Melay - [@tabby\_\_katz](https://twitter.com/tabby__katz) - tomelay@gmail.com
 
-Game Night: [https://github.com/tabbykatz/game-night](https://github.com/tabbykatz/game-night)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- ACKNOWLEDGMENTS -->
+Game Night: [Game Night on Heroku](https://gameknightapp.herokuapp.com/)
 
 ## Acknowledgments
 
 - [PERN Project Template](https://github.com/gsong/express-react-project-starter)
 - [Josh W. Comeau](https://www.joshwcomeau.com/)
-- [React Icons](https://react-icons.github.io/react-icons/search)
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-[contributors-shield]: https://img.shields.io/github/contributors/tabbykatz/game-night.svg?
-[contributors-url]: https://github.com/tabbykatz/game-night/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/tabbykatz/game-night.svg?
-[forks-url]: https://github.com/tabbykatz/game-night/network/members
-[stars-shield]: https://img.shields.io/github/stars/tabbykatz/game-night.svg?
-[stars-url]: https://github.com/tabbykatz/game-night/stargazers
-[issues-shield]: https://img.shields.io/github/issues/tabbykatz/game-night.svg?
-[issues-url]: https://github.com/tabbykatz/game-night/issues
-[license-shield]: https://img.shields.io/github/license/tabbykatz/game-night.svg?
-[license-url]: https://github.com/tabbykatz/game-night/blob/main/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/tabithaomelay
-[app-screenshot]: app/public/logo.png
+[app-screenshot]: app/public/game_collection_desktop.png
 [homebrew-url]: https://brew.sh/
 [docker-url]: https://docker.com/
 [nvm-url]: https://github.com/nvm-sh/nvm
