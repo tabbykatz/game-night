@@ -6,7 +6,7 @@
   <h1 align="center">Game Night</h1>
 
   <p align="center">An app for boardgame enthusiasts who attend in-person gaming meetups.</p>
-  <a href="#">View Demo</a> - <a href="https://github.com/tabbykatz/game-night/issues">Report Bug</a> - <a href="https://github.com/tabbykatz/game-night/issues">Request Feature</a>
+  <a href="https://gameknightapp.herokuapp.com/">View Demo</a> - <a href="https://github.com/tabbykatz/game-night/issues">Report Bug</a> - <a href="https://github.com/tabbykatz/game-night/issues">Request Feature</a>
 
   </div>
 
