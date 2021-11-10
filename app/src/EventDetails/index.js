@@ -11,6 +11,7 @@ import GameList from "../components/GameList";
 import NotFound from "../components/NotFound";
 import { useMyEvents } from "../mySchedule";
 
+import "react-nice-dates/build/style.css";
 import styles from "./styles.module.scss";
 
 const EventDetails = () => {
@@ -49,7 +50,7 @@ const EventDetails = () => {
     if (validateUser(newUserEmail)) {
       apiClient.addUserToEvent(newUserEmail, +event.id).then(loadEvent(id));
     } else {
-      toast("Not a valid user email.");
+      toast("User doesn't exist.");
     }
     e.currentTarget.reset();
   };
@@ -76,7 +77,6 @@ const EventDetails = () => {
   };
 
   const isEventOwner = () => {
-    console.log({ currentUser, event });
     return currentUser === event.owner_id;
   };
 
@@ -84,10 +84,18 @@ const EventDetails = () => {
     apiClient.removeUserFromEvent(id, userId).then(loadEvent(id));
 
   return !event ? (
+    <p>Loading...</p>
+  ) : event.error ? (
     <NotFound />
   ) : !isEditing ? (
     <>
       <h1>{event.name}</h1>
+      {isEventOwner() ? (
+        <>
+          <button onClick={() => setIsEditing(true)}>Edit Event</button>
+          <button onClick={() => deleteEvent(event.id)}>Delete Event</button>
+        </>
+      ) : null}
       <p>Starts at: {new Date(event.start_time).toLocaleString()}</p>
       <p>{event.description}</p>
       <address>
@@ -102,10 +110,10 @@ const EventDetails = () => {
         {event.attendees.map((attendee) => {
           return (
             <>
-              <div className={styles.hex}>
-                <img src={attendee.picture} alt="" className={styles.avatar} />
+              <div key={attendee.id} className={styles.hex}>
+                <img src={attendee.picture} alt="" />
               </div>
-              <li key={attendee.id}>
+              <li>
                 {attendee.id === event.owner_id ? "Host: " : null}
                 {attendee.given_name},{" "}
                 <a href={`mailto: ${attendee.email}`}>{attendee.email}</a>
@@ -127,12 +135,6 @@ const EventDetails = () => {
         </label>
         <button>Add attendee</button>
       </form>
-      {isEventOwner() ? (
-        <>
-          <button onClick={() => setIsEditing(true)}>Edit Event</button>
-          <button onClick={() => deleteEvent(event.id)}>Delete Event</button>
-        </>
-      ) : null}
 
       <h1>Games</h1>
       <p>
@@ -144,7 +146,7 @@ const EventDetails = () => {
   ) : (
     <form onSubmit={(e) => editEvent(e)} className={styles.form}>
       <label>
-        Name Your Event
+        Event Name
         <textarea name="name" required defaultValue={event.name} />
       </label>
       <label>

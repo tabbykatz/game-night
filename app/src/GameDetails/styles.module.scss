@@ -1,67 +1,33 @@
-li {
-  list-style: none;
-}
+@import "../variables.scss";
 
-.button {
-  margin-left: 1rem;
-}
-
-.grid {
-  display: grid;
-  grid-gap: 1rem;
-}
-
-@supports (width: min(30%, 100%)) {
-  .grid {
-    grid-template-columns: repeat(auto-fit, minmax(min(30%, 100%), 1fr));
-  }
-}
-
-// for cards
-
-.dropshadow {
-  filter: drop-shadow(1px 2px 4px hsl(210deg, 2%, 58%));
-}
-
-.box {
-  width: 150px;
-  height: 150px;
-  background-color: white;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.wrapper {
+.gametitle {
   display: flex;
   justify-content: center;
-  align-items: center;
-}
-.cardthumb {
-  display: flex;
-  width: 30%;
-  height: auto;
-}
-
-.detailsimage {
-  display: flex;
-  width: 50%;
 }
 
 .container {
   display: flex;
+  flex-direction: column;
 }
 
-.left {
-  flex: 1;
-  padding: 1rem;
+.detailsimage {
+  padding: 15px;
+  width: 80%;
+  height: auto;
 }
 
-.right {
-  flex: 1;
-  padding: 1rem;
-}
-.description {
+@media (min-width: 576px) {
+  .container {
+    flex-direction: row;
+  }
+  .left {
+    flex: 1;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .right {
+    flex: 1;
+    padding: 10px;
+  }
 }

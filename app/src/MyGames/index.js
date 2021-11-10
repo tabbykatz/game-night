@@ -10,7 +10,8 @@ const MyGames = () => {
   return (
     <>
       <h1>
-        Your games collection. <Link to={"/search"}>Add more.</Link>
+        Games Collection.{" "}
+        <Link to={"/search"}>Add more games to your collection.</Link>
       </h1>
       <GameList games={myGames} />
     </>

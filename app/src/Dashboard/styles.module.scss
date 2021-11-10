@@ -1,19 +1,41 @@
-.list {
-  list-style: none;
-  margin: 2rem 0 3rem;
-  padding-left: 0;
+@import "../variables.scss";
 
-  li {
-    margin-top: 1rem;
-
-    &::before {
-      content: "🐶";
-      font-size: 1.5rem;
-      margin-right: 1.25rem;
-    }
-  }
+.logo {
+  display: flex;
+  flex-flow: nowrap;
+  width: auto;
+  height: 100px;
+  padding: 15px;
 }
 
-.button {
-  margin-left: 1rem;
+.tagline {
+  display: flex;
+  padding: 10px;
+  margin: 10px;
+  justify-content: flex-start;
+}
+
+li:nth-child(2) {
+  justify-content: end;
+}
+
+.home {
+  padding-top: 70px;
+}
+
+.section {
+  border-radius: 0.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  margin-top: 2rem;
+  padding: 1rem;
+
+  h2 {
+    margin-bottom: 1.75rem;
+  }
+
+  a {
+    display: block;
+    margin-bottom: 1rem;
+  }
 }
