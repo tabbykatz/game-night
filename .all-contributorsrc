@@ -9,10 +9,9 @@
         "code",
         "content",
         "design",
-        "documentation",
-        "feature",
-        "fix",
-        "refactor",
+        "doc",
+        "ideas",
+        "bug",
         "test"
       ]
     },
@@ -24,9 +23,7 @@
       "contributions": [
         "code",
         "review",
-        "feature",
-        "fix",
-        "refactor",
+        "bug",
         "infra",
         "maintenance"
       ]

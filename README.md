@@ -131,7 +131,7 @@ Game Night: [Game Night on Heroku](https://gameknightapp.herokuapp.com/)
 - [PERN Project Template](https://github.com/gsong/express-react-project-starter)
 - [Josh W. Comeau](https://www.joshwcomeau.com/)
 
-## Contributors ✨
+## Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
@@ -140,12 +140,15 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    
-  <td align="center"><a href="https://github.com/gsong"><img src="https://avatars.githubusercontent.com/u/607420?v=4?s=100" width="100px;" alt=""/><br /><sub><b>George Song</b></sub></a><br /><a href="https://github.com/tabbykatz/game-night/commits?author=gsong" title="Code">💻</a> <a href="https://github.com/tabbykatz/game-night/pulls?q=%40gsong" title="Review">👀</a> <a href="#infra-gsong" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-gsong" title="Maintenance">🚧</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://www.tabbykatz.com/"><img src="https://avatars.githubusercontent.com/u/55110763?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tabitha O'Melay</b></sub></a><br /><a href="https://github.com/gsong/express-react-project-example/issues?q=author%3Atabbykatz" title="Bug reports">🐛</a> <a href="#question-tabbykatz" title="Answering Questions">💬</a> <a href="https://github.com/gsong/express-react-project-example/pulls?q=is%3Apr+reviewed-by%3Atabbykatz" title="Reviewed Pull Requests">👀</a></td>
-    
+   <td align="center"><a href="https://www.tabbykatz.com/"><img src="https://avatars.githubusercontent.com/u/55110763?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tabitha O'Melay</b></sub></a><br />
+   <a href="https://github.com/tabbykatz/game-night/commits?author=tabbykatz" title="Code">💻</a>
+   <a href="https://github.com/tabbykatz/game-night/commits?author=tabbykatz" title="Content">🖋</a>
+   <a href="https://github.com/tabbykatz/game-night/commits?author=tabbykatz" title="Design">🎨</a>
+   <a href="https://github.com/tabbykatz/game-night/commits?author=tabbykatz" title="Documentation">📖</a>
+   <a href="https://github.com/tabbykatz/game-night/commits?author=tabbykatz" title="Ideas">🤔</a>
+   <a href="https://github.com/tabbykatz/game-night/issues/created_by/tabbykatz" title="Bug Reports">🐛</a>
+   <a href="https://github.com/tabbykatz/game-night/commits?author=tabbykatz" title="Test">⚠️</a> </td> 
+  <td align="center"><a href="https://github.com/gsong"><img src="https://avatars.githubusercontent.com/u/607420?v=4?s=100" width="100px;" alt=""/><br /><sub><b>George Song</b></sub></a><br /><a href="https://github.com/tabbykatz/game-night/commits?author=gsong" title="Code">💻</a> <a href="https://github.com/tabbykatz/game-night/pulls?q=%40gsong" title="Review">👀</a><a href="https://github.com/tabbykatz/game-night/commits?author=gsong" title="Bug Reports">🐛</a> <a href="#infra-gsong" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-gsong" title="Maintenance">🚧</a></td>
   </tr>
 </table>
 
