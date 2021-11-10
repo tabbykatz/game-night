@@ -28,9 +28,7 @@ const App = () => {
 
   return (
     <>
-      <header>
-        <Nav />
-      </header>
+      <Nav />
       <main>
         <Routes>
           <Route path="/" element={<Dashboard />} />
