@@ -17,21 +17,24 @@ const GameDetails = () => {
     !loading && apiClient.getGame(id).then((game) => setGame(game));
   }, [loading, apiClient, id]);
 
-  console.log(game);
   return game === undefined ? (
-    <p>loading...</p>
+    <p>Loading...</p>
   ) : game.error ? (
     <NotFound />
   ) : (
     <>
+      <header className={styles.gametitle}>
+        <h1>{game.name}</h1>
+      </header>
       <div className={styles.container}>
-        <img
-          className={`${styles.detailsimage} ${styles.left}`}
-          alt={game.name}
-          src={game.image_url}
-        />
+        <div className={styles.left}>
+          <img
+            className={styles.detailsimage}
+            alt={game.name}
+            src={game.image_url}
+          />
+        </div>
         <div className={styles.right}>
-          <h1>{game.name}</h1>
           <em>{game.primary_designer?.name}</em> <br />
           <GiAges /> Ages {game.min_age}+ <br />
           <GiMeeple />
@@ -39,12 +42,9 @@ const GameDetails = () => {
           <br />
           <GiHourglass />
           Playtime: {game.min_playtime}-{game.max_playtime} minutes
+          <p>{game.description_preview}</p>
         </div>
       </div>
-      <details className={styles.description}>
-        <summary>Get description</summary>
-        {game.description_preview}
-      </details>
     </>
   );
 };

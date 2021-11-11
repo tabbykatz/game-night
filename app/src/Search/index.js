@@ -5,8 +5,6 @@ import { Link } from "react-router-dom";
 import useApi from "../auth/useApi";
 import GameList from "../components/GameList";
 
-import styles from "./styles.module.scss";
-
 const Search = () => {
   const [results, setResults] = React.useState([]);
   const { apiClient } = useApi();
@@ -16,10 +14,10 @@ const Search = () => {
   return (
     <>
       <h1>
-        Add games to your <Link to={"/games"}>collection</Link>
+        Add games to your <Link to={"/games"}>collection.</Link>
       </h1>
       <FindGames {...{ findGames }} />
-      {results ? <GameList games={results} /> : null}
+      {results.length ? <GameList games={results} /> : null}
     </>
   );
 };
@@ -41,9 +39,7 @@ const FindGames = ({ findGames }) => {
         New game:{" "}
         <input onChange={(e) => setName(e.currentTarget.value)} value={name} />
       </label>
-      <button disabled={!canAdd} className={styles.button}>
-        Search
-      </button>
+      <button disabled={!canAdd}>Search</button>
     </form>
   );
 };

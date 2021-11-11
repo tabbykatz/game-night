@@ -1,31 +1,24 @@
-li {
-  list-style: none;
-}
+@import "../../variables.scss";
 
-.button {
-  margin-left: 1rem;
+a :not(h1) {
+  font-size: 1rem;
+}
+.grid {
+  display: grid;
 }
 
 .grid {
-  display: grid;
-  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
-
-@supports (width: min(30%, 100%)) {
-  .grid {
-    grid-template-columns: repeat(auto-fit, minmax(min(30%, 100%), 1fr));
-  }
-}
-
-// for cards
 
 .dropshadow {
   filter: drop-shadow(1px 2px 4px hsl(210deg, 2%, 58%));
 }
 
 .box {
-  width: 150px;
-  height: 150px;
+  padding: 10px;
+  width: 200px;
+  height: 250px;
   background-color: white;
   border-radius: 8px;
   display: flex;
@@ -35,33 +28,12 @@ li {
 }
 
 .wrapper {
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .cardthumb {
   display: flex;
-  width: 30%;
   height: auto;
-}
-
-.detailsimage {
-  display: flex;
-  width: 50%;
-}
-
-.container {
-  display: flex;
-}
-
-.left {
-  flex: 1;
-  padding: 1rem;
-}
-
-.right {
-  flex: 1;
-  padding: 1rem;
-}
-.description {
 }

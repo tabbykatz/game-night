@@ -8,7 +8,6 @@ import CreateEvent from "../CreateEvent";
 import Dashboard from "../Dashboard";
 import EventDetails from "../EventDetails";
 import GameDetails from "../GameDetails";
-import Home from "../Home";
 import MyEvents from "../MyEvents";
 import MyGames from "../MyGames";
 import Nav from "../Nav";
@@ -29,16 +28,10 @@ const App = () => {
 
   return (
     <>
-      <header>
-        <Nav />
-      </header>
+      <Nav />
       <main>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/dashboard"
-            element={<Protected component={Dashboard} />}
-          />
+          <Route path="/" element={<Dashboard />} />
           <Route path="/search" element={<Protected component={Search} />} />
           <Route
             path="/games"

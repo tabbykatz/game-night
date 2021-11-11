@@ -1,36 +1,45 @@
-import { NavLink } from "react-router-dom";
+import { NavLink as Link } from "react-router-dom";
 
 import useAuth0 from "../auth/useAuth0";
 import { Login, Logout } from "../auth/widgets";
 
 import styles from "./styles.module.scss";
 
-const Nav = () => (
-  <nav className={styles.nav}>
-    <NavLink to="/" end>
-      Home
-    </NavLink>{" "}
-    | <NavLink to="dashboard">Dashboard</NavLink> <Auth />
-  </nav>
-);
-
-const Auth = () => {
+const Nav = () => {
   const { isAuthenticated, user } = useAuth0();
+
   return isAuthenticated ? (
-    <>
-      <div className={styles.greeting}>
-        <Logout />
-        <div className={styles.hex}>
-          <img src={user.picture} alt="" />
-        </div>
-      </div>
-    </>
+    <header className={styles.authHeader}>
+      <nav>
+        <ul>
+          <NavLink to="/" end>
+            Dashboard
+          </NavLink>
+          <NavLink to="games">Game Collection</NavLink>
+          <NavLink to="events">Events</NavLink>
+        </ul>
+      </nav>
+      <Greeting picture={user.picture} />
+    </header>
   ) : (
-    <div className={styles.greeting}>
+    <header className={styles.nonAuthHeader}>
       <Login />
       <img src="./logo.png" alt="" />
-    </div>
+    </header>
   );
 };
+
+const Greeting = ({ picture }) => (
+  <div className={styles.greeting}>
+    <Logout />
+    <img src={picture} alt="" />
+  </div>
+);
+
+const NavLink = (props) => (
+  <li>
+    <Link {...props} />
+  </li>
+);
 
 export default Nav;

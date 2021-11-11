@@ -86,13 +86,14 @@ export const addEvent = async (event, sub) => {
     `,
     { ...event, sub },
   );
-  return db.one(
+  await db.one(
     `
     INSERT INTO events_users(user_id, event_id, is_owner)
     VALUES((SELECT id FROM users where sub=$<sub>), $<id>, true) RETURNING *
     `,
     { id: newEvent.id, sub },
   );
+  return newEvent;
 };
 
 export const addUserToEvent = (userEmail, eventId) => {

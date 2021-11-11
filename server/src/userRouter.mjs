@@ -26,15 +26,11 @@ router.post("/events", async (request, response) => {
 });
 
 router.post("/events/:eventId", async (request, response) => {
-  try {
-    const addition = await db.addUserToEvent(
-      request.body.userEmail,
-      request.params.eventId,
-    );
-    response.status(201).json(addition);
-  } catch ({ response: { statusCode, statusMessage } }) {
-    response.status(statusCode).json({ error: statusMessage });
-  }
+  const addition = await db.addUserToEvent(
+    request.body.userEmail,
+    request.params.eventId,
+  );
+  response.status(201).json(addition);
 });
 
 router.delete("/events/:eventId/:userId", async (request, response) => {
@@ -68,17 +64,18 @@ router.post("/events/:eventId/games", async (request, response) => {
   response.status(201).json(addition);
 });
 
-router.delete("/events/:eventId/:gameId", async (request, response) => {
-  const deletion = await db.removeGameFromEvent(
-    request.params.eventId,
-    request.params.gameId,
-  );
-  response.status(200).json(deletion);
+router.delete("/events/:eventId/games/:gameId", async (request, response) => {
+  await db.removeGameFromEvent(request.params.eventId, request.params.gameId);
+  response.status(204).end();
 });
 
 router.get("/events/:eventId", async (request, response) => {
-  const event = await db.getEventById(request.params.eventId);
-  response.json(event);
+  try {
+    const event = await db.getEventById(request.params.eventId);
+    response.json(event);
+  } catch (error) {
+    response.status(404).json({ error: true });
+  }
 });
 
 router.delete("/games/:id", async (request, response) => {

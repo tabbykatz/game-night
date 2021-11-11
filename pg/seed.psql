@@ -160,10 +160,9 @@ ALTER TABLE public.users ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
 --
 
 COPY public.events (id, name, owner_id, address, start_time, end_time, description, city, state, zip, country) FROM stdin;
-34	Game Night	2657	1627 Ashby Avenue	2021-11-05 19:15:49+00	2021-11-05 19:15:49+00	All ages. 	Berkeley	CA	94703	US
-36	Game Night	2834	1627 Ashby Avenue	2021-11-05 23:36:26+00	2021-11-05 23:36:26+00	Potluck! Please bring games & a dish to share. 	Berkeley	CA	94703	US
-35	Game Night	2803	1627 Ashby Avenue	2021-11-05 23:38:38+00	2021-11-05 23:38:38+00	All ages welcome. Bring games & drinks. 	Berkeley	CA	94703	US
-37	Party at Ralph's!	3514	24 Acorn Court	2022-01-01 02:00:00+00	2021-12-31 19:59:00+00	Games!	Walnut Creek	CA	94595	USA
+47	Game Knight	2803	1627 Ashby Avenue	2021-11-09 19:14:33+00	2021-11-09 19:14:33+00	we are knights of the game table	Berkeley	CA	94703	US
+48	Taco Tuesday & Games	2657	1627 Ashby Avenue	2021-11-09 20:39:54+00	2021-11-09 20:39:54+00	Bring a topping and your favorite games!	Berkeley	Alabama	94703	US
+49	games at tabitha's	3539	1627 Ashby Avenue	2021-11-09 22:41:20+00	2021-11-09 22:41:20+00	fds	Berkeley	CA	94703	US
 \.
 
 
@@ -172,15 +171,18 @@ COPY public.events (id, name, owner_id, address, start_time, end_time, descripti
 --
 
 COPY public.events_games (id, game_id, user_id, event_id) FROM stdin;
-25	ahqg4WBywD	2657	34
-26	2anJuFWYTH	2657	34
-27	OIXt3DmJU0	2657	34
-28	DxWHvojIM1	2657	34
-30	DxWHvojIM1	2803	35
-31	ilkKd5gDhg	2803	35
-32	EnGYEQzyCo	2803	35
-33	OIXt3DmJU0	2803	35
-34	OF145SrX44	3514	37
+49	6FmFeux5xH	2803	47
+50	mce5HZPnF5	2803	47
+52	HQTOoWnfJm	2803	47
+53	DxWHvojIM1	2657	48
+54	GP7Y2xOUzj	2657	48
+55	zVcRIELAGe	2657	48
+56	dFC1lnGINr	2657	48
+57	kPDxpJZ8PD	3539	47
+58	otIQ3ZB83G	3539	47
+60	otIQ3ZB83G	3539	49
+62	8xos44jY7Q	3539	49
+63	kPDxpJZ8PD	3539	49
 \.
 
 
@@ -189,14 +191,15 @@ COPY public.events_games (id, game_id, user_id, event_id) FROM stdin;
 --
 
 COPY public.events_users (id, user_id, event_id, is_owner) FROM stdin;
-101	2657	34	t
-103	2803	35	t
-104	1	35	f
-106	2834	36	t
-107	1	36	f
-108	1	34	f
-109	3514	37	t
-111	2657	37	f
+127	2803	47	t
+129	2657	47	f
+130	1	47	f
+131	2657	48	t
+132	1	48	f
+133	3539	47	f
+134	3539	49	t
+135	2803	49	f
+136	1	49	f
 \.
 
 
@@ -217,9 +220,6 @@ PkWvBrzYor	Ticket to Ride: Märklin	https://s3-us-west-1.amazonaws.com/5cc.image
 AuBvbISHR6	Ticket to Ride	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324738308.jpg	2021-10-27 16:20:58.538134
 b6BQGn5PIY	Ticket to Ride: Map Collection Volume 5 - United Kingdom	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257689020-61Q4FIWagtL.jpg	2021-10-27 16:20:59.469498
 YggHdAlO32	Ticket to Ride: Map Collection Volume 4 - Nederland	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559258036387-61KoFKv7p2BL.jpg	2021-10-27 16:21:00.532686
-ahqg4WBywD	Star Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559256889756-51RsZlW2crL.jpg	2021-11-02 14:48:40.239719
-JoKLJmpEkD	Cthulhu Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254167104-61f2xP59dkL.jpg	2021-11-02 14:48:41.273192
-asOU5AKr0l	Pirate Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559255081576-61q-lKgUJlL.jpg	2021-11-02 14:48:42.309311
 07FXm6tX4o	Clank! A Deck-Building Adventure	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254970101-61gHdS3ds2L.jpg	2021-10-27 19:26:10.827376
 JhgjCBqoLa	Space Base	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1551968196589	2021-10-27 19:26:12.116298
 xGn6ak2zxy	Clank! In! Space!	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254136775-61TF2XNJuLL.jpg	2021-10-27 19:26:14.499531
@@ -229,9 +229,6 @@ G9zZZtzy0E	Space Hulk: Death Angel - The Card Game	https://s3-us-west-1.amazonaw
 g0J496TM5k	Escape From the Aliens in Outer Space	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1599052459114	2021-10-27 19:26:23.958337
 tECB3ktBhP	Catan: Cities & Knights 5-6 Player Extension	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254849801-51V-pZNL3hL.jpg	2021-10-27 16:29:02.756684
 MiOTS94YV3	Catan Card Game	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257476571-51iAbkahd1L.jpg	2021-10-25 21:59:15.461004
-2anJuFWYTH	Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1590179491791	2021-11-02 14:48:36.284755
-tmvXEOgJVz	Zombie Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257925865-510MUA2BFxJL.jpg	2021-11-02 14:48:37.289621
-Hn2qbeBQh6	Monty Python Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254179056-51Hk5zRIxLL.jpg	2021-11-02 14:48:38.336182
 iSVnYdrsZQ	Rivals for Catan	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1610427446373	2021-10-28 01:49:24.006781
 l2i97dfuvD	Star Trek: Catan	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559253947477-61rFuGiFBWL.jpg	2021-10-28 01:49:24.90798
 v7qbL1m0NH	Scattergories	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254866982-411FqBODvDL.jpg	2021-11-05 18:06:10.316861
@@ -245,13 +242,35 @@ ilkKd5gDhg	A Feast for Odin	https://s3-us-west-1.amazonaws.com/5cc.images/games/
 EnGYEQzyCo	Cottage Garden	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254907272-51X7yQyL2BnL.jpg	2021-11-05 19:41:49.291348
 R8eX6r88zl	Indian Summer	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254915322-61RDnhby2UL.jpg	2021-11-05 19:41:59.310051
 lgtxzvZ1NM	Ra	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257824623-618DlNdwZ0L.jpg	2021-11-05 19:42:12.414636
-OIXt3DmJU0	Catan	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324722072.jpg	2021-10-26 21:38:05.383455
 E5TYKwLTf0	Catan: Cities & Knights	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257359245-51DYsPZcYyL.jpg	2021-10-26 21:38:06.595851
 EvYzPCnCGG	Catan: 5-6 Player Extension	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254797611-51uLrWkNt0L.jpg	2021-10-26 21:38:07.709331
 DxWHvojIM1	Agricola	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1575999333848	2021-11-05 18:06:25.303006
 qZ7XdSFpaI	Magic: The Gathering	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1547674624929	2021-11-08 00:45:00.958872
 vEdMjRlRYj	Magic: The Gathering - Arena of the Planeswalkers	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559256100783-512H0qWb1FL.jpg	2021-11-08 00:45:11.357896
 esKU38B2OY	7 Wonders: Leaders	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559255085419-51XG9er4G3L.jpg	2021-11-08 00:45:37.452628
+kPDxpJZ8PD	Spirit Island	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254941010-61PJxjjnbfL.jpg	2021-11-08 16:51:43.541739
+otIQ3ZB83G	Spirit Island: Branch & Claw	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257847539-41t6RZe13CL.jpg	2021-11-08 16:51:45.209812
+2anJuFWYTH	Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1590179491791	2021-11-02 14:48:36.284755
+tmvXEOgJVz	Zombie Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257925865-510MUA2BFxJL.jpg	2021-11-02 14:48:37.289621
+Hn2qbeBQh6	Monty Python Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254179056-51Hk5zRIxLL.jpg	2021-11-02 14:48:38.336182
+asOU5AKr0l	Pirate Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559255081576-61q-lKgUJlL.jpg	2021-11-02 14:48:42.309311
+JoKLJmpEkD	Cthulhu Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254167104-61f2xP59dkL.jpg	2021-11-02 14:48:41.273192
+ahqg4WBywD	Star Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559256889756-51RsZlW2crL.jpg	2021-11-02 14:48:40.239719
+2jQG6mQFrD	Doctor Who Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1540934950320	2021-11-08 19:59:31.374993
+OIXt3DmJU0	Catan	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1629324722072.jpg	2021-10-26 21:38:05.383455
+7gah7pAYJZ	Jumanji Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/userfiles/1631239180963-102.jpg	2021-11-08 19:59:32.425477
+3ogVceZXkR	Regular Show Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1540936473351	2021-11-08 19:59:34.677074
+gtH10uZsDp	Batman Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1540911022633	2021-11-08 19:59:35.703196
+nD2d82dPld	Fluxx: Rick and Morty	https://s3-us-west-1.amazonaws.com/5cc.images/games/empty+box.jpg	2021-11-09 01:34:44.15163
+PSgT1QGsY4	Chemistry Fluxx	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1540936471000	2021-11-09 01:34:47.20291
+8xos44jY7Q	Everdell	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1574877074147	2021-11-08 16:51:58.896394
+mce5HZPnF5	Pandemic Legacy: Season 1	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257833516-612BUfjuA7fL.jpg	2021-11-09 16:58:45.488115
+HQTOoWnfJm	Charterstone	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254975631-41l8G0EyaHL.jpg	2021-11-09 16:58:54.578888
+y56td93iXw	Dead of Winter: A Crossroads Game	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1574700781988	2021-11-09 16:59:06.556077
+GP7Y2xOUzj	Codenames	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254183526-51f6ysXCMmL.jpg	2021-11-09 17:01:57.299687
+zVcRIELAGe	Codenames: Deep Undercover	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1602375798750	2021-11-09 17:01:59.552477
+dFC1lnGINr	Cards Against Humanity	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257709006-41mECnRToeL.jpg	2021-11-09 17:02:08.496717
+6FmFeux5xH	Pandemic	https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254186140-51iNoyxoamL.jpg	2021-11-09 16:58:46.570356
 \.
 
 
@@ -261,10 +280,10 @@ esKU38B2OY	7 Wonders: Leaders	https://s3-us-west-1.amazonaws.com/5cc.images/game
 
 COPY public.users (id, given_name, family_name, picture, email, sub) FROM stdin;
 1	George	Song	https://lh3.googleusercontent.com/a-/AOh14GisMQBkZ6bxLA6L0p7EBnaPny8aK52UKRI2_tQIaw=s96-c	george@damacy.net	google-oauth2|111226858800048009044
-3514	Ralph	Colby	https://s.gravatar.com/avatar/9bf974d6653790e0b30626f9bbc7bfff?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Frc.png	ralphcolby@gmail.com	auth0|618872f393d5400069bebaae
 2657	Tabby	Katz	https://s.gravatar.com/avatar/1bd5b37a289e8c1d30f6fa9ba6021ffb?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Ftk.png	tabitha.machree@gmail.com	auth0|6180766ad3603a006906fa05
+3514	Ralph	Colby	https://s.gravatar.com/avatar/9bf974d6653790e0b30626f9bbc7bfff?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Frc.png	ralphcolby@gmail.com	auth0|618872f393d5400069bebaae
 2803	Tabitha	O'Melay	https://lh3.googleusercontent.com/a-/AOh14Gj5BnRLcyNMAfQ-zSa8E8GnLSVfkRVs29k-cp0waCc=s96-c	tomelay@gmail.com	google-oauth2|105287325829057414677
-2834	Tabitha	O'Melay	https://avatars.githubusercontent.com/u/55110763?v=4	tomelay@gmail.com	github|55110763
+3539	Tristan	O'Melay	https://s.gravatar.com/avatar/6994e2e6cc888ef9a3a462bcc316606c?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fto.png	tristan.omelay@gmail.com	auth0|6189557a10acae006acfed4e
 \.
 
 
@@ -273,19 +292,25 @@ COPY public.users (id, given_name, family_name, picture, email, sub) FROM stdin;
 --
 
 COPY public.users_games (user_id, game_id) FROM stdin;
-2803	DxWHvojIM1
-2803	ilkKd5gDhg
-2803	EnGYEQzyCo
-2803	R8eX6r88zl
-2803	lgtxzvZ1NM
-2803	OIXt3DmJU0
-2803	E5TYKwLTf0
-2803	EvYzPCnCGG
 2657	DxWHvojIM1
 3514	qZ7XdSFpaI
 3514	vEdMjRlRYj
 3514	esKU38B2OY
 3514	OF145SrX44
+3539	kPDxpJZ8PD
+3539	otIQ3ZB83G
+3539	8xos44jY7Q
+2803	mce5HZPnF5
+2803	6FmFeux5xH
+2803	HQTOoWnfJm
+2803	y56td93iXw
+2657	GP7Y2xOUzj
+2657	zVcRIELAGe
+2657	dFC1lnGINr
+3539	6FmFeux5xH
+3539	OIXt3DmJU0
+3539	E5TYKwLTf0
+3539	EvYzPCnCGG
 \.
 
 
@@ -293,28 +318,28 @@ COPY public.users_games (user_id, game_id) FROM stdin;
 -- Name: attending_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.attending_id_seq', 111, true);
+SELECT pg_catalog.setval('public.attending_id_seq', 136, true);
 
 
 --
 -- Name: events_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.events_id_seq', 37, true);
+SELECT pg_catalog.setval('public.events_id_seq', 49, true);
 
 
 --
 -- Name: playable_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.playable_id_seq', 34, true);
+SELECT pg_catalog.setval('public.playable_id_seq', 63, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 3538, true);
+SELECT pg_catalog.setval('public.users_id_seq', 4333, true);
 
 
 --
