@@ -124,11 +124,12 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Tabitha O'Melay - [@tabby\_\_katz](https://twitter.com/tabby__katz) - tomelay@gmail.com
 
-Game Night: [Game Night on Heroku](https://gameknightapp.herokuapp.com/)
+Game Night: [See it on Heroku](https://gameknightapp.herokuapp.com/)
 
 ## Acknowledgments
 
-- [PERN Project Template](https://github.com/gsong/express-react-project-starter)
+- [George Song](https://gsong.dev/) for Mentorship 🧑🏻‍🏫 and Inspiration 🎆
+- [express-react-project-starter](https://github.com/gsong/express-react-project-starter)
 - [Josh W. Comeau](https://www.joshwcomeau.com/)
 
 ## Contributors
